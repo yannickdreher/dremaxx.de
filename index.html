@@ -733,8 +733,30 @@ SOFTWARE.
 			</div>
 		</div>
 	</div>
-	<script>
-        function copyToClipboard(elementId, button) {
+	<script type="importmap">
+		{
+			"imports": {
+				"dnsclient": "./js/dnsclient.min.js",
+				"mobileconfig": "./js/mobileconfig.js",
+				"three": "./js/three.module.min.js"
+			}
+		}
+	</script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/prism.js"></script>
+	<script src="js/rainingips.js" type="module"></script>
+	<script type="module">
+		import * as DNS from 'dnsclient';
+		import * as MC from 'mobileconfig';
+
+		Prism.plugins.NormalizeWhitespace.setDefaults({
+			'remove-trailing': true,
+			'remove-indent': true,
+			'left-trim': true,
+			'right-trim': true,
+		});
+
+		function copyToClipboard(elementId, button) {
 			const element  = document.getElementById(elementId);
             navigator.clipboard.writeText(element.textContent.trim()).then(() => {
 				const originalIcon = button.innerHTML;
@@ -747,244 +769,7 @@ SOFTWARE.
                 console.error('Error copying to clipboard:', err);
             });
         }
-    </script>
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/prism.js"></script>
-	<script>
-		Prism.plugins.NormalizeWhitespace.setDefaults({
-			'remove-trailing': true,
-			'remove-indent': true,
-			'left-trim': true,
-			'right-trim': true,
-		});
-	</script>
-	<script type="importmap">
-		{
-			"imports": {
-				"dnsclient": "./js/dnsclient.min.js",
-				"three": "./js/three.module.min.js"
-			}
-		}
-	</script>
-	<script type="module">
-		import * as THREE from 'three';
-		const scene = new THREE.Scene();
-		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-		camera.position.y = 0;
-		camera.position.z = 0;
-		
-		const renderer = new THREE.WebGLRenderer({ alpha: true });
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		renderer.setClearColor(0x000000, 0);
-		
-		document.body.appendChild(renderer.domElement);
-		
-		const maxY =  10;
-		const minZ = -10; // Mindestwert für die Z-Position
-		const maxZ =  -5; // Maximalwert für die Z-Position
 
-		function getRandomDomain() {
-			const domains = [
-				"dremaxx.de",
-				"dreon.de",
-				"yannickdreher.de",
-				"example123.com",
-				"randompage.net",
-				"testdomain.org",
-				"mycoolwebsite.io",
-				"demo-site.dev",
-				"alpha-beta.biz",
-				"gamma-delta.xyz",
-				"lorem-ipsum.co",
-				"tech-hub.online",
-				"blue-ocean.info",
-				"green-forest.us",
-				"fast-track.pro",
-				"hyperloop.site",
-				"cloudscape.cloud",
-				"bigdata.ai",
-				"future-tech.dev",
-				"nextgen-solutions.com",
-				"quantum-coders.net",
-				"skyrocket.biz",
-				"pixel-perfect.org",
-				"light-speed.io",
-				"gravity-wave.us",
-				"mars-mission.xyz",
-				"cosmic-ray.space",
-				"neutron-star.tech",
-				"hypernova.dev",
-				"supernova.online",
-				"nebula-zone.com",
-				"dark-matter.org",
-				"void-stream.io",
-				"planet-x.info",
-				"zeta-corp.us",
-				"omega-sector.pro",
-				"alpha-project.site",
-				"digital-dreams.biz",
-				"virtual-sky.net",
-				"meta-verse.xyz",
-				"crypto-galaxy.co",
-				"blockchain-io.org",
-				"quantum-leap.com",
-				"astro-webspace.dev",
-				"data-realm.cloud",
-				"webtastic.tech",
-				"dreamscape.online",
-				"infinity-loop.info",
-				"cyber-grid.us",
-				"future-realm.pro",
-				"pixel-vision.xyz",
-				"robo-cloud.ai",
-				"synthetic-minds.biz",
-				"neural-net.org",
-				"nano-tech.dev",
-				"micro-world.com",
-				"eco-grid.site",
-				"solar-winds.co",
-				"lunar-tech.io",
-				"zenith-pro.net",
-				"polaris-project.info",
-				"stellar-zone.us",
-				"galactic-wave.space",
-				"orbit-track.tech",
-				"astro-byte.online"
-			];
-			return domains[Math.floor(Math.random() * domains.length)];
-		}
-		
-		function getRandomIp() {
-			function computeOctet(){
-				return Math.floor(Math.random() * 256);
-			}
-			return `${computeOctet()}.${computeOctet()}.${computeOctet()}.${computeOctet()}`;
-		}
-		
-		function scaleMinMax(value, minInput, maxInput, minOutput, maxOutput) {
-			return minOutput + ((value - minInput) / (maxInput - minInput)) * (maxOutput - minOutput);
-		}
-		
-		function calculateAlpha(zPosition) {
-			const minAlpha = 0.2;
-			const maxAlpha = 0.6;
-			const alpha = scaleMinMax(zPosition, minZ, maxZ, minAlpha, maxAlpha);
-			return alpha;
-		}
-		
-		function createTexture(text, zPosition) {
-			const canvas = document.createElement('canvas');
-			canvas.width = 512;
-			canvas.height = 128;
-			
-			const context = canvas.getContext('2d', { alpha: true });  
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			context.fillStyle = `rgba(0, 0, 0, ${calculateAlpha(zPosition)})`;
-			context.font = `bold 48px -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`;
-			context.textBaseline = 'middle';
-			context.textAlign = 'center';
-			context.fillText(text, canvas.width / 2, canvas.height / 2);
-
-			return new THREE.CanvasTexture(canvas);
-		}
-
-		const meshes = [];
-		for (let i = 0; i < 512; i++) {
-			let x = (Math.random() - 0.5) * 20;
-			let y = (Math.random() - 0.5) * 20;
-			let z =  Math.random() * (maxZ - minZ) + minZ;
-			
-			if (z < minZ){ z = minZ };
-			if (z > maxZ){ z = maxZ };
-			
-			const texture = createTexture(getRandomIp(), z);
-			const material = new THREE.SpriteMaterial({
-				map: texture,
-				transparent: true
-			});
-			const sprite = new THREE.Sprite(material);
-			
-			const minScale = 1.0;
-			const maxScale = 3.0;
-			const normalizedZ = (z - minZ) / (maxZ - minZ)
-			const s = scaleMinMax(z, minZ, maxZ, minScale, maxScale);
-
-			sprite.position.set(x, y, z);
-			sprite.scale.set(s, s / 4, 1);
-
-			scene.add(sprite);
-			meshes.push({ sprite, transitionInProgress: false });
-		}
-		
-		function transition(mesh, zPosition) {
-			if (mesh.transitionInProgress) return;
-
-			mesh.transitionInProgress = true;
-			let progress = 0;
-			const duration = 500;
-
-			const interval = setInterval(() => {
-				progress += 10;
-				
-				let fadeOut = Math.max(0, 1 - progress / (duration / 2));
-				let fadeIn  = Math.min(1, (progress - duration / 2) / (duration / 2));
-				
-				if (progress < duration / 2)
-				{
-					mesh.sprite.material.opacity = fadeOut;
-				}
-				else if (progress === duration / 2)
-				{
-					mesh.sprite.material.map = createTexture(getRandomDomain(), zPosition);
-				}
-				else if (progress > duration / 2)
-				{
-					mesh.sprite.material.opacity = fadeIn;
-				}
-				if (progress === duration) {
-					clearInterval(interval);
-					mesh.transitionInProgress = false;
-				}
-			}, 10);
-		}
-
-		function animate() {
-			requestAnimationFrame(animate);
-
-			meshes.forEach(mesh => {
-				mesh.sprite.position.y -= 0.025;
-				
-				if (Math.abs(mesh.sprite.position.y - 0) < 0.025) {
-					transition(mesh, mesh.sprite.position.z);
-				}
-				
-				if (mesh.sprite.position.y <= -10) {
-					mesh.sprite.position.y = maxY;
-					mesh.sprite.position.x = (Math.random() - 0.5) * 20;
-					
-					let z = Math.random() * (maxZ - minZ) + minZ;
-					if (z < minZ){ z = minZ };
-					if (z > maxZ){ z = maxZ };
-					
-					mesh.sprite.material.map = createTexture(getRandomIp(), z);
-					mesh.sprite.position.z = z;
-				}
-			});
-
-			renderer.render(scene, camera);
-		}
-
-		animate();
-
-		window.addEventListener('resize', () => {
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-		});
-	</script>
-	<script type="module">
-		import * as DNS from 'dnsclient';
-		
 		async function updateServerStatus(serverName) {
 			const parentEl   = document.getElementById(serverName);
 			const hostnameEl = parentEl.querySelector('.hostname');
@@ -1018,211 +803,6 @@ SOFTWARE.
 			updateServerStatus('theo');
 			updateServerStatus('fritz');
 		}, 1000);
-	</script>
-	<script>
-		function isArrayNullOrEmpty(arr) {
-			return !arr || arr.length === 0;
-		}
-
-		function createMobileConfig(ssids, domains, enabledOnWifi, enabledOnCellular, prohibitDisablement) {
-			const doc = document.implementation.createDocument(null, "plist", null);
-
-			// Füge die Doctype-Deklaration hinzu
-			const doctype = document.implementation.createDocumentType(
-				"plist",
-				"-//Apple//DTD PLIST 1.0//EN",
-				"http://www.apple.com/DTDs/PropertyList-1.0.dtd"
-			);
-			doc.insertBefore(doctype, doc.documentElement);
-			doc.documentElement.setAttribute("version", "1.0");
-
-			const createElementWithText = (name, text) => {
-				const element = doc.createElement(name);
-				element.textContent = text;
-				return element;
-			};
-
-			const dict = doc.createElement("dict");
-			doc.documentElement.appendChild(dict);
-			
-			dict.appendChild(createElementWithText("key", "PayloadVersion"));
-			dict.appendChild(createElementWithText("integer", "1"));
-			
-			dict.appendChild(createElementWithText("key", "PayloadDisplayName"));
-			dict.appendChild(createElementWithText("string", "dremaxx encrypted DNS"));
-
-			dict.appendChild(createElementWithText("key", "PayloadDescription"));
-			dict.appendChild(
-				createElementWithText(
-					"string",
-					"This profile enables dremaxx DNS servers on all networks using the native encrypted DNS feature."
-				)
-			);
-
-			dict.appendChild(createElementWithText("key", "PayloadIdentifier"));
-			dict.appendChild(createElementWithText("string", "dremaxx.dns.profile"));
-
-			dict.appendChild(createElementWithText("key", "PayloadScope"));
-			dict.appendChild(createElementWithText("string", "User"));
-
-			dict.appendChild(createElementWithText("key", "PayloadType"));
-			dict.appendChild(createElementWithText("string", "Configuration"));
-
-			dict.appendChild(createElementWithText("key", "PayloadUUID"));
-			dict.appendChild(
-				createElementWithText("string", "f14a4bc1-534c-4bcb-97bc-f1f98e1c554a")
-			);
-
-			dict.appendChild(createElementWithText("key", "PayloadContent"));
-
-			// PayloadContent -> Array
-			const payloadContentArray = doc.createElement("array");
-			dict.appendChild(payloadContentArray);
-
-			// Array -> dict
-			const payloadContentDict = doc.createElement("dict");
-			payloadContentArray.appendChild(payloadContentDict);
-
-			// DNSSettings
-			payloadContentDict.appendChild(createElementWithText("key", "DNSSettings"));
-			const dnsSettingsDict = doc.createElement("dict");
-			payloadContentDict.appendChild(dnsSettingsDict);
-
-			dnsSettingsDict.appendChild(createElementWithText("key", "DNSProtocol"));
-			dnsSettingsDict.appendChild(createElementWithText("string", "TLS"));
-
-			dnsSettingsDict.appendChild(createElementWithText("key", "ServerAddresses"));
-			
-			// ServerAddresses -> Array
-			const serverAddressesArray = doc.createElement("array");
-			dnsSettingsDict.appendChild(serverAddressesArray);
-			
-			serverAddressesArray.appendChild(createElementWithText("string", "85.215.153.54"));
-			serverAddressesArray.appendChild(createElementWithText("string", "87.106.35.241"));
-			serverAddressesArray.appendChild(createElementWithText("string", "2a01:239:251:a800::1"));
-			serverAddressesArray.appendChild(createElementWithText("string", "2a00:da00:f425:5800::1"));
-
-			dnsSettingsDict.appendChild(createElementWithText("key", "ServerName"));
-			dnsSettingsDict.appendChild(createElementWithText("string", "dns.dremaxx.de"));
-			
-			// OnDemandRules
-			payloadContentDict.appendChild(createElementWithText("key", "OnDemandRules"));
-			const onDemandRulesArray = doc.createElement("array");
-			payloadContentDict.appendChild(onDemandRulesArray);
-
-			// Rule 1: Disconnect
-			if (!isArrayNullOrEmpty(ssids)) {
-				const rule1 = doc.createElement("dict");
-				onDemandRulesArray.appendChild(rule1);
-
-				rule1.appendChild(createElementWithText("key", "Action"));
-				rule1.appendChild(createElementWithText("string", "Disconnect"));
-
-				rule1.appendChild(createElementWithText("key", "SSIDMatch"));
-				const ssidMatchArray = doc.createElement("array");
-				rule1.appendChild(ssidMatchArray);
-				
-				ssids.forEach(ssid => {
-					ssidMatchArray.appendChild(createElementWithText("string", ssid));
-				});
-			}
-			
-			// Rule 2: EvaluateConnection
-			if (!isArrayNullOrEmpty(domains)) {
-				const rule2 = doc.createElement("dict");
-				onDemandRulesArray.appendChild(rule2);
-
-				rule2.appendChild(createElementWithText("key", "Action"));
-				rule2.appendChild(createElementWithText("string", "EvaluateConnection"));
-
-				rule2.appendChild(createElementWithText("key", "ActionParameters"));
-				const actionParametersArray = doc.createElement("array");
-				rule2.appendChild(actionParametersArray);
-
-				const actionParamDict = doc.createElement("dict");
-				actionParametersArray.appendChild(actionParamDict);
-
-				actionParamDict.appendChild(createElementWithText("key", "DomainAction"));
-				actionParamDict.appendChild(createElementWithText("string", "NeverConnect"));
-
-				actionParamDict.appendChild(createElementWithText("key", "Domains"));
-				const domainsArray = doc.createElement("array");
-				actionParamDict.appendChild(domainsArray);
-
-				domains.forEach((domain) =>
-					domainsArray.appendChild(createElementWithText("string", domain))
-				);
-			}
-			
-			// Rule 3: InterfaceTypeMatch -> WiFi
-			if (enabledOnWifi) {
-				const rule3 = doc.createElement("dict");
-				onDemandRulesArray.appendChild(rule3);
-				rule3.appendChild(createElementWithText("key", "Action"));
-				rule3.appendChild(createElementWithText("string", "Connect"));
-				rule3.appendChild(createElementWithText("key", "InterfaceTypeMatch"));
-				rule3.appendChild(createElementWithText("string", "WiFi"));
-			}
-			
-			// Rule 4: InterfaceTypeMatch -> Cellular
-			if (enabledOnCellular) {
-				const rule4 = doc.createElement("dict");
-				onDemandRulesArray.appendChild(rule4);
-				rule4.appendChild(createElementWithText("key", "Action"));
-				rule4.appendChild(createElementWithText("string", "Connect"));
-				rule4.appendChild(createElementWithText("key", "InterfaceTypeMatch"));
-				rule4.appendChild(createElementWithText("string", "Cellular"));
-			}
-			
-			// Rule 5: Connect
-			const rule5 = doc.createElement("dict");
-			onDemandRulesArray.appendChild(rule5);
-			rule5.appendChild(createElementWithText("key", "Action"));
-			rule5.appendChild(createElementWithText("string", "Disconnect"));
-
-			// Weitere Payload-Felder hinzufügen
-			payloadContentDict.appendChild(createElementWithText("key", "PayloadType"));
-				payloadContentDict.appendChild(
-				createElementWithText("string", "com.apple.dnsSettings.managed")
-			);
-
-			payloadContentDict.appendChild(createElementWithText("key", "PayloadIdentifier"));
-			payloadContentDict.appendChild(
-				createElementWithText(
-					"string",
-					"dremaxx.dns.profile.dnsSettings.managed"
-				)
-			);
-
-			payloadContentDict.appendChild(createElementWithText("key", "PayloadUUID"));
-			payloadContentDict.appendChild(
-				createElementWithText(
-					"string",
-					"6a455f5b-4e2f-4214-b0f0-0a398fb607fc"
-				)
-			);
-
-			payloadContentDict.appendChild(createElementWithText("key", "PayloadDisplayName"));
-			payloadContentDict.appendChild(createElementWithText("string", "dremaxx encrypted DNS"));
-
-			payloadContentDict.appendChild(createElementWithText("key", "PayloadOrganization"));
-			payloadContentDict.appendChild(createElementWithText("string", "dremaxx"));
-
-			payloadContentDict.appendChild(createElementWithText("key", "PayloadVersion"));
-			payloadContentDict.appendChild(createElementWithText("integer", "1"));
-			
-			if (prohibitDisablement) {
-				payloadContentDict.appendChild(createElementWithText("key", "ProhibitDisablement"));
-				payloadContentDict.appendChild(doc.createElement("true"));
-			}
-
-			const serializer = new XMLSerializer();
-			let xmlString = serializer.serializeToString(doc);
-			xmlString = `<?xml version="1.0" encoding="UTF-8"?>` + xmlString;
-			console.log(xmlString);
-			
-			return xmlString;
-		}
 
 		document.getElementById("generate-mobile-config").addEventListener("click", () => {
 			const excludedSsids = document.getElementById("input-excluded-wifi-networks").value;
@@ -1234,7 +814,7 @@ SOFTWARE.
 			const ssids = excludedSsids.split(",").map(ssid => ssid.trim()).filter(ssid => ssid);
 			const domains = excludedDomains.split(",").map(domain => domain.trim()).filter(domain => domain);
 			
-			const mobileConfig = createMobileConfig(
+			const mobileConfig = MC.buildMobileConfig(
 				ssids,
 				domains,
 				enabledOnWifi,
