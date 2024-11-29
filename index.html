@@ -668,9 +668,13 @@ SOFTWARE.
 			</div>
 		</section>
 		
-		<section class="container my-5 fw-lighter text-center">
+		<section class="container fw-lighter text-center">
 			<p>You like the service and would like to support me?</p>
 			<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#buy-me-a-coffee">Buy me a koffee <i class="bi bi-cup-hot"></i></button>
+		</section>
+
+		<section class="container my-3 fw-lighter text-center">
+			<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#open-source-info">Open source information</button>
 		</section>
 		
 		<footer class="container-fluid align-items-center fw-lighter pb-2">
@@ -725,6 +729,58 @@ SOFTWARE.
 						<a href="http://paypal.me/YannickDreher" target="_blank">PayPal.Me</a>
 						<br />
 						<img src="assets/paypal-qrcode.png" class="rounded w-100 mt-4" alt="paypal-qrcode">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="open-source-info" tabindex="-1" aria-labelledby="open-source-info-label" aria-hidden="true">
+			<div class="modal-dialog modal-fullscreen">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="open-source-info-label">Open source infomation</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Library</th>
+									<th>License</th>
+									<th>Website</th>
+									<th>Repository</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Bootstrap</td>
+									<td>MIT</td>
+									<td><a href="https://getbootstrap.com/">getbootstrap.com</a></td>
+									<td><a class="text-nowrap" href="https://github.com/twbs/bootstrap">GitHub - twbs/bootstrap</a></td>
+								</tr>
+								<tr>
+									<td>Three.js</td>
+									<td>MIT</td>
+									<td><a href="https://threejs.org/">threejs.org</a></td>
+									<td><a class="text-nowrap" href="https://github.com/mrdoob/three.js">GitHub - mrdoob/three.js</a></td>
+								</tr>
+								<tr>
+									<td>Prism.js</td>
+									<td>MIT</td>
+									<td><a href="https://prismjs.com/">prismjs.com</a></td>
+									<td><a class="text-nowrap" href="https://github.com/PrismJS/prism">GitHub - PrismJS/prism</a></td>
+								</tr>
+								<tr>
+									<td>dnsclient.js</td>
+									<td>MIT</td>
+									<td><a href="https://www.dremaxx.de/">dremaxx.de</a></td>
+									<td><a class="text-nowrap" href="https://github.com/yannickdreher/dnsclient.js">GitHub - yannickdreher/dnsclient.js</a></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
