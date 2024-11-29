@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <title>Public DNS Forwarding Servers</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-icons.min.css" rel="stylesheet">
+	<link href="css/prism.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+		canvas {
+			display: block;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+		
+		.content {
+			position: relative;
+		}
+		
+		.container {
+            max-width: 960px;
+        }
+		
+		.row {
+			margin-left: 0;
+			margin-right: 0;
+		}
+		
+		.text-gradient {
+			background: linear-gradient(90deg, var(--bs-blue), var(--bs-cyan), var(--bs-teal));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			font-weight: bold;
+		}
+		
+		.title {
+			font-family: 'Montserrat', sans-serif;
+			font-size: 2.5rem;
+		}
+    </style>
+</head>
+<body>
+	<div class="content">		
+		<div class="container my-5">
+			<h1 class="title text-center text-gradient">Public DNS Forwarding Servers</h1>
+			<p class="text-center text-body-secondary fw-light">Personal contribution to an open and secure network</p>
+		</div>
+		
+		<section>
+			<div class="container my-5">
+				<div class="bg-dark-subtle border bg-secondary-subtle text-secondary-emphasis rounded">
+					<div id="theo" class="row align-items-center border-bottom">
+						<div class="col-sm-4 py-4">
+							<h4 id="theo-hostname" class="hostname p-2 m-0 text-center rounded">
+								theo.dremaxx.de
+								<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-hostname', this)"><i class="bi bi-clipboard"></i></button>
+							</h4>
+						</div>
+						<div class="col-sm-5 py-2">
+							<div class="table-responsive rounded overflow-hidden">
+								<table class="table table-borderless align-middle rounded  m-0">
+									<tr class="border-bottom">
+										<th>IPv4:</th>
+										<td id="theo-ipv4" class="ipv4">85.215.153.54</td>
+										<td class="text-end">
+											<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-ipv4', this)"><i class="bi bi-clipboard"></i></button>
+										</td>
+									</tr>
+									<tr>
+										<th>IPv6:</th>
+										<td id="theo-ipv6" class="ipv6">2a01:239:251:a800::1</td>
+										<td class="text-end">
+											<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-ipv6', this)"><i class="bi bi-clipboard"></i></button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-3 py-2 fw-light">
+							<div class="d-flex  flex-wrap justify-content-between">
+								<div class="hstack py-1">
+									<div style="width: 70px;">
+										Status:  
+									</div>
+									<div style="width: 60px;">
+										<span id="theo-status" class="status badge text-bg-secondary">-</span>
+									</div>
+								</div>
+								<div class="hstack py-1">
+									<div style="width: 70px;">
+										Latency:  
+									</div>
+									<div style="width: 60px;">
+										<span id="theo-latency" class="latency">-</span> ms
+									</div>
+								</div>
+								<div class="hstack py-1">
+									<div style="width: 70px;">
+										Location:  
+									</div>
+									<div style="width: 90px;">
+										Germany
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div id="fritz" class="row align-items-center align-middle">
+						<div class="col-sm-4 py-4">
+							<h4 id="fritz-hostname" class="hostname p-2 m-0 text-center rounded">
+								fritz.dremaxx.de
+								<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-hostname', this)"><i class="bi bi-clipboard"></i></button>
+							</h4>
+						</div>
+						<div class="col-sm-5 py-2">
+							<div class="table-responsive rounded overflow-hidden">
+								<table class="table table-borderless align-middle rounded  m-0">
+									<tr class="border-bottom">
+										<th>IPv4:</th>
+										<td id="fritz-ipv4" class="ipv4">87.106.35.241</td>
+										<td class="text-end">
+											<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-ipv4', this)"><i class="bi bi-clipboard"></i></button>
+										</td>
+									</tr>
+									<tr>
+										<th>IPv6:</th>
+										<td id="fritz-ipv6" class="ipv6">2a00:da00:f425:5800::1</td>
+										<td class="text-end">
+											<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-ipv6', this)"><i class="bi bi-clipboard"></i></button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-3 py-2 fw-light">
+							<div class="d-flex  flex-wrap justify-content-between">
+								<div class="hstack py-1">
+									<div style="width: 70px;">
+										Status:  
+									</div>
+									<div style="width: 60px;">
+										<span id="fritz-status" class="status badge text-bg-secondary">-</span>
+									</div>
+								</div>
+								<div class="hstack py-1">
+									<div style="width: 70px;">
+										Latency:  
+									</div>
+									<div style="width: 60px;">
+										<span id="fritz-latency" class="latency">-</span> ms
+									</div>
+								</div>
+								<div class="hstack py-1">
+									<div style="width: 70px;">
+										Location:  
+									</div>
+									<div style="width: 90px;">
+										Great Britain
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section>
+			<div class="container my-5">
+				<div class="alert alert-info">
+					<h2 class="alert-heading text-center">Terms of Use</h2>
+					<hr />
+					<p style="text-align: justify;">
+						By choosing to use my DNS servers, you acknowledge and agree to the terms and conditions described.
+						Usage of these servers is entirely voluntary, and by doing so, you consent to the logging, data handling, 
+						and retention policies outlined in the provided documentation.
+						<br />
+						You also agree that no claims or rights can be asserted against me regarding the availability, performance, or operation of this service. 
+						I reserve the right to discontinue or modify this service at any time without prior notice.
+						<br />
+						If you do not agree with these terms, you are advised to refrain from using these DNS servers.
+					</p>
+				</div>	
+			</div>
+		</section>
+		
+		<section>
+			<div class="container my-5">
+				<h2 class="text-center">Server Settings</h2>
+				<div class="accordion" id="technical-details">
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-forwarders" aria-expanded="false" aria-controls="collapse-forwarders">
+								Forwarding
+							</button>
+						</h3>
+						<div id="collapse-forwarders" class="accordion-collapse collapse" data-bs-parent="#technical-details">
+							<div class="accordion-body">
+								<div class="row">
+									<div class="col-sm">
+										<p>
+											In cases where the DNS servers are unable to resolve a query from the local cache, the query will be forwarded to an external DNS resolver, 
+											specifically Quad9.
+											<br />
+											Please note the following:
+											<br />
+											<dl>
+												<dt>No control over external service:</dt>
+													<dd>
+														I have no control over the operation, performance, or security measures of Quad9's DNS service.
+														Therefore, I cannot provide any guarantees about the availability, accuracy, or speed of their service.
+													</dd>
+												<dt>Data handling by Quad9:</dt>
+													<dd>
+														Once the query is forwarded to Quad9, it is handled by their infrastructure, and their privacy and data handling policies apply.
+														I am not responsible for any misuse, logging, or data retention practices conducted by Quad9.
+													</dd>
+												<dt>Transparency:</dt>
+													<dd>I encourage you to review Quad9's Privacy Policy to understand how they handle your data and queries.</dd>
+											</dl>
+											By using my DNS service, you acknowledge that any query forwarded to Quad9 is subject to their terms of service and privacy policy.
+										</p>
+									</div>
+									<div class="col-sm">
+										<pre class="shadow m-0 bg-body-tertiary rounded">
+											<code class="language-ini">
+												options {
+												  ...
+												  forwarders port 853 {
+													9.9.9.9 tls quad9-tls;
+													149.112.112.112 tls quad9-tls;
+												  };
+												  ...
+												};
+											</code>
+										</pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-logging" aria-expanded="false" aria-controls="collapse-logging">
+								Logging
+							</button>
+						</h3>
+						<div id="collapse-logging" class="accordion-collapse collapse" data-bs-parent="#technical-details">
+							<div class="accordion-body">
+								<div class="row">
+									<div class="col-sm">
+										<h4>Why logging data?</h4>
+										<p>
+											Logging serves several purposes essential to maintaining secure and reliable DNS operations:
+											<br />
+											<dl>
+												<dt>Troubleshooting:</dt>
+													<dd>Quickly identifying and resolving technical issues.</dd>
+												<dt>Security monitoring:</dt>
+													<dd>Detecting abuse, such as DDoS attacks or malicious queries.</dd>
+												<dt>Performance optimization:</dt>
+													<dd>Monitoring server performance to ensure reliability.</dd>
+												<dt>Abuse prevention:</dt>
+													<dd>Preventing misuse of our infrastructure by tracking suspicious activities.</dd>
+											</dl>
+										</p>
+										<hr>
+										<h4>What data is logged?</h4>
+										<p>
+											Certain categories of logs are disabled by default to prioritize privacy:
+											<br />
+											<dl>
+												<dt>General Operations (default):</dt>
+													<dd>Completely disabled, no general system activity is logged.</dd>
+												<dt>Queries (queries):</dt>
+													<dd>Disabled, no logs are maintained of regular DNS requests.</dd>
+												<dt>Query Errors (query-errors):</dt>
+													<dd>Disabled, no information about failed queries is logged.</dd>
+											</dl>
+										</p>
+										
+										<p>
+											The following logs are active and include data about client IP addresses, the domains being queried, and the specific actions taken by the server.
+											Below is an overview of the active logging categories:
+											<br />
+											<dl>
+												<dt>Authentication Server Logs (auth_servers_log):</dt>
+													<dd>Logs interactions between DNS servers (e.g., trust and authentication).</dd>
+												<dt>DNSSEC Logs (dnssec_log):</dt>
+													<dd>Records related to DNSSEC (Domain Name System Security Extensions), such as signing and validation events.</dd>
+												<dt>Zone Transfer Logs (zone_transfers_log):</dt>
+													<dd>Logs information about zone file transfers between servers.</dd>
+												<dt>Dynamic DNS Logs (ddns_log):</dt>
+													<dd>Tracks updates made through Dynamic DNS.</dd>
+												<dt>Client Security Logs (client_security_log):</dt>
+													<dd>Logs related to potentially unauthorized or malicious DNS requests, including source IPs and queried domains.</dd>
+												<dt>Rate-Limiting Logs (rate_limiting_log):</dt>
+													<dd>Records requests blocked due to exceeding rate limits.</dd>
+												<dt>RPZ Logs (rpz_log):</dt>
+													<dd>Tracks queries affected by Response Policy Zones (RPZ), often used to block or redirect malicious domains.</dd>
+												<dt>Debug Logs (default_debug):</dt>
+													<dd>Detailed logs used for debugging, only activated when necessary.</dd>
+											</dl>
+										</p>
+										<hr>
+										<h4>Retention and rotation policy</h4>
+										<p>
+											Logs are stored in files with a maximum duration of one day (24 hours) per file.<br>
+										</p>
+										<hr>
+										<h4>What does this mean for you?</h4>
+										<p>
+											<dl>
+												<dt>Logged Data:</dt>
+													<dd>For active logging categories, client IP addresses, the domains queried, and other technical details are logged.</dd>
+												<dt>Disabled Logging:</dt>
+													<dd>Regular DNS queries and errors are not logged (queries and query-errors are null).</dd>
+											</dl>
+										</p>
+										<hr>
+										<h4>Security and sharing</h4>
+										<p>
+											All logs are stored and accessible to the server administrators.
+											They are never shared with third parties, and their use is limited to operational purposes.
+										</p>
+									</div>
+									<div class="col-sm text-truncate">
+										<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+											<code class="language-ini">
+												logging {
+												  ...
+												  channel default_syslog {
+													print-time yes;
+													print-category yes;
+													print-severity yes;
+													syslog daemon;
+													severity info;
+												  };
+												  ...
+												  category default { null; };
+												  category config { default_syslog; };
+												  category dispatch { default_syslog; };
+												  category network { default_syslog; };
+												  category general { default_syslog; };
+												  category zoneload { default_syslog; };
+												  category resolver { default_syslog; };
+												  category cname { default_syslog; };
+												  category lame-servers { default_syslog; };
+												  category edns-disabled { default_syslog; };
+												  category dnssec { default_syslog; };
+												  category notify { default_syslog; };
+												  category xfer-in { default_syslog; };
+												  category xfer-out { default_syslog; };
+												  category update{ default_syslog; };
+												  category update-security { default_syslog; };
+												  category client { default_syslog; };
+												  category security { default_syslog; };
+												  category rate-limit { default_syslog; };
+												  category spill { default_syslog; };
+												  category database { default_syslog; };
+												  category rpz { default_syslog; };
+												  category dnstap { default_syslog; };
+												  category trust-anchor-telemetry { default_syslog; };
+												  category queries { null; };
+												  category query-errors { null; };
+												};
+											</code>
+										</pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section class="container my-5">
+			<h2 class="text-center">Setup Instructions</h2>
+			<div class="accordion" id="setup-instructions">
+				<div class="accordion-item">
+					<h3 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-fritzbox" aria-expanded="false" aria-controls="collapse-setup-fritzbox">
+							Setting up DNS servers on a FritzBox
+						</button>
+					</h3>
+					<div id="collapse-setup-fritzbox" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
+						<div class="accordion-body">
+							<h5>1. Access the FritzBox web interface</h5>
+							<p>
+								Open a web browser and go to 
+								<a class="icon-link" href="http://fritz.box" target="_blank">http://fritz.box</a> or 
+								<a class="icon-link" href="http://192.168.178.1" target="_blank">http://192.168.178.1</a> 
+								(depending on your FritzBox model).<br />
+								Log in with your administrator credentials (username and password).
+							</p>
+							<h5>2. Navigate to the DNS settings</h5>
+							<p>
+								In the main menu of the FritzBox interface, go to "Internet".<br />
+								Then, click on "Account Information" or "Connection Settings" (the exact name may vary depending on the FritzBox model).<br />
+								Look for an option labeled "DNS Server" or "DNS Settings".
+							</p>
+							<h5>3. Configure the DNS servers</h5>
+							<p>
+								In the DNS settings section, you will typically find an option to either "Obtain DNS server addresses automatically" 
+								or to "Use the following DNS server addresses".<br />
+								Select "Use the following DNS server addresses" to manually set your DNS servers.<br />
+								Enter the IP addresses of your DNS servers:<br />
+								<dl>
+									<dt>Primary DNS:</dt>
+										<dd>85.215.153.54</dd>
+									<dt>Secondary DNS:</dt>
+										<dd>87.106.35.241</dd>
+								</dl>
+							</p>
+							<h5>4. Save the configuration</h5>
+							<p>
+								After entering the DNS server addresses, click "Apply" or "Save" to save the settings.<br />
+								The FritzBox will apply the new DNS settings to the network.
+							</p>
+							<img src="assets/how-to/how-to-dns-servers-fritzbox.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox">
+							<br />
+							<img src="assets/how-to/how-to-dns-servers-fritzbox-tls.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox-tls">
+						</div>
+					</div>
+				</div>
+				
+				<div class="accordion-item">
+					<h3 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-debian" aria-expanded="false" aria-controls="collapse-setup-debian">
+							Setting up DNS servers on Linux
+						</button>
+					</h3>
+					<div id="collapse-setup-debian" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
+						<div class="accordion-body">
+							<h5>1. Install packages</h5>
+							<p>
+								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
+									<code class="language-shell">
+										apt install resolvconf -y
+									</code>
+								</pre>
+							</p>
+							<h5>2. Open config file</h5>
+							<p>
+								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
+									<code class="language-shell">
+										nano /etc/resolvconf/resolv.conf.d/head
+									</code>
+								</pre>
+							</p>
+							<h5>3. Add nameservers</h5>
+							<p>
+								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+									<code class="language-ini">
+										nameserver 85.215.153.54
+										nameserver 87.106.35.241
+									</code>
+								</pre>
+								and/or<br />
+								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+									<code class="language-ini">
+										nameserver 2a01:239:251:a800::1
+										nameserver 2a00:da00:f425:5800::1
+									</code>
+								</pre>
+							</p>
+							<h5>4. Restart service</h5>
+							<p>
+								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
+									<code class="language-shell">
+										resolvconf --enable-updates
+										resolvconf -u
+									</code>
+								</pre>
+							</p>
+						</div>
+					</div>
+				</div>
+			
+				<div class="accordion-item">
+					<h3 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-iphone" aria-expanded="false" aria-controls="collapse-setup-iphone">
+							Setting up DNS servers on an iPhone
+						</button>
+					</h3>
+					<div id="collapse-setup-iphone" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
+						<div class="accordion-body">
+							<div class="row">
+								<div class="col-sm text-center">
+									<div id="carousel-how-to-setup-iphone" class="carousel slide pb-4">
+										<div class="carousel-indicators">
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="1" aria-label="Slide 2"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="2" aria-label="Slide 3"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="3" aria-label="Slide 4"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="4" aria-label="Slide 5"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="5" aria-label="Slide 6"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="6" aria-label="Slide 7"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="7" aria-label="Slide 8"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="8" aria-label="Slide 9"></button>
+											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="9" aria-label="Slide 10"></button>
+										</div>
+										<div class="carousel-inner">
+											<div class="carousel-item active">
+												<img src="assets/how-to/how-to-dns-server-iphone-01.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-01">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-02.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-02">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-03.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-03">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-04.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-04">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-05.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-05">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-06.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-06">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-07.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-07">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-08.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-08">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-09.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-09">
+											</div>
+											<div class="carousel-item">
+												<img src="assets/how-to/how-to-dns-server-iphone-10.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-10">
+											</div>
+										</div>
+										<button class="carousel-control-prev" type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide="prev">
+											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											<span class="visually-hidden">Previous</span>
+										</button>
+										<button class="carousel-control-next" type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide="next">
+											<span class="carousel-control-next-icon" aria-hidden="true"></span>
+											<span class="visually-hidden">Next</span>
+										</button>
+									</div>
+								</div>
+								<div class="col-sm">
+									<form>
+										<div class="mb-3">
+											<label for="input-excluded-wifi-networks" class="form-label">Excluded WiFi Networks</label>
+											<input type="text" class="form-control" id="input-excluded-wifi-networks">
+											<div id="excluded-wifi-network-help" class="form-text">MyHomeNetwork, MyWorkNetwork, ...</div>
+										</div>
+										<div class="mb-3">
+											<label for="input-excluded-domains" class="form-label">Excluded Domains</label>
+											<input type="text" class="form-control" id="input-excluded-domains">
+											<div id="excluded-wifi-network-help" class="form-text">dremaxx.de, google.com, ...</div>
+										</div>
+										<div class="mb-3 form-check">
+											<input type="checkbox" class="form-check-input" id="input-profile-enabled-on-wifi" checked>
+											<label class="form-check-label" for="input-profile-enabled-on-wifi">Profile enabled on WiFi</label>
+										</div>
+										<div class="mb-3 form-check">
+											<input type="checkbox" class="form-check-input" id="input-profile-enabled-on-cellular" checked>
+											<label class="form-check-label" for="input-profile-enabled-on-cellular">Profile enabled on cellular</label>
+										</div>
+										<div class="mb-3 form-check">
+											<input type="checkbox" class="form-check-input" id="input-profile-prohibit-disablement">
+											<label class="form-check-label" for="input-profile-prohibit-disablement">Prohibit disablement</label>
+										</div>
+										<button id="generate-mobile-config" type="button" class="btn btn-primary">Download</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="accordion-item">
+					<h3 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-andoid" aria-expanded="false" aria-controls="collapse-setup-andoid">
+							Setting up DNS servers on Android
+						</button>
+					</h3>
+					<div id="collapse-setup-andoid" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
+						<div class="accordion-body">
+							<h5>Configure DoT Using the Private DNS Setting (Android 9 and Newer)</h5>
+							<p>
+								Android 9 (Pie) and later have built-in support for DNS-over-TLS via the Private DNS feature.
+								This method works system-wide for both Wi-Fi and mobile data.
+							</p>
+							<h5>Steps:</h5>
+							<ol class="list-group list-group-numbered">
+								<li class="list-group-item"  style="border: none">
+									Open the <b>Settings</b> app
+								</li>
+								<li class="list-group-item" style="border: none">
+									Navigate to <b>Network & Internet</b>
+								</li>
+								<li class="list-group-item" style="border: none">
+									Select <b>Private DNS</b>
+									<ul class="list-group">
+										<li class="list-group-item" style="border: none">
+											If you don’t see this option, it may be located under <b>Advanced</b> or <b>Connections</b> depending on your device.
+										</li>
+									</ul>
+								</li>
+								<li class="list-group-item" style="border: none">
+									Choose <b>Private DNS provider hostname</b>
+								</li>
+								<li class="list-group-item" style="border: none">
+									Enter the hostname of the DoT provider:
+									<ul class="list-group">
+										<li class="list-group-item" style="border: none">
+											<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+												<code class="language-ini">
+													dns.dremaxx.de
+												</code>
+											</pre>
+										</li>
+									</ul>
+								</li>
+								<li class="list-group-item" style="border: none">
+									Tap <b>Save</b>
+								</li>
+								<p>Your Android device will now use DNS-over-TLS for all network connections.</p>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section class="container my-5 fw-lighter text-center">
+			<p>You like the service and would like to support me?</p>
+			<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#buy-me-a-coffee">Buy me a koffee <i class="bi bi-cup-hot"></i></button>
+		</section>
+		
+		<footer class="container-fluid align-items-center fw-lighter pb-2">
+			<div class="hstack justify-content-center">
+				<span class="px-2 border-end">
+					© 2024 Yannick Dreher
+				</span>
+				<span class="px-2 border-end">
+					All rights reserved.
+				</span>
+				<span class="px-2">
+					<button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#impressum">Impressum</button>
+				</span>
+			</div>
+		</footer>
+		
+		<div class="modal fade" id="impressum" tabindex="-1" aria-labelledby="impressum-label" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="impressum-label">Impressum</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>
+						Yannick Dreher<br />
+						Gertrude-Neumark-Weg 17<br />
+						90431 N&uuml;rnberg
+						</p>
+
+						<h4>Kontakt</h4>
+						<p>
+						Telefon: +4915158056065<br />
+						E-Mail: yannick.dreher@dremaxx.de
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="buy-me-a-coffee" tabindex="-1" aria-labelledby="buy-me-a-coffee-label" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="buy-me-a-coffee-label">Buy me a koffee</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body text-center">
+						<a href="http://paypal.me/YannickDreher" target="_blank">PayPal.Me</a>
+						<br />
+						<img src="assets/paypal-qrcode.png" class="rounded w-100 mt-4" alt="paypal-qrcode">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+        function copyToClipboard(elementId, button) {
+			const element  = document.getElementById(elementId);
+            navigator.clipboard.writeText(element.textContent.trim()).then(() => {
+				const originalIcon = button.innerHTML;
+				button.innerHTML = '<i class="bi bi-check text-success"></i>';
+
+				setTimeout(() => {
+					button.innerHTML = originalIcon;
+				}, 1000);
+			}).catch(err => {
+                console.error('Error copying to clipboard:', err);
+            });
+        }
+    </script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/prism.js"></script>
+	<script>
+		Prism.plugins.NormalizeWhitespace.setDefaults({
+			'remove-trailing': true,
+			'remove-indent': true,
+			'left-trim': true,
+			'right-trim': true,
+		});
+	</script>
+	<script type="importmap">
+		{
+			"imports": {
+				"dnsclient": "./js/dnsclient.min.js",
+				"three": "./js/three.module.min.js"
+			}
+		}
+	</script>
+	<script type="module">
+		import * as THREE from 'three';
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		camera.position.y = 0;
+		camera.position.z = 0;
+		
+		const renderer = new THREE.WebGLRenderer({ alpha: true });
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.setClearColor(0x000000, 0);
+		
+		document.body.appendChild(renderer.domElement);
+		
+		const maxY =  10;
+		const minZ = -10; // Mindestwert für die Z-Position
+		const maxZ =  -5; // Maximalwert für die Z-Position
+
+		function getRandomDomain() {
+			const domains = [
+				"dremaxx.de",
+				"dreon.de",
+				"yannickdreher.de",
+				"example123.com",
+				"randompage.net",
+				"testdomain.org",
+				"mycoolwebsite.io",
+				"demo-site.dev",
+				"alpha-beta.biz",
+				"gamma-delta.xyz",
+				"lorem-ipsum.co",
+				"tech-hub.online",
+				"blue-ocean.info",
+				"green-forest.us",
+				"fast-track.pro",
+				"hyperloop.site",
+				"cloudscape.cloud",
+				"bigdata.ai",
+				"future-tech.dev",
+				"nextgen-solutions.com",
+				"quantum-coders.net",
+				"skyrocket.biz",
+				"pixel-perfect.org",
+				"light-speed.io",
+				"gravity-wave.us",
+				"mars-mission.xyz",
+				"cosmic-ray.space",
+				"neutron-star.tech",
+				"hypernova.dev",
+				"supernova.online",
+				"nebula-zone.com",
+				"dark-matter.org",
+				"void-stream.io",
+				"planet-x.info",
+				"zeta-corp.us",
+				"omega-sector.pro",
+				"alpha-project.site",
+				"digital-dreams.biz",
+				"virtual-sky.net",
+				"meta-verse.xyz",
+				"crypto-galaxy.co",
+				"blockchain-io.org",
+				"quantum-leap.com",
+				"astro-webspace.dev",
+				"data-realm.cloud",
+				"webtastic.tech",
+				"dreamscape.online",
+				"infinity-loop.info",
+				"cyber-grid.us",
+				"future-realm.pro",
+				"pixel-vision.xyz",
+				"robo-cloud.ai",
+				"synthetic-minds.biz",
+				"neural-net.org",
+				"nano-tech.dev",
+				"micro-world.com",
+				"eco-grid.site",
+				"solar-winds.co",
+				"lunar-tech.io",
+				"zenith-pro.net",
+				"polaris-project.info",
+				"stellar-zone.us",
+				"galactic-wave.space",
+				"orbit-track.tech",
+				"astro-byte.online"
+			];
+			return domains[Math.floor(Math.random() * domains.length)];
+		}
+		
+		function getRandomIp() {
+			function computeOctet(){
+				return Math.floor(Math.random() * 256);
+			}
+			return `${computeOctet()}.${computeOctet()}.${computeOctet()}.${computeOctet()}`;
+		}
+		
+		function scaleMinMax(value, minInput, maxInput, minOutput, maxOutput) {
+			return minOutput + ((value - minInput) / (maxInput - minInput)) * (maxOutput - minOutput);
+		}
+		
+		function calculateAlpha(zPosition) {
+			const minAlpha = 0.2;
+			const maxAlpha = 0.6;
+			const alpha = scaleMinMax(zPosition, minZ, maxZ, minAlpha, maxAlpha);
+			return alpha;
+		}
+		
+		function createTexture(text, zPosition) {
+			const canvas = document.createElement('canvas');
+			canvas.width = 512;
+			canvas.height = 128;
+			
+			const context = canvas.getContext('2d', { alpha: true });  
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			context.fillStyle = `rgba(0, 0, 0, ${calculateAlpha(zPosition)})`;
+			context.font = `bold 48px -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"`;
+			context.textBaseline = 'middle';
+			context.textAlign = 'center';
+			context.fillText(text, canvas.width / 2, canvas.height / 2);
+
+			return new THREE.CanvasTexture(canvas);
+		}
+
+		const meshes = [];
+		for (let i = 0; i < 512; i++) {
+			let x = (Math.random() - 0.5) * 20;
+			let y = (Math.random() - 0.5) * 20;
+			let z =  Math.random() * (maxZ - minZ) + minZ;
+			
+			if (z < minZ){ z = minZ };
+			if (z > maxZ){ z = maxZ };
+			
+			const texture = createTexture(getRandomIp(), z);
+			const material = new THREE.SpriteMaterial({
+				map: texture,
+				transparent: true
+			});
+			const sprite = new THREE.Sprite(material);
+			
+			const minScale = 1.0;
+			const maxScale = 3.0;
+			const normalizedZ = (z - minZ) / (maxZ - minZ)
+			const s = scaleMinMax(z, minZ, maxZ, minScale, maxScale);
+
+			sprite.position.set(x, y, z);
+			sprite.scale.set(s, s / 4, 1);
+
+			scene.add(sprite);
+			meshes.push({ sprite, transitionInProgress: false });
+		}
+		
+		function transition(mesh, zPosition) {
+			if (mesh.transitionInProgress) return;
+
+			mesh.transitionInProgress = true;
+			let progress = 0;
+			const duration = 500;
+
+			const interval = setInterval(() => {
+				progress += 10;
+				
+				let fadeOut = Math.max(0, 1 - progress / (duration / 2));
+				let fadeIn  = Math.min(1, (progress - duration / 2) / (duration / 2));
+				
+				if (progress < duration / 2)
+				{
+					mesh.sprite.material.opacity = fadeOut;
+				}
+				else if (progress === duration / 2)
+				{
+					mesh.sprite.material.map = createTexture(getRandomDomain(), zPosition);
+				}
+				else if (progress > duration / 2)
+				{
+					mesh.sprite.material.opacity = fadeIn;
+				}
+				if (progress === duration) {
+					clearInterval(interval);
+					mesh.transitionInProgress = false;
+				}
+			}, 10);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+
+			meshes.forEach(mesh => {
+				mesh.sprite.position.y -= 0.025;
+				
+				if (Math.abs(mesh.sprite.position.y - 0) < 0.025) {
+					transition(mesh, mesh.sprite.position.z);
+				}
+				
+				if (mesh.sprite.position.y <= -10) {
+					mesh.sprite.position.y = maxY;
+					mesh.sprite.position.x = (Math.random() - 0.5) * 20;
+					
+					let z = Math.random() * (maxZ - minZ) + minZ;
+					if (z < minZ){ z = minZ };
+					if (z > maxZ){ z = maxZ };
+					
+					mesh.sprite.material.map = createTexture(getRandomIp(), z);
+					mesh.sprite.position.z = z;
+				}
+			});
+
+			renderer.render(scene, camera);
+		}
+
+		animate();
+
+		window.addEventListener('resize', () => {
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+		});
+	</script>
+	<script type="module">
+		import * as DNS from 'dnsclient';
+		
+		async function updateServerStatus(serverName) {
+			const parentEl   = document.getElementById(serverName);
+			const hostnameEl = parentEl.querySelector('.hostname');
+			const statusEl   = parentEl.querySelector('.status');
+			const latencyEl  = parentEl.querySelector('.latency');
+			const hostname 	 = hostnameEl.textContent.trim();
+			const question   = new DNS.Question('www.dremaxx.de', DNS.TYPE.A, DNS.CLAZZ.IN);
+			const url = `https://${hostname}/dns-query`;
+
+			try {
+				const result = await DNS.query(url, question);
+				
+				statusEl.textContent  = "Online";
+				statusEl.className    = "status badge text-bg-success";
+				latencyEl.textContent = result.latency;
+				
+				if (result.latency <= 50){
+					latencyEl.className = "latency text-success";
+				} else if (result.latency > 50 && result.latency <= 100) {
+					latencyEl.className = "latency text-warning";
+				} else {
+					latencyEl.className = "latency text-danger";
+				}
+			} catch {
+				statusEl.textContent = "Offline";
+				statusEl.className   = "status badge text-bg-danger";
+			}
+		}
+		
+		const interval = setInterval(() => {
+			updateServerStatus('theo');
+			updateServerStatus('fritz');
+		}, 1000);
+	</script>
+	<script>
+		function isArrayNullOrEmpty(arr) {
+			return !arr || arr.length === 0;
+		}
+
+		function createMobileConfig(ssids, domains, enabledOnWifi, enabledOnCellular, prohibitDisablement) {
+			const doc = document.implementation.createDocument(null, "plist", null);
+
+			// Füge die Doctype-Deklaration hinzu
+			const doctype = document.implementation.createDocumentType(
+				"plist",
+				"-//Apple//DTD PLIST 1.0//EN",
+				"http://www.apple.com/DTDs/PropertyList-1.0.dtd"
+			);
+			doc.insertBefore(doctype, doc.documentElement);
+			doc.documentElement.setAttribute("version", "1.0");
+
+			const createElementWithText = (name, text) => {
+				const element = doc.createElement(name);
+				element.textContent = text;
+				return element;
+			};
+
+			const dict = doc.createElement("dict");
+			doc.documentElement.appendChild(dict);
+			
+			dict.appendChild(createElementWithText("key", "PayloadVersion"));
+			dict.appendChild(createElementWithText("integer", "1"));
+			
+			dict.appendChild(createElementWithText("key", "PayloadDisplayName"));
+			dict.appendChild(createElementWithText("string", "dremaxx encrypted DNS"));
+
+			dict.appendChild(createElementWithText("key", "PayloadDescription"));
+			dict.appendChild(
+				createElementWithText(
+					"string",
+					"This profile enables dremaxx DNS servers on all networks using the native encrypted DNS feature."
+				)
+			);
+
+			dict.appendChild(createElementWithText("key", "PayloadIdentifier"));
+			dict.appendChild(createElementWithText("string", "dremaxx.dns.profile"));
+
+			dict.appendChild(createElementWithText("key", "PayloadScope"));
+			dict.appendChild(createElementWithText("string", "User"));
+
+			dict.appendChild(createElementWithText("key", "PayloadType"));
+			dict.appendChild(createElementWithText("string", "Configuration"));
+
+			dict.appendChild(createElementWithText("key", "PayloadUUID"));
+			dict.appendChild(
+				createElementWithText("string", "f14a4bc1-534c-4bcb-97bc-f1f98e1c554a")
+			);
+
+			dict.appendChild(createElementWithText("key", "PayloadContent"));
+
+			// PayloadContent -> Array
+			const payloadContentArray = doc.createElement("array");
+			dict.appendChild(payloadContentArray);
+
+			// Array -> dict
+			const payloadContentDict = doc.createElement("dict");
+			payloadContentArray.appendChild(payloadContentDict);
+
+			// DNSSettings
+			payloadContentDict.appendChild(createElementWithText("key", "DNSSettings"));
+			const dnsSettingsDict = doc.createElement("dict");
+			payloadContentDict.appendChild(dnsSettingsDict);
+
+			dnsSettingsDict.appendChild(createElementWithText("key", "DNSProtocol"));
+			dnsSettingsDict.appendChild(createElementWithText("string", "TLS"));
+
+			dnsSettingsDict.appendChild(createElementWithText("key", "ServerAddresses"));
+			
+			// ServerAddresses -> Array
+			const serverAddressesArray = doc.createElement("array");
+			dnsSettingsDict.appendChild(serverAddressesArray);
+			
+			serverAddressesArray.appendChild(createElementWithText("string", "85.215.153.54"));
+			serverAddressesArray.appendChild(createElementWithText("string", "87.106.35.241"));
+			serverAddressesArray.appendChild(createElementWithText("string", "2a01:239:251:a800::1"));
+			serverAddressesArray.appendChild(createElementWithText("string", "2a00:da00:f425:5800::1"));
+
+			dnsSettingsDict.appendChild(createElementWithText("key", "ServerName"));
+			dnsSettingsDict.appendChild(createElementWithText("string", "dns.dremaxx.de"));
+			
+			// OnDemandRules
+			payloadContentDict.appendChild(createElementWithText("key", "OnDemandRules"));
+			const onDemandRulesArray = doc.createElement("array");
+			payloadContentDict.appendChild(onDemandRulesArray);
+
+			// Rule 1: Disconnect
+			if (!isArrayNullOrEmpty(ssids)) {
+				const rule1 = doc.createElement("dict");
+				onDemandRulesArray.appendChild(rule1);
+
+				rule1.appendChild(createElementWithText("key", "Action"));
+				rule1.appendChild(createElementWithText("string", "Disconnect"));
+
+				rule1.appendChild(createElementWithText("key", "SSIDMatch"));
+				const ssidMatchArray = doc.createElement("array");
+				rule1.appendChild(ssidMatchArray);
+				
+				ssids.forEach(ssid => {
+					ssidMatchArray.appendChild(createElementWithText("string", ssid));
+				});
+			}
+			
+			// Rule 2: EvaluateConnection
+			if (!isArrayNullOrEmpty(domains)) {
+				const rule2 = doc.createElement("dict");
+				onDemandRulesArray.appendChild(rule2);
+
+				rule2.appendChild(createElementWithText("key", "Action"));
+				rule2.appendChild(createElementWithText("string", "EvaluateConnection"));
+
+				rule2.appendChild(createElementWithText("key", "ActionParameters"));
+				const actionParametersArray = doc.createElement("array");
+				rule2.appendChild(actionParametersArray);
+
+				const actionParamDict = doc.createElement("dict");
+				actionParametersArray.appendChild(actionParamDict);
+
+				actionParamDict.appendChild(createElementWithText("key", "DomainAction"));
+				actionParamDict.appendChild(createElementWithText("string", "NeverConnect"));
+
+				actionParamDict.appendChild(createElementWithText("key", "Domains"));
+				const domainsArray = doc.createElement("array");
+				actionParamDict.appendChild(domainsArray);
+
+				domains.forEach((domain) =>
+					domainsArray.appendChild(createElementWithText("string", domain))
+				);
+			}
+			
+			// Rule 3: InterfaceTypeMatch -> WiFi
+			if (enabledOnWifi) {
+				const rule3 = doc.createElement("dict");
+				onDemandRulesArray.appendChild(rule3);
+				rule3.appendChild(createElementWithText("key", "Action"));
+				rule3.appendChild(createElementWithText("string", "Connect"));
+				rule3.appendChild(createElementWithText("key", "InterfaceTypeMatch"));
+				rule3.appendChild(createElementWithText("string", "WiFi"));
+			}
+			
+			// Rule 4: InterfaceTypeMatch -> Cellular
+			if (enabledOnCellular) {
+				const rule4 = doc.createElement("dict");
+				onDemandRulesArray.appendChild(rule4);
+				rule4.appendChild(createElementWithText("key", "Action"));
+				rule4.appendChild(createElementWithText("string", "Connect"));
+				rule4.appendChild(createElementWithText("key", "InterfaceTypeMatch"));
+				rule4.appendChild(createElementWithText("string", "Cellular"));
+			}
+			
+			// Rule 5: Connect
+			const rule5 = doc.createElement("dict");
+			onDemandRulesArray.appendChild(rule5);
+			rule5.appendChild(createElementWithText("key", "Action"));
+			rule5.appendChild(createElementWithText("string", "Disconnect"));
+
+			// Weitere Payload-Felder hinzufügen
+			payloadContentDict.appendChild(createElementWithText("key", "PayloadType"));
+				payloadContentDict.appendChild(
+				createElementWithText("string", "com.apple.dnsSettings.managed")
+			);
+
+			payloadContentDict.appendChild(createElementWithText("key", "PayloadIdentifier"));
+			payloadContentDict.appendChild(
+				createElementWithText(
+					"string",
+					"dremaxx.dns.profile.dnsSettings.managed"
+				)
+			);
+
+			payloadContentDict.appendChild(createElementWithText("key", "PayloadUUID"));
+			payloadContentDict.appendChild(
+				createElementWithText(
+					"string",
+					"6a455f5b-4e2f-4214-b0f0-0a398fb607fc"
+				)
+			);
+
+			payloadContentDict.appendChild(createElementWithText("key", "PayloadDisplayName"));
+			payloadContentDict.appendChild(createElementWithText("string", "dremaxx encrypted DNS"));
+
+			payloadContentDict.appendChild(createElementWithText("key", "PayloadOrganization"));
+			payloadContentDict.appendChild(createElementWithText("string", "dremaxx"));
+
+			payloadContentDict.appendChild(createElementWithText("key", "PayloadVersion"));
+			payloadContentDict.appendChild(createElementWithText("integer", "1"));
+			
+			if (prohibitDisablement) {
+				payloadContentDict.appendChild(createElementWithText("key", "ProhibitDisablement"));
+				payloadContentDict.appendChild(doc.createElement("true"));
+			}
+
+			const serializer = new XMLSerializer();
+			let xmlString = serializer.serializeToString(doc);
+			xmlString = `<?xml version="1.0" encoding="UTF-8"?>` + xmlString;
+			console.log(xmlString);
+			
+			return xmlString;
+		}
+
+		document.getElementById("generate-mobile-config").addEventListener("click", () => {
+			const excludedSsids = document.getElementById("input-excluded-wifi-networks").value;
+			const excludedDomains = document.getElementById("input-excluded-domains").value;
+			const enabledOnWifi = document.getElementById("input-profile-enabled-on-wifi").checked;
+			const enabledOnCellular = document.getElementById("input-profile-enabled-on-cellular").checked;
+			const prohibitDisablement = document.getElementById("input-profile-prohibit-disablement").checked;
+
+			const ssids = excludedSsids.split(",").map(ssid => ssid.trim()).filter(ssid => ssid);
+			const domains = excludedDomains.split(",").map(domain => domain.trim()).filter(domain => domain);
+			
+			const mobileConfig = createMobileConfig(
+				ssids,
+				domains,
+				enabledOnWifi,
+				enabledOnCellular,
+				prohibitDisablement
+			);
+			
+			const blob = new Blob([mobileConfig], { type: "application/x-apple-aspen-config" });
+			const link = document.createElement("a");
+			link.href = URL.createObjectURL(blob);
+			link.download = "dremaxxdns.mobileconfig";
+			link.click();
+		});
+	</script>
+</body>
+</html>
