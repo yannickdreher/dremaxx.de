@@ -4,7 +4,7 @@ Project: dremaxx.de
 File Created: Friday, 29th November 2024 7:12:53 pm
 Author: Yannick Dreher (yannick.dreher@dremaxx.de)
 -----
-Last Modified: Friday, 29th November 2024 7:17:49 pm
+Last Modified: Friday, 29th November 2024 8:43:33 pm
 -----
 MIT License
 
@@ -35,11 +35,16 @@ SOFTWARE.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <title>Public DNS Forwarding Servers</title>
+	<meta name="description" content="This DNS forwarding service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-icons.min.css" rel="stylesheet">
 	<link href="css/prism.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+		table tr td, table tr th{
+			background-color: rgba(0,0,0, 0) !important;
+		}
+
 		canvas {
 			display: block;
 			position: fixed;
@@ -65,6 +70,7 @@ SOFTWARE.
 		
 		.text-gradient {
 			background: linear-gradient(90deg, var(--bs-blue), var(--bs-cyan), var(--bs-teal));
+			background-clip: text;
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			font-weight: bold;
@@ -78,123 +84,126 @@ SOFTWARE.
 </head>
 <body>
 	<div class="content">		
-		<div class="container my-5">
-			<h1 class="title text-center text-gradient">Public DNS Forwarding Servers</h1>
-			<p class="text-center text-body-secondary fw-light">Personal contribution to an open and secure network</p>
+		<div class="container my-5 text-center">
+			<h1 class="title text-gradient">Public DNS Forwarding Servers</h1>
+			<p class="text-body-secondary fw-light">Personal contribution to an open and secure network</p>
+			<p class="text-body-secondary fw-light">
+				This DNS forwarding service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).<br>
+				These advanced protocols encrypt your DNS queries, preventing eavesdropping, tracking, and DNS-based attacks.<br>
+				Unlike traditional DNS, which sends queries in plain text, this service ensures that your browsing data stays private and secure from ISPs, hackers, and other third parties.
+			</p>
 		</div>
 		
-		<section>
-			<div class="container my-5">
-				<div class="bg-dark-subtle border bg-secondary-subtle text-secondary-emphasis rounded">
-					<div id="theo" class="row align-items-center border-bottom">
-						<div class="col-sm-4 py-4">
-							<h4 id="theo-hostname" class="hostname p-2 m-0 text-center rounded">
-								theo.dremaxx.de
-								<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-hostname', this)"><i class="bi bi-clipboard"></i></button>
-							</h4>
+		<section class="container my-5">
+			<div class="bg-dark-subtle border bg-secondary-subtle text-secondary-emphasis rounded">
+				<div id="theo" class="row align-items-center border-bottom">
+					<div class="col-sm-4 py-4">
+						<h4 id="theo-hostname" class="hostname p-2 m-0 text-center rounded">
+							theo.dremaxx.de
+							<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-hostname', this)"><i class="bi bi-clipboard"></i></button>
+						</h4>
+					</div>
+					<div class="col-sm-5 py-2">
+						<div class="table-responsive rounded overflow-hidden">
+							<table class="table table-borderless align-middle rounded  m-0">
+								<tr class="border-bottom">
+									<th>IPv4:</th>
+									<td id="theo-ipv4" class="ipv4">85.215.153.54</td>
+									<td class="text-end">
+										<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-ipv4', this)"><i class="bi bi-clipboard"></i></button>
+									</td>
+								</tr>
+								<tr>
+									<th>IPv6:</th>
+									<td id="theo-ipv6" class="ipv6">2a01:239:251:a800::1</td>
+									<td class="text-end">
+										<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-ipv6', this)"><i class="bi bi-clipboard"></i></button>
+									</td>
+								</tr>
+							</table>
 						</div>
-						<div class="col-sm-5 py-2">
-							<div class="table-responsive rounded overflow-hidden">
-								<table class="table table-borderless align-middle rounded  m-0">
-									<tr class="border-bottom">
-										<th>IPv4:</th>
-										<td id="theo-ipv4" class="ipv4">85.215.153.54</td>
-										<td class="text-end">
-											<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-ipv4', this)"><i class="bi bi-clipboard"></i></button>
-										</td>
-									</tr>
-									<tr>
-										<th>IPv6:</th>
-										<td id="theo-ipv6" class="ipv6">2a01:239:251:a800::1</td>
-										<td class="text-end">
-											<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-ipv6', this)"><i class="bi bi-clipboard"></i></button>
-										</td>
-									</tr>
-								</table>
+					</div>
+					<div class="col-sm-3 py-2 fw-light">
+						<div class="d-flex  flex-wrap justify-content-between">
+							<div class="hstack py-1">
+								<div style="width: 70px;">
+									Status:  
+								</div>
+								<div style="width: 60px;">
+									<span id="theo-status" class="status badge text-bg-secondary">-</span>
+								</div>
 							</div>
-						</div>
-						<div class="col-sm-3 py-2 fw-light">
-							<div class="d-flex  flex-wrap justify-content-between">
-								<div class="hstack py-1">
-									<div style="width: 70px;">
-										Status:  
-									</div>
-									<div style="width: 60px;">
-										<span id="theo-status" class="status badge text-bg-secondary">-</span>
-									</div>
+							<div class="hstack py-1">
+								<div style="width: 70px;">
+									Latency:  
 								</div>
-								<div class="hstack py-1">
-									<div style="width: 70px;">
-										Latency:  
-									</div>
-									<div style="width: 60px;">
-										<span id="theo-latency" class="latency">-</span> ms
-									</div>
+								<div style="width: 60px;">
+									<span id="theo-latency" class="latency">-</span> ms
 								</div>
-								<div class="hstack py-1">
-									<div style="width: 70px;">
-										Location:  
-									</div>
-									<div style="width: 90px;">
-										Germany
-									</div>
+							</div>
+							<div class="hstack py-1">
+								<div style="width: 70px;">
+									Location:  
+								</div>
+								<div style="width: 90px;">
+									Germany
 								</div>
 							</div>
 						</div>
 					</div>
-					
-					<div id="fritz" class="row align-items-center align-middle">
-						<div class="col-sm-4 py-4">
-							<h4 id="fritz-hostname" class="hostname p-2 m-0 text-center rounded">
-								fritz.dremaxx.de
-								<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-hostname', this)"><i class="bi bi-clipboard"></i></button>
-							</h4>
+				</div>
+				
+				<div id="fritz" class="row align-items-center align-middle">
+					<div class="col-sm-4 py-4">
+						<h4 id="fritz-hostname" class="hostname p-2 m-0 text-center rounded">
+							fritz.dremaxx.de
+							<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-hostname', this)"><i class="bi bi-clipboard"></i></button>
+						</h4>
+					</div>
+					<div class="col-sm-5 py-2">
+						<div class="table-responsive rounded overflow-hidden">
+							<table class="table table-borderless align-middle rounded  m-0">
+								<tr class="border-bottom">
+									<th>IPv4:</th>
+									<td id="fritz-ipv4" class="ipv4">87.106.35.241</td>
+									<td class="text-end">
+										<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-ipv4', this)"><i class="bi bi-clipboard"></i></button>
+									</td>
+								</tr>
+								<tr>
+									<th>IPv6:</th>
+									<td id="fritz-ipv6" class="ipv6">2a00:da00:f425:5800::1</td>
+									<td class="text-end">
+										<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-ipv6', this)"><i class="bi bi-clipboard"></i></button>
+									</td>
+								</tr>
+							</table>
 						</div>
-						<div class="col-sm-5 py-2">
-							<div class="table-responsive rounded overflow-hidden">
-								<table class="table table-borderless align-middle rounded  m-0">
-									<tr class="border-bottom">
-										<th>IPv4:</th>
-										<td id="fritz-ipv4" class="ipv4">87.106.35.241</td>
-										<td class="text-end">
-											<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-ipv4', this)"><i class="bi bi-clipboard"></i></button>
-										</td>
-									</tr>
-									<tr>
-										<th>IPv6:</th>
-										<td id="fritz-ipv6" class="ipv6">2a00:da00:f425:5800::1</td>
-										<td class="text-end">
-											<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-ipv6', this)"><i class="bi bi-clipboard"></i></button>
-										</td>
-									</tr>
-								</table>
+					</div>
+					<div class="col-sm-3 py-2 fw-light">
+						<div class="d-flex  flex-wrap justify-content-between">
+							<div class="hstack py-1">
+								<div style="width: 70px;">
+									Status:  
+								</div>
+								<div style="width: 60px;">
+									<span id="fritz-status" class="status badge text-bg-secondary">-</span>
+								</div>
 							</div>
-						</div>
-						<div class="col-sm-3 py-2 fw-light">
-							<div class="d-flex  flex-wrap justify-content-between">
-								<div class="hstack py-1">
-									<div style="width: 70px;">
-										Status:  
-									</div>
-									<div style="width: 60px;">
-										<span id="fritz-status" class="status badge text-bg-secondary">-</span>
-									</div>
+							<div class="hstack py-1">
+								<div style="width: 70px;">
+									Latency:  
 								</div>
-								<div class="hstack py-1">
-									<div style="width: 70px;">
-										Latency:  
-									</div>
-									<div style="width: 60px;">
-										<span id="fritz-latency" class="latency">-</span> ms
-									</div>
+								<div style="width: 60px;">
+									<span id="fritz-latency" class="latency">-</span> ms
 								</div>
-								<div class="hstack py-1">
-									<div style="width: 70px;">
-										Location:  
-									</div>
-									<div style="width: 90px;">
-										Great Britain
-									</div>
+							</div>
+							<div class="hstack py-1">
+								<div style="width: 70px;">
+									Location:  
+								</div>
+								<div style="width: 90px;">
+									Great Britain
 								</div>
 							</div>
 						</div>
@@ -203,208 +212,236 @@ SOFTWARE.
 			</div>
 		</section>
 		
-		<section>
-			<div class="container my-5">
-				<div class="alert alert-info">
-					<h2 class="alert-heading text-center">Terms of Use</h2>
-					<hr />
-					<p style="text-align: justify;">
-						By choosing to use my DNS servers, you acknowledge and agree to the terms and conditions described.
-						Usage of these servers is entirely voluntary, and by doing so, you consent to the logging, data handling, 
-						and retention policies outlined in the provided documentation.
-						<br />
-						You also agree that no claims or rights can be asserted against me regarding the availability, performance, or operation of this service. 
-						I reserve the right to discontinue or modify this service at any time without prior notice.
-						<br />
-						If you do not agree with these terms, you are advised to refrain from using these DNS servers.
-					</p>
-				</div>	
+		<section class="container my-5">
+			<div class="alert alert-info">
+				<h2 class="alert-heading text-center">Terms of Use</h2>
+				<hr />
+				<p style="text-align: justify;">
+					By choosing to use my DNS servers, you acknowledge and agree to the terms and conditions described.
+					Usage of these servers is entirely voluntary, and by doing so, you consent to the logging, data handling, 
+					and retention policies outlined in the provided documentation.
+					<br />
+					You also agree that no claims or rights can be asserted against me regarding the availability, performance, or operation of this service. 
+					I reserve the right to discontinue or modify this service at any time without prior notice.
+					<br />
+					If you do not agree with these terms, you are advised to refrain from using these DNS servers.
+				</p>
+			</div>	
+		</section>
+
+		<section class="container my-5">
+			<div class="card">
+				<div class="card-body">
+					<form class="row align-items-center">
+						<div class="col-sm-8 p-1">
+							<label class="visually-hidden" for="domain">Username</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="domain" placeholder="Domain">
+							</div>
+						</div>
+						<div class="col-sm-2 p-1">
+							<label class="visually-hidden" for="type">Preference</label>
+							<select class="form-select" id="type">
+								<option value="1" selected>A</option>
+								<option value="2">NS</option>
+								<option value="5">CNAME</option>
+								<option value="6">SOA</option>
+								<option value="15">MX</option>
+								<option value="16">TXT</option>
+								<option value="28">AAAA</option>
+							</select>
+						</div>
+						<div class="col-sm-2 p-1">
+							<button type="button" class="btn btn-primary w-100" id="query">Query</button>
+						</div>
+						<div id="dns-query-error-message" class="m-0" role="alert"></div>
+					</form>
+					<div id="dns-query-results" class="m-1 text-secondary-emphasis font-monospace bg-secondary-subtle rounded"></div>
+				</div>
 			</div>
 		</section>
 		
-		<section>
-			<div class="container my-5">
-				<h2 class="text-center">Server Settings</h2>
-				<div class="accordion" id="technical-details">
-					<div class="accordion-item">
-						<h3 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-forwarders" aria-expanded="false" aria-controls="collapse-forwarders">
-								Forwarding
-							</button>
-						</h3>
-						<div id="collapse-forwarders" class="accordion-collapse collapse" data-bs-parent="#technical-details">
-							<div class="accordion-body">
-								<div class="row">
-									<div class="col-sm">
-										<p>
-											In cases where the DNS servers are unable to resolve a query from the local cache, the query will be forwarded to an external DNS resolver, 
-											specifically Quad9.
-											<br />
-											Please note the following:
-											<br />
-											<dl>
-												<dt>No control over external service:</dt>
-													<dd>
-														I have no control over the operation, performance, or security measures of Quad9's DNS service.
-														Therefore, I cannot provide any guarantees about the availability, accuracy, or speed of their service.
-													</dd>
-												<dt>Data handling by Quad9:</dt>
-													<dd>
-														Once the query is forwarded to Quad9, it is handled by their infrastructure, and their privacy and data handling policies apply.
-														I am not responsible for any misuse, logging, or data retention practices conducted by Quad9.
-													</dd>
-												<dt>Transparency:</dt>
-													<dd>I encourage you to review Quad9's Privacy Policy to understand how they handle your data and queries.</dd>
-											</dl>
-											By using my DNS service, you acknowledge that any query forwarded to Quad9 is subject to their terms of service and privacy policy.
-										</p>
-									</div>
-									<div class="col-sm">
-										<pre class="shadow m-0 bg-body-tertiary rounded">
-											<code class="language-ini">
-												options {
-												  ...
-												  forwarders port 853 {
-													9.9.9.9 tls quad9-tls;
-													149.112.112.112 tls quad9-tls;
-												  };
-												  ...
+		<section class="container my-5">
+			<h2 class="text-center">Server Settings</h2>
+			<div class="accordion" id="technical-details">
+				<div class="accordion-item">
+					<h3 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-forwarders" aria-expanded="false" aria-controls="collapse-forwarders">
+							Forwarding
+						</button>
+					</h3>
+					<div id="collapse-forwarders" class="accordion-collapse collapse" data-bs-parent="#technical-details">
+						<div class="accordion-body">
+							<div class="row">
+								<div class="col-sm">
+									<p>
+										In cases where the DNS servers are unable to resolve a query from the local cache, the query will be forwarded to an external DNS resolver, 
+										specifically Quad9.
+										<br />
+										Please note the following:
+										<br />
+										<dl>
+											<dt>No control over external service:</dt>
+												<dd>
+													I have no control over the operation, performance, or security measures of Quad9's DNS service.
+													Therefore, I cannot provide any guarantees about the availability, accuracy, or speed of their service.
+												</dd>
+											<dt>Data handling by Quad9:</dt>
+												<dd>
+													Once the query is forwarded to Quad9, it is handled by their infrastructure, and their privacy and data handling policies apply.
+													I am not responsible for any misuse, logging, or data retention practices conducted by Quad9.
+												</dd>
+											<dt>Transparency:</dt>
+												<dd>I encourage you to review Quad9's Privacy Policy to understand how they handle your data and queries.</dd>
+										</dl>
+										By using my DNS service, you acknowledge that any query forwarded to Quad9 is subject to their terms of service and privacy policy.
+									</p>
+								</div>
+								<div class="col-sm">
+									<pre class="shadow m-0 bg-body-tertiary rounded">
+										<code class="language-ini">
+											options {
+												...
+												forwarders port 853 {
+												9.9.9.9 tls quad9-tls;
+												149.112.112.112 tls quad9-tls;
 												};
-											</code>
-										</pre>
-									</div>
+												...
+											};
+										</code>
+									</pre>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="accordion-item">
-						<h3 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-logging" aria-expanded="false" aria-controls="collapse-logging">
-								Logging
-							</button>
-						</h3>
-						<div id="collapse-logging" class="accordion-collapse collapse" data-bs-parent="#technical-details">
-							<div class="accordion-body">
-								<div class="row">
-									<div class="col-sm">
-										<h4>Why logging data?</h4>
-										<p>
-											Logging serves several purposes essential to maintaining secure and reliable DNS operations:
-											<br />
-											<dl>
-												<dt>Troubleshooting:</dt>
-													<dd>Quickly identifying and resolving technical issues.</dd>
-												<dt>Security monitoring:</dt>
-													<dd>Detecting abuse, such as DDoS attacks or malicious queries.</dd>
-												<dt>Performance optimization:</dt>
-													<dd>Monitoring server performance to ensure reliability.</dd>
-												<dt>Abuse prevention:</dt>
-													<dd>Preventing misuse of our infrastructure by tracking suspicious activities.</dd>
-											</dl>
-										</p>
-										<hr>
-										<h4>What data is logged?</h4>
-										<p>
-											Certain categories of logs are disabled by default to prioritize privacy:
-											<br />
-											<dl>
-												<dt>General Operations (default):</dt>
-													<dd>Completely disabled, no general system activity is logged.</dd>
-												<dt>Queries (queries):</dt>
-													<dd>Disabled, no logs are maintained of regular DNS requests.</dd>
-												<dt>Query Errors (query-errors):</dt>
-													<dd>Disabled, no information about failed queries is logged.</dd>
-											</dl>
-										</p>
-										
-										<p>
-											The following logs are active and include data about client IP addresses, the domains being queried, and the specific actions taken by the server.
-											Below is an overview of the active logging categories:
-											<br />
-											<dl>
-												<dt>Authentication Server Logs (auth_servers_log):</dt>
-													<dd>Logs interactions between DNS servers (e.g., trust and authentication).</dd>
-												<dt>DNSSEC Logs (dnssec_log):</dt>
-													<dd>Records related to DNSSEC (Domain Name System Security Extensions), such as signing and validation events.</dd>
-												<dt>Zone Transfer Logs (zone_transfers_log):</dt>
-													<dd>Logs information about zone file transfers between servers.</dd>
-												<dt>Dynamic DNS Logs (ddns_log):</dt>
-													<dd>Tracks updates made through Dynamic DNS.</dd>
-												<dt>Client Security Logs (client_security_log):</dt>
-													<dd>Logs related to potentially unauthorized or malicious DNS requests, including source IPs and queried domains.</dd>
-												<dt>Rate-Limiting Logs (rate_limiting_log):</dt>
-													<dd>Records requests blocked due to exceeding rate limits.</dd>
-												<dt>RPZ Logs (rpz_log):</dt>
-													<dd>Tracks queries affected by Response Policy Zones (RPZ), often used to block or redirect malicious domains.</dd>
-												<dt>Debug Logs (default_debug):</dt>
-													<dd>Detailed logs used for debugging, only activated when necessary.</dd>
-											</dl>
-										</p>
-										<hr>
-										<h4>Retention and rotation policy</h4>
-										<p>
-											Logs are stored in files with a maximum duration of one day (24 hours) per file.<br>
-										</p>
-										<hr>
-										<h4>What does this mean for you?</h4>
-										<p>
-											<dl>
-												<dt>Logged Data:</dt>
-													<dd>For active logging categories, client IP addresses, the domains queried, and other technical details are logged.</dd>
-												<dt>Disabled Logging:</dt>
-													<dd>Regular DNS queries and errors are not logged (queries and query-errors are null).</dd>
-											</dl>
-										</p>
-										<hr>
-										<h4>Security and sharing</h4>
-										<p>
-											All logs are stored and accessible to the server administrators.
-											They are never shared with third parties, and their use is limited to operational purposes.
-										</p>
-									</div>
-									<div class="col-sm text-truncate">
-										<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
-											<code class="language-ini">
-												logging {
-												  ...
-												  channel default_syslog {
-													print-time yes;
-													print-category yes;
-													print-severity yes;
-													syslog daemon;
-													severity info;
-												  };
-												  ...
-												  category default { null; };
-												  category config { default_syslog; };
-												  category dispatch { default_syslog; };
-												  category network { default_syslog; };
-												  category general { default_syslog; };
-												  category zoneload { default_syslog; };
-												  category resolver { default_syslog; };
-												  category cname { default_syslog; };
-												  category lame-servers { default_syslog; };
-												  category edns-disabled { default_syslog; };
-												  category dnssec { default_syslog; };
-												  category notify { default_syslog; };
-												  category xfer-in { default_syslog; };
-												  category xfer-out { default_syslog; };
-												  category update{ default_syslog; };
-												  category update-security { default_syslog; };
-												  category client { default_syslog; };
-												  category security { default_syslog; };
-												  category rate-limit { default_syslog; };
-												  category spill { default_syslog; };
-												  category database { default_syslog; };
-												  category rpz { default_syslog; };
-												  category dnstap { default_syslog; };
-												  category trust-anchor-telemetry { default_syslog; };
-												  category queries { null; };
-												  category query-errors { null; };
+				</div>
+				<div class="accordion-item">
+					<h3 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-logging" aria-expanded="false" aria-controls="collapse-logging">
+							Logging
+						</button>
+					</h3>
+					<div id="collapse-logging" class="accordion-collapse collapse" data-bs-parent="#technical-details">
+						<div class="accordion-body">
+							<div class="row">
+								<div class="col-sm">
+									<h4>Why logging data?</h4>
+									<p>
+										Logging serves several purposes essential to maintaining secure and reliable DNS operations:
+										<br />
+										<dl>
+											<dt>Troubleshooting:</dt>
+												<dd>Quickly identifying and resolving technical issues.</dd>
+											<dt>Security monitoring:</dt>
+												<dd>Detecting abuse, such as DDoS attacks or malicious queries.</dd>
+											<dt>Performance optimization:</dt>
+												<dd>Monitoring server performance to ensure reliability.</dd>
+											<dt>Abuse prevention:</dt>
+												<dd>Preventing misuse of our infrastructure by tracking suspicious activities.</dd>
+										</dl>
+									</p>
+									<hr>
+									<h4>What data is logged?</h4>
+									<p>
+										Certain categories of logs are disabled by default to prioritize privacy:
+										<br />
+										<dl>
+											<dt>General Operations (default):</dt>
+												<dd>Completely disabled, no general system activity is logged.</dd>
+											<dt>Queries (queries):</dt>
+												<dd>Disabled, no logs are maintained of regular DNS requests.</dd>
+											<dt>Query Errors (query-errors):</dt>
+												<dd>Disabled, no information about failed queries is logged.</dd>
+										</dl>
+									</p>
+									
+									<p>
+										The following logs are active and include data about client IP addresses, the domains being queried, and the specific actions taken by the server.
+										Below is an overview of the active logging categories:
+										<br />
+										<dl>
+											<dt>Authentication Server Logs (auth_servers_log):</dt>
+												<dd>Logs interactions between DNS servers (e.g., trust and authentication).</dd>
+											<dt>DNSSEC Logs (dnssec_log):</dt>
+												<dd>Records related to DNSSEC (Domain Name System Security Extensions), such as signing and validation events.</dd>
+											<dt>Zone Transfer Logs (zone_transfers_log):</dt>
+												<dd>Logs information about zone file transfers between servers.</dd>
+											<dt>Dynamic DNS Logs (ddns_log):</dt>
+												<dd>Tracks updates made through Dynamic DNS.</dd>
+											<dt>Client Security Logs (client_security_log):</dt>
+												<dd>Logs related to potentially unauthorized or malicious DNS requests, including source IPs and queried domains.</dd>
+											<dt>Rate-Limiting Logs (rate_limiting_log):</dt>
+												<dd>Records requests blocked due to exceeding rate limits.</dd>
+											<dt>RPZ Logs (rpz_log):</dt>
+												<dd>Tracks queries affected by Response Policy Zones (RPZ), often used to block or redirect malicious domains.</dd>
+											<dt>Debug Logs (default_debug):</dt>
+												<dd>Detailed logs used for debugging, only activated when necessary.</dd>
+										</dl>
+									</p>
+									<hr>
+									<h4>Retention and rotation policy</h4>
+									<p>
+										Logs are stored in files with a maximum duration of one day (24 hours) per file.<br>
+									</p>
+									<hr>
+									<h4>What does this mean for you?</h4>
+									<p>
+										<dl>
+											<dt>Logged Data:</dt>
+												<dd>For active logging categories, client IP addresses, the domains queried, and other technical details are logged.</dd>
+											<dt>Disabled Logging:</dt>
+												<dd>Regular DNS queries and errors are not logged (queries and query-errors are null).</dd>
+										</dl>
+									</p>
+									<hr>
+									<h4>Security and sharing</h4>
+									<p>
+										All logs are stored and accessible to the server administrators.
+										They are never shared with third parties, and their use is limited to operational purposes.
+									</p>
+								</div>
+								<div class="col-sm text-truncate">
+									<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+										<code class="language-ini">
+											logging {
+												...
+												channel default_syslog {
+												print-time yes;
+												print-category yes;
+												print-severity yes;
+												syslog daemon;
+												severity info;
 												};
-											</code>
-										</pre>
-									</div>
+												...
+												category default { null; };
+												category config { default_syslog; };
+												category dispatch { default_syslog; };
+												category network { default_syslog; };
+												category general { default_syslog; };
+												category zoneload { default_syslog; };
+												category resolver { default_syslog; };
+												category cname { default_syslog; };
+												category lame-servers { default_syslog; };
+												category edns-disabled { default_syslog; };
+												category dnssec { default_syslog; };
+												category notify { default_syslog; };
+												category xfer-in { default_syslog; };
+												category xfer-out { default_syslog; };
+												category update{ default_syslog; };
+												category update-security { default_syslog; };
+												category client { default_syslog; };
+												category security { default_syslog; };
+												category rate-limit { default_syslog; };
+												category spill { default_syslog; };
+												category database { default_syslog; };
+												category rpz { default_syslog; };
+												category dnstap { default_syslog; };
+												category trust-anchor-telemetry { default_syslog; };
+												category queries { null; };
+												category query-errors { null; };
+											};
+										</code>
+									</pre>
 								</div>
 							</div>
 						</div>
@@ -667,14 +704,69 @@ SOFTWARE.
 				</div>
 			</div>
 		</section>
+
+		<section class="container my-5">
+			<div class="accordion" id="open-source-information">
+				<div class="accordion-item">
+					<h3 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-open-source-information" aria-expanded="false" aria-controls="collapse-open-source-information">
+							Open source information
+						</button>
+					</h3>
+					<div id="collapse-open-source-information" class="accordion-collapse collapse" data-bs-parent="#open-source-information">
+						<div class="accordion-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Library</th>
+										<th>License</th>
+										<th>Website</th>
+										<th>Repository</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Bootstrap</td>
+										<td>MIT</td>
+										<td><a href="https://getbootstrap.com/">getbootstrap.com</a></td>
+										<td><a class="text-nowrap" href="https://github.com/twbs/bootstrap">GitHub - twbs/bootstrap</a></td>
+									</tr>
+									<tr>
+										<td>Three.js</td>
+										<td>MIT</td>
+										<td><a href="https://threejs.org/">threejs.org</a></td>
+										<td><a class="text-nowrap" href="https://github.com/mrdoob/three.js">GitHub - mrdoob/three.js</a></td>
+									</tr>
+									<tr>
+										<td>Prism.js</td>
+										<td>MIT</td>
+										<td><a href="https://prismjs.com/">prismjs.com</a></td>
+										<td><a class="text-nowrap" href="https://github.com/PrismJS/prism">GitHub - PrismJS/prism</a></td>
+									</tr>
+									<tr>
+										<td>mustache.js</td>
+										<td>MIT</td>
+										<td><a href="https://mustache.github.io/">mustache.github.io</a></td>
+										<td><a class="text-nowrap" href="https://github.com/janl/mustache.js">GitHub - janl/mustache.js</a></td>
+									</tr>
+									<tr>
+										<td>dnsclient.js</td>
+										<td>MIT</td>
+										<td><a href="https://www.dremaxx.de/">dremaxx.de</a></td>
+										<td><a class="text-nowrap" href="https://github.com/yannickdreher/dnsclient.js">GitHub - yannickdreher/dnsclient.js</a></td>
+									</tr>
+								</tbody>
+							</table>
+							<p class="m-0">Many thanks to everyone who is working on these projects! <i class="bi bi-heart-fill text-danger"></i></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		
-		<section class="container fw-lighter text-center">
+		<section class="container fw-lighter text-center mb-3">
 			<p>You like the service and would like to support me?</p>
 			<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#buy-me-a-coffee">Buy me a koffee <i class="bi bi-cup-hot"></i></button>
-		</section>
-
-		<section class="container my-3 fw-lighter text-center">
-			<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#open-source-info">Open source information</button>
 		</section>
 		
 		<footer class="container-fluid align-items-center fw-lighter pb-2">
@@ -700,15 +792,15 @@ SOFTWARE.
 					</div>
 					<div class="modal-body">
 						<p>
-						Yannick Dreher<br />
-						Gertrude-Neumark-Weg 17<br />
-						90431 N&uuml;rnberg
+							Yannick Dreher<br />
+							Gertrude-Neumark-Weg 17<br />
+							90431 N&uuml;rnberg
 						</p>
 
 						<h4>Kontakt</h4>
 						<p>
-						Telefon: +4915158056065<br />
-						E-Mail: yannick.dreher@dremaxx.de
+							Telefon: +4915158056065<br />
+							E-Mail: yannick.dreher@dremaxx.de
 						</p>
 					</div>
 					<div class="modal-footer">
@@ -736,63 +828,73 @@ SOFTWARE.
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<div class="modal fade" id="open-source-info" tabindex="-1" aria-labelledby="open-source-info-label" aria-hidden="true">
-			<div class="modal-dialog modal-fullscreen">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="open-source-info-label">Open source infomation</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Library</th>
-									<th>License</th>
-									<th>Website</th>
-									<th>Repository</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Bootstrap</td>
-									<td>MIT</td>
-									<td><a href="https://getbootstrap.com/">getbootstrap.com</a></td>
-									<td><a class="text-nowrap" href="https://github.com/twbs/bootstrap">GitHub - twbs/bootstrap</a></td>
-								</tr>
-								<tr>
-									<td>Three.js</td>
-									<td>MIT</td>
-									<td><a href="https://threejs.org/">threejs.org</a></td>
-									<td><a class="text-nowrap" href="https://github.com/mrdoob/three.js">GitHub - mrdoob/three.js</a></td>
-								</tr>
-								<tr>
-									<td>Prism.js</td>
-									<td>MIT</td>
-									<td><a href="https://prismjs.com/">prismjs.com</a></td>
-									<td><a class="text-nowrap" href="https://github.com/PrismJS/prism">GitHub - PrismJS/prism</a></td>
-								</tr>
-								<tr>
-									<td>dnsclient.js</td>
-									<td>MIT</td>
-									<td><a href="https://www.dremaxx.de/">dremaxx.de</a></td>
-									<td><a class="text-nowrap" href="https://github.com/yannickdreher/dnsclient.js">GitHub - yannickdreher/dnsclient.js</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					</div>
+	<script id="dns-query-result-tmpl" type="x-tmpl-mustache">
+		<div class="row mt-2 pt-2">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table table-sm rounded">
+						<thead>
+							<tr>
+								<th scope="col" class="text-secondary-emphasis">OPCODE</th>
+								<th scope="col" class="text-secondary-emphasis">QR</th>
+								<th scope="col" class="text-secondary-emphasis">RCODE</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-secondary-emphasis">{{message.flags.opcode}}</td>
+								<td class="text-secondary-emphasis">{{message.flags.qr}}</td>
+								<td class="text-secondary-emphasis">{{message.flags.rcode}}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-	</div>
+		<div class="row">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table table-sm table-hover rounded">
+						<thead>
+							<tr>
+								<th scope="col" class="text-secondary-emphasis">NAME</th>
+								<th scope="col" class="text-secondary-emphasis">TYPE</th>
+								<th scope="col" class="text-secondary-emphasis">CLASS</th>
+								<th scope="col" class="text-secondary-emphasis">DATA</th>
+							</tr>
+						</thead>
+						<tbody>
+						{{#message.answers}}
+							<tr>
+								<td class="text-secondary-emphasis">{{name}}</td>
+								<td class="text-secondary-emphasis">{{type}}</td>
+								<td class="text-secondary-emphasis">{{clazz}}</td>
+								<td class="text-secondary-emphasis">{{#data}}{{key}}: {{value}}<br />{{/data}}</td>
+							</tr>
+						{{/message.answers}}
+						{{^message.answers}}
+							<tr>
+								<td colspan="4" class="text-secondary-emphasis text-center">Query returned no records.</td>
+							</tr>
+						{{/message.answers}}
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p class="text-body-secondary fw-light">Latency: {{latency}} ms
+			</div>
+		</div>
+    </script>
 	<script type="importmap">
 		{
 			"imports": {
 				"dnsclient": "./js/dnsclient.min.js",
+				"mustache": "./js/mustache.min.js",
 				"mobileconfig": "./js/mobileconfig.js",
 				"three": "./js/three.module.min.js"
 			}
@@ -804,6 +906,7 @@ SOFTWARE.
 	<script type="module">
 		import * as DNS from 'dnsclient';
 		import * as MC from 'mobileconfig';
+		import Mustache from 'mustache';
 
 		Prism.plugins.NormalizeWhitespace.setDefaults({
 			'remove-trailing': true,
@@ -825,6 +928,38 @@ SOFTWARE.
                 console.error('Error copying to clipboard:', err);
             });
         }
+
+		document.getElementById("query").addEventListener("click", async () => {
+			const domain = document.getElementById("domain").value;
+			const type = document.getElementById("type").value;
+			const question = new DNS.Question(domain, type, 1);
+
+			const errorEl = document.getElementById("dns-query-error-message");
+			errorEl.textContent = '';
+			errorEl.className = 'm-0';
+
+			const domainPattern = /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,11}$/;
+
+			if (!domainPattern.test(domain)) {
+				errorEl.textContent = 'Please enter a valid domain name.';
+				errorEl.className = 'mt-3 mb-0 alert alert-danger';
+				document.getElementById('dns-query-results').innerHTML = '';
+				return;
+			}
+
+			try {
+				const result = await DNS.query('https://dns.dremaxx.de/dns-query', question);
+				console.log(result);
+
+				const template = document.getElementById('dns-query-result-tmpl').innerHTML;
+				const rendered = Mustache.render(template, result,);
+				document.getElementById('dns-query-results').innerHTML = rendered;
+			} catch (error) {
+				errorEl.textContent = `Error during query: ${error.message}`;
+				errorEl.className = 'mt-3 mb-0 alert alert-danger';
+				document.getElementById('dns-query-results').innerHTML = '';
+			}
+		});
 
 		async function updateServerStatus(serverName) {
 			const parentEl   = document.getElementById(serverName);
