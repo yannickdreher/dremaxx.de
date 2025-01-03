@@ -41,7 +41,7 @@ SOFTWARE.
 	<link href="css/prism.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-		table tr td, table tr th{
+		.table-nobg tr td, .table-nobg tr th {
 			background-color: rgba(0,0,0, 0) !important;
 		}
 
@@ -100,7 +100,7 @@ SOFTWARE.
 					<div class="col-sm-4 py-4">
 						<h4 id="theo-hostname" class="hostname p-2 m-0 text-center rounded">
 							theo.dremaxx.de
-							<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-hostname', this)"><i class="bi bi-clipboard"></i></button>
+							<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
 						</h4>
 					</div>
 					<div class="col-sm-5 py-2">
@@ -108,16 +108,20 @@ SOFTWARE.
 							<table class="table table-borderless align-middle rounded  m-0">
 								<tr class="border-bottom">
 									<th>IPv4:</th>
-									<td id="theo-ipv4" class="ipv4">85.215.153.54</td>
-									<td class="text-end">
-										<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-ipv4', this)"><i class="bi bi-clipboard"></i></button>
+									<td id="theo-ipv4" class="ipv4">
+										<div class="d-flex justify-content-between align-items-center">
+											<span>85.215.153.54</span>
+											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+										</div>
 									</td>
 								</tr>
 								<tr>
 									<th>IPv6:</th>
-									<td id="theo-ipv6" class="ipv6">2a01:239:251:a800::1</td>
-									<td class="text-end">
-										<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('theo-ipv6', this)"><i class="bi bi-clipboard"></i></button>
+									<td id="theo-ipv6" class="ipv6">
+										<div class="d-flex justify-content-between align-items-center">
+											<span>2a01:239:251:a800::1</span>
+											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+										</div>
 									</td>
 								</tr>
 							</table>
@@ -157,7 +161,7 @@ SOFTWARE.
 					<div class="col-sm-4 py-4">
 						<h4 id="fritz-hostname" class="hostname p-2 m-0 text-center rounded">
 							fritz.dremaxx.de
-							<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-hostname', this)"><i class="bi bi-clipboard"></i></button>
+							<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
 						</h4>
 					</div>
 					<div class="col-sm-5 py-2">
@@ -165,16 +169,20 @@ SOFTWARE.
 							<table class="table table-borderless align-middle rounded  m-0">
 								<tr class="border-bottom">
 									<th>IPv4:</th>
-									<td id="fritz-ipv4" class="ipv4">87.106.35.241</td>
-									<td class="text-end">
-										<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-ipv4', this)"><i class="bi bi-clipboard"></i></button>
+									<td id="fritz-ipv4" class="ipv4">
+										<div class="d-flex justify-content-between align-items-center">
+											<span>87.106.35.241</span>
+											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+										</div>
 									</td>
 								</tr>
 								<tr>
 									<th>IPv6:</th>
-									<td id="fritz-ipv6" class="ipv6">2a00:da00:f425:5800::1</td>
-									<td class="text-end">
-										<button type="button" class="btn btn-link p-0" onclick="copyToClipboard('fritz-ipv6', this)"><i class="bi bi-clipboard"></i></button>
+									<td id="fritz-ipv6" class="ipv6">
+										<div class="d-flex justify-content-between align-items-center">
+											<span>2a00:da00:f425:5800::1</span>
+											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+										</div>
 									</td>
 								</tr>
 							</table>
@@ -834,12 +842,16 @@ SOFTWARE.
 		<div class="row mt-2 pt-2">
 			<div class="col">
 				<div class="table-responsive">
-					<table class="table table-sm rounded">
+					<table class="table table-sm table-nobg rounded">
 						<thead>
 							<tr>
 								<th scope="col" class="text-secondary-emphasis">OPCODE</th>
 								<th scope="col" class="text-secondary-emphasis">QR</th>
 								<th scope="col" class="text-secondary-emphasis">RCODE</th>
+								<th scope="col" class="text-secondary-emphasis">AA</th>
+								<th scope="col" class="text-secondary-emphasis">RA</th>
+								<th scope="col" class="text-secondary-emphasis">RD</th>
+								<th scope="col" class="text-secondary-emphasis">TC</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -847,6 +859,10 @@ SOFTWARE.
 								<td class="text-secondary-emphasis">{{message.flags.opcode}}</td>
 								<td class="text-secondary-emphasis">{{message.flags.qr}}</td>
 								<td class="text-secondary-emphasis">{{message.flags.rcode}}</td>
+								<td class="text-secondary-emphasis">{{message.flags.aa}}</td>
+								<td class="text-secondary-emphasis">{{message.flags.ra}}</td>
+								<td class="text-secondary-emphasis">{{message.flags.rd}}</td>
+								<td class="text-secondary-emphasis">{{message.flags.tc}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -856,7 +872,7 @@ SOFTWARE.
 		<div class="row">
 			<div class="col">
 				<div class="table-responsive">
-					<table class="table table-sm table-hover rounded">
+					<table class="table table-sm table-hover table-nobg rounded">
 						<thead>
 							<tr>
 								<th scope="col" class="text-secondary-emphasis">NAME</th>
@@ -915,19 +931,20 @@ SOFTWARE.
 			'right-trim': true,
 		});
 
-		function copyToClipboard(elementId, button) {
-			const element  = document.getElementById(elementId);
-            navigator.clipboard.writeText(element.textContent.trim()).then(() => {
-				const originalIcon = button.innerHTML;
-				button.innerHTML = '<i class="bi bi-check text-success"></i>';
+		document.querySelectorAll(".ctc").forEach(function(element) {
+			element.addEventListener("click", function() {
+				navigator.clipboard.writeText(this.parentElement.textContent.trim()).then(() => {
+					const originalIcon = this.innerHTML;
+					this.innerHTML = '<i class="bi bi-check text-success"></i>';
 
-				setTimeout(() => {
-					button.innerHTML = originalIcon;
-				}, 1000);
-			}).catch(err => {
-                console.error('Error copying to clipboard:', err);
-            });
-        }
+					setTimeout(() => {
+						this.innerHTML = originalIcon;
+					}, 1000);
+				}).catch(err => {
+					console.error('Error copying to clipboard:', err);
+				});
+			});
+        });
 
 		document.getElementById("query").addEventListener("click", async () => {
 			const domain = document.getElementById("domain").value;
