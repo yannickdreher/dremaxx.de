@@ -1,0 +1,77 @@
+<div class="row mt-2 pt-2">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table table-sm table-nobg rounded">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-secondary-emphasis">OPCODE</th>
+                        <th scope="col" class="text-secondary-emphasis">QR</th>
+                        <th scope="col" class="text-secondary-emphasis">RCODE</th>
+                        <th scope="col" class="text-secondary-emphasis">ANCOUNT</th>
+                        <th scope="col" class="text-secondary-emphasis">AA</th>
+                        <th scope="col" class="text-secondary-emphasis">RA</th>
+                        <th scope="col" class="text-secondary-emphasis">RD</th>
+                        <th scope="col" class="text-secondary-emphasis">TC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-secondary-emphasis">{{message.flags.opcode}}</td>
+                        <td class="text-secondary-emphasis">{{message.flags.qr}}</td>
+                        <td class="text-secondary-emphasis">{{message.flags.rcode}}</td>
+                        <td class="text-secondary-emphasis">{{message.ancount}}</td>
+                        <td class="text-secondary-emphasis">{{message.flags.aa}}</td>
+                        <td class="text-secondary-emphasis">{{message.flags.ra}}</td>
+                        <td class="text-secondary-emphasis">{{message.flags.rd}}</td>
+                        <td class="text-secondary-emphasis">{{message.flags.tc}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover table-nobg rounded">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-secondary-emphasis">NAME</th>
+                        <th scope="col" class="text-secondary-emphasis">TYPE</th>
+                        <th scope="col" class="text-secondary-emphasis">CLASS</th>
+                        <th scope="col" class="text-secondary-emphasis">DATA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#message.answers}}
+                    <tr>
+                        <td class="text-secondary-emphasis">{{name}}</td>
+                        <td class="text-secondary-emphasis">{{type}}</td>
+                        <td class="text-secondary-emphasis">{{clazz}}</td>
+                        <td class="text-secondary-emphasis">
+                            <table>
+                                {{#data}}
+                                <tr>
+                                    <td>{{key}}:</td>
+                                    <td>{{value}}</td>
+                                </tr>
+                                {{/data}}
+                            </table>
+                        </td>
+                    </tr>
+                    {{/message.answers}}
+                    {{^message.answers}}
+                    <tr>
+                        <td colspan="4" class="text-secondary-emphasis text-center">Query returned no records.</td>
+                    </tr>
+                    {{/message.answers}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p class="text-body-secondary fw-light">Latency: {{latency}} ms
+    </div>
+</div>

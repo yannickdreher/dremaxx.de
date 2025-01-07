@@ -20,7 +20,9 @@ Copyright © 2024-2025 Yannick Dreher
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-icons.min.css" rel="stylesheet">
 	<link href="css/prism.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Chakra+Petch:wght@400;700&display=swap" rel="stylesheet">
     <style>
 		.table-nobg tr td, .table-nobg tr th {
 			background-color: rgba(0,0,0, 0) !important;
@@ -49,24 +51,29 @@ Copyright © 2024-2025 Yannick Dreher
 			margin-right: 0;
 		}
 		
-		.text-gradient {
+		.title {
 			background: linear-gradient(90deg, var(--bs-blue), var(--bs-cyan), var(--bs-teal));
 			background-clip: text;
-			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
-			font-weight: bold;
-		}
-		
-		.title {
 			font-family: 'Montserrat', sans-serif;
+			font-weight: bold;
 			font-size: 2.5rem;
+		}
+
+		.hostname {
+			background: linear-gradient(180deg, var(--bs-cyan), var(--bs-teal));
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			font-family: "Chakra Petch", serif;
+			font-weight: 700;
+			font-style: normal;
 		}
     </style>
 </head>
 <body>
 	<div class="content">		
 		<div class="container my-5 text-center">
-			<h1 class="title text-gradient">Public DNS Forwarding Servers</h1>
+			<h1 class="title">Public DNS Forwarding Servers</h1>
 			<p class="text-body-secondary fw-light">Personal contribution to an open and secure network</p>
 			<p class="text-body-secondary fw-light">
 				This DNS forwarding service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).<br>
@@ -76,11 +83,11 @@ Copyright © 2024-2025 Yannick Dreher
 		</div>
 		
 		<section class="container my-5">
-			<div class="bg-dark-subtle border bg-secondary-subtle text-secondary-emphasis rounded">
+			<div class="bg-dark-subtle border bg-secondary-subtle rounded">
 				<div id="theo" class="row align-items-center border-bottom">
 					<div class="col-sm-4 py-4">
-						<h4 id="theo-hostname" class="hostname p-2 m-0 text-center rounded">
-							theo.dremaxx.de
+						<h4 id="theo-hostname" class="p-2 m-0 text-center rounded">
+							<span class="hostname">theo.dremaxx.de</span>
 							<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
 						</h4>
 					</div>
@@ -140,8 +147,8 @@ Copyright © 2024-2025 Yannick Dreher
 				
 				<div id="fritz" class="row align-items-center align-middle">
 					<div class="col-sm-4 py-4">
-						<h4 id="fritz-hostname" class="hostname p-2 m-0 text-center rounded">
-							fritz.dremaxx.de
+						<h4 id="fritz-hostname" class="p-2 m-0 text-center rounded">
+							<span class="hostname">fritz.dremaxx.de</span>
 							<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
 						</h4>
 					</div>
@@ -820,77 +827,6 @@ Copyright © 2024-2025 Yannick Dreher
 			</div>
 		</div>
 	</div>
-
-	<script id="dns-query-result-tmpl" type="x-tmpl-mustache">
-		<div class="row mt-2 pt-2">
-			<div class="col">
-				<div class="table-responsive">
-					<table class="table table-sm table-nobg rounded">
-						<thead>
-							<tr>
-								<th scope="col" class="text-secondary-emphasis">OPCODE</th>
-								<th scope="col" class="text-secondary-emphasis">QR</th>
-								<th scope="col" class="text-secondary-emphasis">RCODE</th>
-								<th scope="col" class="text-secondary-emphasis">ANCOUNT</th>
-								<th scope="col" class="text-secondary-emphasis">AA</th>
-								<th scope="col" class="text-secondary-emphasis">RA</th>
-								<th scope="col" class="text-secondary-emphasis">RD</th>
-								<th scope="col" class="text-secondary-emphasis">TC</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="text-secondary-emphasis">{{message.flags.opcode}}</td>
-								<td class="text-secondary-emphasis">{{message.flags.qr}}</td>
-								<td class="text-secondary-emphasis">{{message.flags.rcode}}</td>
-								<td class="text-secondary-emphasis">{{message.ancount}}</td>
-								<td class="text-secondary-emphasis">{{message.flags.aa}}</td>
-								<td class="text-secondary-emphasis">{{message.flags.ra}}</td>
-								<td class="text-secondary-emphasis">{{message.flags.rd}}</td>
-								<td class="text-secondary-emphasis">{{message.flags.tc}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<div class="table-responsive">
-					<table class="table table-sm table-hover table-nobg rounded">
-						<thead>
-							<tr>
-								<th scope="col" class="text-secondary-emphasis">NAME</th>
-								<th scope="col" class="text-secondary-emphasis">TYPE</th>
-								<th scope="col" class="text-secondary-emphasis">CLASS</th>
-								<th scope="col" class="text-secondary-emphasis">DATA</th>
-							</tr>
-						</thead>
-						<tbody>
-						{{#message.answers}}
-							<tr>
-								<td class="text-secondary-emphasis">{{name}}</td>
-								<td class="text-secondary-emphasis">{{type}}</td>
-								<td class="text-secondary-emphasis">{{clazz}}</td>
-								<td class="text-secondary-emphasis">{{#data}}{{key}}: {{value}}<br />{{/data}}</td>
-							</tr>
-						{{/message.answers}}
-						{{^message.answers}}
-							<tr>
-								<td colspan="4" class="text-secondary-emphasis text-center">Query returned no records.</td>
-							</tr>
-						{{/message.answers}}
-					</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<p class="text-body-secondary fw-light">Latency: {{latency}} ms
-			</div>
-		</div>
-    </script>
 	<script type="importmap">
 		{
 			"imports": {
@@ -908,6 +844,8 @@ Copyright © 2024-2025 Yannick Dreher
 		import * as DNS from 'dnsclient';
 		import * as MC from 'mobileconfig';
 		import Mustache from 'mustache';
+		
+		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
 
 		Prism.plugins.NormalizeWhitespace.setDefaults({
 			'remove-trailing': true,
@@ -921,13 +859,10 @@ Copyright © 2024-2025 Yannick Dreher
 				navigator.clipboard.writeText(this.parentElement.textContent.trim()).then(() => {
 					const originalIcon = this.innerHTML;
 					this.innerHTML = '<i class="bi bi-check text-success"></i>';
-
 					setTimeout(() => {
 						this.innerHTML = originalIcon;
 					}, 1000);
-				}).catch(err => {
-					console.error('Error copying to clipboard:', err);
-				});
+				}).catch(error => console.error('Error copying to clipboard:', error));
 			});
         });
 
@@ -953,8 +888,7 @@ Copyright © 2024-2025 Yannick Dreher
 				const result = await DNS.query('https://dns.dremaxx.de/dns-query', question);
 				console.log(result);
 
-				const template = document.getElementById('dns-query-result-tmpl').innerHTML;
-				const rendered = Mustache.render(template, result,);
+				const rendered = Mustache.render(DNS_QUERY_RESULT_TMPL, result);
 				document.getElementById('dns-query-results').innerHTML = rendered;
 			} catch (error) {
 				errorEl.textContent = `Error during query: ${error.message}`;
