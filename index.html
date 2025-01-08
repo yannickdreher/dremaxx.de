@@ -4,7 +4,7 @@ File:     index.html
 Author:   Yannick Dreher (yannick.dreher@dremaxx.de)
 -----
 Created:  Friday, 29th November 2024 7:12:53 pm
-Modified: Friday, 3rd January 2025 4:06:37 pm
+Modified: Wednesday, 8th January 2025 5:14:56 pm
 -----
 License: MIT License (https://opensource.org/licenses/MIT)
 Copyright © 2024-2025 Yannick Dreher
@@ -15,13 +15,14 @@ Copyright © 2024-2025 Yannick Dreher
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
-    <title>Public DNS Forwarding Servers</title>
-	<meta name="description" content="This DNS forwarding service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).">
+    <title>Public DNS Servers</title>
+	<meta name="description" content="This DNS service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-icons.min.css" rel="stylesheet">
 	<link href="css/prism.css" rel="stylesheet">
-	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Chakra+Petch:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+
     <style>
 		.table-nobg tr td, .table-nobg tr th {
 			background-color: rgba(0,0,0, 0) !important;
@@ -58,24 +59,15 @@ Copyright © 2024-2025 Yannick Dreher
 			font-weight: bold;
 			font-size: 2.5rem;
 		}
-
-		.hostname {
-			background: linear-gradient(180deg, var(--bs-cyan), var(--bs-teal));
-			background-clip: text;
-			-webkit-text-fill-color: transparent;
-			font-family: "Chakra Petch", serif;
-			font-weight: 700;
-			font-style: normal;
-		}
     </style>
 </head>
 <body>
 	<div class="content">		
 		<div class="container my-5 text-center">
-			<h1 class="title">Public DNS Forwarding Servers</h1>
+			<h1 class="title">Public DNS Servers</h1>
 			<p class="text-body-secondary fw-light">Personal contribution to an open and secure network</p>
 			<p class="text-body-secondary fw-light">
-				This DNS forwarding service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).<br>
+				This DNS service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).<br>
 				These advanced protocols encrypt your DNS queries, preventing eavesdropping, tracking, and DNS-based attacks.<br>
 				Unlike traditional DNS, which sends queries in plain text, this service ensures that your browsing data stays private and secure from ISPs, hackers, and other third parties.
 			</p>
@@ -85,8 +77,8 @@ Copyright © 2024-2025 Yannick Dreher
 			<div class="bg-dark-subtle border bg-secondary-subtle rounded">
 				<div id="theo" class="row align-items-center border-bottom">
 					<div class="col-sm-4 py-4">
-						<h4 id="theo-hostname" class="p-2 m-0 text-center rounded">
-							<span class="hostname">theo.dremaxx.de</span>
+						<h4 class="p-2 m-0 text-center rounded">
+							<span class="hostname text-info">theo.dremaxx.de</span>
 							<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
 						</h4>
 					</div>
@@ -95,7 +87,7 @@ Copyright © 2024-2025 Yannick Dreher
 							<table class="table table-borderless align-middle rounded  m-0">
 								<tr class="border-bottom">
 									<th>IPv4:</th>
-									<td id="theo-ipv4" class="ipv4">
+									<td class="ipv4">
 										<div class="d-flex justify-content-between align-items-center">
 											<span>85.215.153.54</span>
 											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
@@ -104,7 +96,7 @@ Copyright © 2024-2025 Yannick Dreher
 								</tr>
 								<tr>
 									<th>IPv6:</th>
-									<td id="theo-ipv6" class="ipv6">
+									<td class="ipv6">
 										<div class="d-flex justify-content-between align-items-center">
 											<span>2a01:239:251:a800::1</span>
 											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
@@ -146,8 +138,8 @@ Copyright © 2024-2025 Yannick Dreher
 				
 				<div id="fritz" class="row align-items-center align-middle">
 					<div class="col-sm-4 py-4">
-						<h4 id="fritz-hostname" class="p-2 m-0 text-center rounded">
-							<span class="hostname">fritz.dremaxx.de</span>
+						<h4 class="p-2 m-0 text-center rounded">
+							<span class="hostname text-info">fritz.dremaxx.de</span>
 							<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
 						</h4>
 					</div>
@@ -156,7 +148,7 @@ Copyright © 2024-2025 Yannick Dreher
 							<table class="table table-borderless align-middle rounded  m-0">
 								<tr class="border-bottom">
 									<th>IPv4:</th>
-									<td id="fritz-ipv4" class="ipv4">
+									<td class="ipv4">
 										<div class="d-flex justify-content-between align-items-center">
 											<span>87.106.35.241</span>
 											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
@@ -165,7 +157,7 @@ Copyright © 2024-2025 Yannick Dreher
 								</tr>
 								<tr>
 									<th>IPv6:</th>
-									<td id="fritz-ipv6" class="ipv6">
+									<td class="ipv6">
 										<div class="d-flex justify-content-between align-items-center">
 											<span>2a00:da00:f425:5800::1</span>
 											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
@@ -262,7 +254,7 @@ Copyright © 2024-2025 Yannick Dreher
 				<div class="accordion-item">
 					<h3 class="accordion-header">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-forwarders" aria-expanded="false" aria-controls="collapse-forwarders">
-							Forwarding
+							Recursion
 						</button>
 					</h3>
 					<div id="collapse-forwarders" class="accordion-collapse collapse" data-bs-parent="#technical-details">
@@ -270,26 +262,9 @@ Copyright © 2024-2025 Yannick Dreher
 							<div class="row">
 								<div class="col-sm">
 									<p>
-										In cases where the DNS servers are unable to resolve a query from the local cache, the query will be forwarded to an external DNS resolver, 
-										specifically Quad9.
-										<br />
-										Please note the following:
-										<br />
-										<dl>
-											<dt>No control over external service:</dt>
-												<dd>
-													I have no control over the operation, performance, or security measures of Quad9's DNS service.
-													Therefore, I cannot provide any guarantees about the availability, accuracy, or speed of their service.
-												</dd>
-											<dt>Data handling by Quad9:</dt>
-												<dd>
-													Once the query is forwarded to Quad9, it is handled by their infrastructure, and their privacy and data handling policies apply.
-													I am not responsible for any misuse, logging, or data retention practices conducted by Quad9.
-												</dd>
-											<dt>Transparency:</dt>
-												<dd>I encourage you to review Quad9's Privacy Policy to understand how they handle your data and queries.</dd>
-										</dl>
-										By using my DNS service, you acknowledge that any query forwarded to Quad9 is subject to their terms of service and privacy policy.
+										In cases where the DNS servers are unable to resolve a query from the local cache, the servers rely on root hints to query 
+										the authoritative DNS hierarchy step by step, starting from the root servers. 
+										This ensures accurate and up-to-date responses while maintaining independence from external DNS providers.
 									</p>
 								</div>
 								<div class="col-sm">
@@ -297,10 +272,10 @@ Copyright © 2024-2025 Yannick Dreher
 										<code class="language-ini">
 											options {
 												...
-												forwarders port 853 {
-												9.9.9.9 tls quad9-tls;
-												149.112.112.112 tls quad9-tls;
-												};
+												recursion yes;
+												allow-recursion { any; };
+												allow-query { any; };
+												allow-query-cache { any; };
 												...
 											};
 										</code>
@@ -614,6 +589,10 @@ Copyright © 2024-2025 Yannick Dreher
 									</div>
 								</div>
 								<div class="col-sm">
+									<p>
+										To use custom DNS settings on iPhone or iPad, a configuration profile is required. 
+										This profile allows you to specify DNS servers directly on the device, overriding the default settings.
+									</p>
 									<form>
 										<div class="mb-3">
 											<label for="input-excluded-wifi-networks" class="form-label">Excluded WiFi Networks</label>
@@ -627,17 +606,17 @@ Copyright © 2024-2025 Yannick Dreher
 										</div>
 										<div class="mb-3 form-check">
 											<input type="checkbox" class="form-check-input" id="input-profile-enabled-on-wifi" checked>
-											<label class="form-check-label" for="input-profile-enabled-on-wifi">Profile enabled on WiFi</label>
+											<label class="form-check-label" for="input-profile-enabled-on-wifi">Enabled on WiFi</label>
 										</div>
 										<div class="mb-3 form-check">
 											<input type="checkbox" class="form-check-input" id="input-profile-enabled-on-cellular" checked>
-											<label class="form-check-label" for="input-profile-enabled-on-cellular">Profile enabled on cellular</label>
+											<label class="form-check-label" for="input-profile-enabled-on-cellular">Enabled on cellular</label>
 										</div>
 										<div class="mb-3 form-check">
 											<input type="checkbox" class="form-check-input" id="input-profile-prohibit-disablement">
 											<label class="form-check-label" for="input-profile-prohibit-disablement">Prohibit disablement</label>
 										</div>
-										<button id="generate-mobile-config" type="button" class="btn btn-primary">Download</button>
+										<button id="generate-mobile-config" type="button" class="btn btn-primary">Download Profile</button>
 									</form>
 								</div>
 							</div>
@@ -795,10 +774,13 @@ Copyright © 2024-2025 Yannick Dreher
 						</p>
 
 						<h4>Kontakt</h4>
-						<p>
-							Telefon: +4915158056065<br />
-							E-Mail: yannick.dreher@dremaxx.de
-						</p>
+						<table>
+							<tr>
+								<td>Telefon:</td><td>+4915158056065</td>
+								<td>E-Mail:</td><td>yannick.dreher@dremaxx.de</td>
+								<td>Threema:</td><td>https://threema.id/559UTU46</td>
+							</tr>
+						</table>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
