@@ -224,7 +224,7 @@ Copyright © 2024-2025 Yannick Dreher
 			<h2 class="text-center">Domain Query Tool</h2>
 			<div class="card">
 				<div class="card-body">
-					<form class="row align-items-center">
+					<form id="dns-query-form" class="row align-items-center">
 						<div class="col-sm-8 p-1">
 							<label class="visually-hidden" for="domain">Domain</label>
 							<div class="input-group">
@@ -244,7 +244,7 @@ Copyright © 2024-2025 Yannick Dreher
 							</select>
 						</div>
 						<div class="col-sm-2 p-1">
-							<button type="button" class="btn btn-primary w-100" id="query">Query</button>
+							<button id="submit-query-button" type="submit" class="btn btn-primary w-100">Query</button>
 						</div>
 						<div id="dns-query-error-message" class="m-0" role="alert"></div>
 					</form>
@@ -872,7 +872,19 @@ Copyright © 2024-2025 Yannick Dreher
 			});
         });
 
-		document.getElementById("query").addEventListener("click", async () => {
+		document.getElementById('dns-query-form').addEventListener('submit', async function(event) {
+			event.preventDefault();
+
+			const submitQueryButtonEl = document.getElementById('submit-query-button');
+			if (!submitQueryButtonEl.disabled) {
+				submitQueryButtonEl.disabled = true;
+				setTimeout(() => {
+					submitQueryButtonEl.disabled = false;
+				}, 100);
+			} else {
+				return;
+			}
+
 			const domain = document.getElementById("domain").value;
 			const type = document.getElementById("type").value;
 			const question = new DNS.Question(domain, type, 1);
