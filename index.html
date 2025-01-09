@@ -22,7 +22,6 @@ Copyright © 2024-2025 Yannick Dreher
 	<link href="css/prism.css" rel="stylesheet">
 	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-
     <style>
 		.table-nobg tr td, .table-nobg tr th {
 			background-color: rgba(0,0,0, 0) !important;
@@ -62,8 +61,8 @@ Copyright © 2024-2025 Yannick Dreher
     </style>
 </head>
 <body>
-	<div class="content">		
-		<div class="container my-5 text-center">
+	<div class="content">
+		<section class="container my-5 text-center">
 			<h1 class="title">Public DNS Resolvers</h1>
 			<p class="text-body-secondary fw-light">Personal contribution to an open and secure network</p>
 			<p class="text-body-secondary fw-light">
@@ -71,9 +70,14 @@ Copyright © 2024-2025 Yannick Dreher
 				These advanced protocols encrypt your DNS queries, preventing eavesdropping, tracking, and DNS-based attacks.<br>
 				Unlike traditional DNS, which sends queries in plain text, this service ensures that your browsing data stays private and secure from ISPs, hackers, and other third parties.
 			</p>
-		</div>
-		
+		</section>
 		<section class="container my-5">
+			<div class="d-flex justify-content-end align-items-start">
+				<div class="form-check form-switch ">
+					<input class="form-check-input" type="checkbox" id="background-animation">
+					<label class="form-check-label text-body-secondary fw-light" for="background-animation">Background Animation</label>
+				</div>
+			</div>
 			<div class="bg-dark-subtle border bg-secondary-subtle rounded">
 				<div id="theo" class="row align-items-center border-bottom">
 					<div class="col-sm-4 py-4">
@@ -818,16 +822,17 @@ Copyright © 2024-2025 Yannick Dreher
 				"dnsclient": "./js/dnsclient.min.js",
 				"mustache": "./js/mustache.min.js",
 				"mobileconfig": "./js/mobileconfig.js",
-				"three": "./js/three.module.min.js"
+				"three": "./js/three.module.min.js",
+				"rainingips": "./js/rainingips.js"
 			}
 		}
 	</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/prism.js"></script>
-	<script src="js/rainingips.js" type="module"></script>
 	<script type="module">
 		import * as DNS from 'dnsclient';
 		import * as MC from 'mobileconfig';
+		import * as RIPS from 'rainingips';
 		import Mustache from 'mustache';
 		
 		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
@@ -837,6 +842,22 @@ Copyright © 2024-2025 Yannick Dreher
 			'remove-indent': true,
 			'left-trim': true,
 			'right-trim': true,
+		});
+
+		const backgroundAnimationSwitchEl = document.getElementById('background-animation');
+
+		if (RIPS.animationId) {
+			backgroundAnimationSwitchEl.checked = true;
+		} else {
+			backgroundAnimationSwitchEl.checked = false;
+		}
+
+		backgroundAnimationSwitchEl.addEventListener("change", (evnet) => {
+			if (event.target.checked) {
+				RIPS.startAnimation();
+			} else {
+				RIPS.stopAnimation();
+			}
 		});
 
 		document.querySelectorAll(".ctc").forEach(function(element) {

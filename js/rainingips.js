@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 
+export let animationId;
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.y = 0;
@@ -181,7 +183,7 @@ function transition(mesh, zPosition) {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
 
     meshes.forEach(mesh => {
         mesh.sprite.position.y -= 0.025;
@@ -206,7 +208,16 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-animate();
+export function startAnimation() {
+    animate();
+}
+
+export function stopAnimation() {
+    cancelAnimationFrame(animationId);
+    animationId = undefined;
+}
+
+startAnimation();
 
 window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
