@@ -4,7 +4,7 @@ File:     index.html
 Author:   Yannick Dreher (yannick.dreher@dremaxx.de)
 -----
 Created:  Friday, 29th November 2024 7:12:53 pm
-Modified: Thursday, 9th January 2025 4:42:05 pm
+Modified: Thursday, 9th January 2025 5:59:04 pm
 -----
 License: MIT License (https://opensource.org/licenses/MIT)
 Copyright © 2024-2025 Yannick Dreher
@@ -246,9 +246,9 @@ Copyright © 2024-2025 Yannick Dreher
 						<div class="col-sm-2 p-1">
 							<button id="submit-query-button" type="submit" class="btn btn-primary w-100">Query</button>
 						</div>
-						<div id="dns-query-error-message" class="m-0" role="alert"></div>
 					</form>
-					<div id="dns-query-results" class="m-1 text-secondary-emphasis font-monospace bg-secondary-subtle rounded"></div>
+					<div id="dns-query-error-message" class="m-1 mt-2 alert alert-danger" role="alert" style="display: none;"></div>
+					<div id="dns-query-results" class="m-1 text-secondary-emphasis font-monospace bg-secondary-subtle rounded" style="display: none;"></div>
 				</div>
 			</div>
 		</section>
@@ -746,13 +746,16 @@ Copyright © 2024-2025 Yannick Dreher
 		</section>
 		
 		<section class="container fw-lighter text-center mb-3">
-			<p>You like the service and would like to support me? <a href="http://paypal.me/YannickDreher" target="_blank">PayPal.Me</a></p>
+			<p>
+				You like the service and would like to support me?<br />
+				<a href="http://paypal.me/YannickDreher" target="_blank">PayPal.Me</a>
+			</p>
 		</section>
 		
 		<footer class="container-fluid align-items-center fw-lighter pb-2">
 			<div class="hstack justify-content-center">
 				<span class="px-2 border-end">
-					© 2024 Yannick Dreher
+					© 2025 Yannick Dreher
 				</span>
 				<span class="px-2 border-end">
 					All rights reserved.
@@ -789,25 +792,6 @@ Copyright © 2024-2025 Yannick Dreher
 								<td>Threema:</td><td><a href="https://threema.id/559UTU46" target="_blank">559UTU46</a></td>
 							</tr>
 						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="modal fade" id="buy-me-a-coffee" tabindex="-1" aria-labelledby="buy-me-a-coffee-label" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="buy-me-a-coffee-label">Buy me a koffee</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body text-center">
-						<a href="http://paypal.me/YannickDreher" target="_blank">PayPal.Me</a>
-						<br />
-						<img src="assets/paypal-qrcode.png" class="rounded w-100 mt-4" alt="paypal-qrcode">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -874,32 +858,32 @@ Copyright © 2024-2025 Yannick Dreher
 
 		document.getElementById('dns-query-form').addEventListener('submit', async function(event) {
 			event.preventDefault();
-
 			const submitQueryButtonEl = document.getElementById('submit-query-button');
-			if (!submitQueryButtonEl.disabled) {
-				submitQueryButtonEl.disabled = true;
-				setTimeout(() => {
-					submitQueryButtonEl.disabled = false;
-				}, 100);
-			} else {
+
+			if (submitQueryButtonEl.disabled) {
 				return;
 			}
 
+			submitQueryButtonEl.disabled = true;
 			const domain = document.getElementById("domain").value;
 			const type = document.getElementById("type").value;
 			const question = new DNS.Question(domain, type, 1);
-
 			const errorEl = document.getElementById("dns-query-error-message");
-			errorEl.textContent = '';
-			errorEl.className = 'm-0';
-
+			const resultEl = document.getElementById('dns-query-results');
 			const domainPattern = /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,11}$/;
 
 			if (!domainPattern.test(domain)) {
 				errorEl.textContent = 'Please enter a valid domain name.';
-				errorEl.className = 'mt-3 mb-0 alert alert-danger';
-				document.getElementById('dns-query-results').innerHTML = '';
+				errorEl.style.display = 'block';
+
+				resultEl.innerHTML = '';
+				resultEl.style.display = 'none';
+				
+				submitQueryButtonEl.disabled = false;
 				return;
+			} else {
+				errorEl.textContent = '';
+				errorEl.style.display = 'none';
 			}
 
 			try {
@@ -907,12 +891,19 @@ Copyright © 2024-2025 Yannick Dreher
 				console.log(result);
 
 				const rendered = Mustache.render(DNS_QUERY_RESULT_TMPL, result);
-				document.getElementById('dns-query-results').innerHTML = rendered;
+				resultEl.innerHTML = rendered;
+				resultEl.style.display = 'block';
 			} catch (error) {
 				errorEl.textContent = `Error during query: ${error.message}`;
-				errorEl.className = 'mt-3 mb-0 alert alert-danger';
+				errorEl.style.display = 'block';
+
+				resultEl.innerHTML = '';
+				resultEl.style.display = 'none';
+
 				document.getElementById('dns-query-results').innerHTML = '';
 			}
+
+			submitQueryButtonEl.disabled = false;
 		});
 
 		async function updateServerStatus(serverName) {
