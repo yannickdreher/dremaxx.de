@@ -4,7 +4,7 @@ File:     index.html
 Author:   Yannick Dreher (yannick.dreher@dremaxx.de)
 -----
 Created:  Friday, 29th November 2024 7:12:53 pm
-Modified: Thursday, 9th January 2025 11:25:41 am
+Modified: Thursday, 9th January 2025 4:42:05 pm
 -----
 License: MIT License (https://opensource.org/licenses/MIT)
 Copyright © 2024-2025 Yannick Dreher
@@ -74,8 +74,8 @@ Copyright © 2024-2025 Yannick Dreher
 		<section class="container my-5">
 			<div class="d-flex justify-content-end align-items-start">
 				<div class="form-check form-switch ">
-					<input class="form-check-input" type="checkbox" id="background-animation">
-					<label class="form-check-label text-body-secondary fw-light" for="background-animation">Background Animation</label>
+					<input class="form-check-input" type="checkbox" id="background-animation-switch">
+					<label class="form-check-label text-body-secondary fw-light" for="background-animation-switch">Background Animation</label>
 				</div>
 			</div>
 			<div class="bg-dark-subtle border bg-secondary-subtle rounded">
@@ -844,15 +844,15 @@ Copyright © 2024-2025 Yannick Dreher
 			'right-trim': true,
 		});
 
-		const backgroundAnimationSwitchEl = document.getElementById('background-animation');
+		const BACKGROUND_ANIMATION_SWITCH_EL = document.getElementById('background-animation-switch');
 
 		if (RIPS.animationId) {
-			backgroundAnimationSwitchEl.checked = true;
+			BACKGROUND_ANIMATION_SWITCH_EL.checked = true;
 		} else {
-			backgroundAnimationSwitchEl.checked = false;
+			BACKGROUND_ANIMATION_SWITCH_EL.checked = false;
 		}
 
-		backgroundAnimationSwitchEl.addEventListener("change", (evnet) => {
+		BACKGROUND_ANIMATION_SWITCH_EL.addEventListener("change", (evnet) => {
 			if (event.target.checked) {
 				RIPS.startAnimation();
 			} else {
