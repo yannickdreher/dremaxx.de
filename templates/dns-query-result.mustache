@@ -37,8 +37,9 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-secondary-emphasis">NAME</th>
-                        <th scope="col" class="text-secondary-emphasis">TYPE</th>
                         <th scope="col" class="text-secondary-emphasis">CLASS</th>
+                        <th scope="col" class="text-secondary-emphasis">TYPE</th>
+                        <th scope="col" class="text-secondary-emphasis">TTL</th>
                         <th scope="col" class="text-secondary-emphasis">DATA</th>
                     </tr>
                 </thead>
@@ -46,8 +47,9 @@
                     {{#message.answers}}
                     <tr>
                         <td class="text-secondary-emphasis">{{name}}</td>
-                        <td class="text-secondary-emphasis">{{type}}</td>
                         <td class="text-secondary-emphasis">{{clazz}}</td>
+                        <td class="text-secondary-emphasis">{{type}}</td>
+                        <td class="text-secondary-emphasis">{{ttl}}</td>
                         <td class="text-secondary-emphasis">
                             <table>
                                 {{#data}}
