@@ -23,8 +23,85 @@ Copyright © 2024-2025 Yannick Dreher
 	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
     <style>
+		[data-bs-theme=dark] {
+			color-scheme: dark;
+			--bs-body-color: #dee2e6;
+			--bs-body-color-rgb: 222,226,230;
+			--bs-body-bg: #1a1d20;
+			--bs-body-bg-rgb: 33,37,41;
+			--bs-emphasis-color: #fff;
+			--bs-emphasis-color-rgb: 255,255,255;
+			--bs-secondary-color: rgba(222, 226, 230, 0.75);
+			--bs-secondary-color-rgb: 222,226,230;
+			--bs-secondary-bg: #343a40;
+			--bs-secondary-bg-rgb: 52,58,64;
+			--bs-tertiary-color: rgba(222, 226, 230, 0.5);
+			--bs-tertiary-color-rgb: 222,226,230;
+			--bs-tertiary-bg: #2b3035;
+			--bs-tertiary-bg-rgb: 43,48,53;
+			--bs-primary-text-emphasis: #6ea8fe;
+			--bs-secondary-text-emphasis: #a7acb1;
+			--bs-success-text-emphasis: #75b798;
+			--bs-info-text-emphasis: #6edff6;
+			--bs-warning-text-emphasis: #ffda6a;
+			--bs-danger-text-emphasis: #ea868f;
+			--bs-light-text-emphasis: #f8f9fa;
+			--bs-dark-text-emphasis: #dee2e6;
+			--bs-primary-bg-subtle: #031633;
+			--bs-secondary-bg-subtle: #161719;
+			--bs-success-bg-subtle: #051b11;
+			--bs-info-bg-subtle: #032830;
+			--bs-warning-bg-subtle: #332701;
+			--bs-danger-bg-subtle: #2c0b0e;
+			--bs-light-bg-subtle: #343a40;
+			--bs-dark-bg-subtle: #1a1d20;
+			--bs-primary-border-subtle: #084298;
+			--bs-secondary-border-subtle: #41464b;
+			--bs-success-border-subtle: #0f5132;
+			--bs-info-border-subtle: #087990;
+			--bs-warning-border-subtle: #997404;
+			--bs-danger-border-subtle: #842029;
+			--bs-light-border-subtle: #495057;
+			--bs-dark-border-subtle: #343a40;
+			--bs-heading-color: inherit;
+			--bs-link-color: #6ea8fe;
+			--bs-link-hover-color: #8bb9fe;
+			--bs-link-color-rgb: 110,168,254;
+			--bs-link-hover-color-rgb: 139,185,254;
+			--bs-code-color: #e685b5;
+			--bs-highlight-color: #dee2e6;
+			--bs-highlight-bg: #664d03;
+			--bs-border-color: #495057;
+			--bs-border-color-translucent: rgba(255, 255, 255, 0.15);
+			--bs-form-valid-color: #75b798;
+			--bs-form-valid-border-color: #75b798;
+			--bs-form-invalid-color: #ea868f;
+			--bs-form-invalid-border-color: #ea868f
+		}
+
+		body {
+			--bs-body-font-family: var(--bs-font-monospace);
+		}
+
+		.table {
+			--bs-table-bg: var(--bs-secondary-bg);
+		}
+
 		.table-nobg tr td, .table-nobg tr th {
-			background-color: rgba(0,0,0, 0) !important;
+			background-color: transparent !important;
+		}
+
+		.card-info {
+			--bs-alert-bg: var(--bs-info-bg-subtle);
+			--bs-alert-color: var(--bs-info-text-emphasis);
+			--bs-alert-border-color: var(--bs-info-border-subtle);
+			--bs-alert-border: var(--bs-border-width) solid var(--bs-alert-border-color);
+			--bs-alert-border-radius: var(--bs-border-radius);
+			--bs-alert-link-color: var(--bs-info-text-emphasis);
+			color: var(--bs-alert-color);
+			background-color: var(--bs-alert-bg);
+			border: var(--bs-alert-border);
+			border-radius: var(--bs-alert-border-radius);
 		}
 
 		canvas {
@@ -64,8 +141,8 @@ Copyright © 2024-2025 Yannick Dreher
 	<div class="content">
 		<section class="container my-5 text-center">
 			<h1 class="title">Public DNS Resolvers</h1>
-			<p class="text-body-secondary fw-light">Personal contribution to an open and secure network</p>
-			<p class="text-body-secondary fw-light">
+			<p class="text-body-secondary">Personal contribution to an open and secure network</p>
+			<p class="text-body-secondary">
 				This DNS service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).<br>
 				These advanced protocols encrypt your DNS queries, preventing eavesdropping, tracking, and DNS-based attacks.<br>
 				Unlike traditional DNS, which sends queries in plain text, this service ensures that your browsing data stays private and secure from ISPs, hackers, and other third parties.
@@ -75,7 +152,7 @@ Copyright © 2024-2025 Yannick Dreher
 			<div class="d-flex justify-content-end align-items-start">
 				<div class="form-check form-switch ">
 					<input class="form-check-input" type="checkbox" id="background-animation-switch">
-					<label class="form-check-label text-body-secondary fw-light" for="background-animation-switch">Background Animation</label>
+					<label class="form-check-label text-body-secondary" for="background-animation-switch">Background Animation</label>
 				</div>
 			</div>
 			<div class="bg-dark-subtle border bg-secondary-subtle rounded">
@@ -111,28 +188,28 @@ Copyright © 2024-2025 Yannick Dreher
 						</div>
 					</div>
 					<div class="col-sm-3 py-2 fw-light">
-						<div class="d-flex  flex-wrap justify-content-between">
+						<div class="d-flex flex-wrap justify-content-between">
 							<div class="hstack py-1">
-								<div style="width: 70px;">
+								<div style="width: 85px;">
 									Status:  
 								</div>
-								<div style="width: 60px;">
+								<div style="width: 120px;">
 									<span id="theo-status" class="status badge text-bg-secondary">-</span>
 								</div>
 							</div>
 							<div class="hstack py-1">
-								<div style="width: 70px;">
+								<div style="width: 85px;">
 									Latency:  
 								</div>
-								<div style="width: 60px;">
+								<div>
 									<span id="theo-latency" class="latency">-</span> ms
 								</div>
 							</div>
 							<div class="hstack py-1">
-								<div style="width: 70px;">
+								<div style="width: 85px;">
 									Location:  
 								</div>
-								<div style="width: 90px;">
+								<div style="width: 120px;">
 									Germany
 								</div>
 							</div>
@@ -174,26 +251,26 @@ Copyright © 2024-2025 Yannick Dreher
 					<div class="col-sm-3 py-2 fw-light">
 						<div class="d-flex  flex-wrap justify-content-between">
 							<div class="hstack py-1">
-								<div style="width: 70px;">
+								<div style="width: 85px;">
 									Status:  
 								</div>
-								<div style="width: 60px;">
+								<div style="width: 120px;">
 									<span id="fritz-status" class="status badge text-bg-secondary">-</span>
 								</div>
 							</div>
 							<div class="hstack py-1">
-								<div style="width: 70px;">
+								<div style="width: 85px;">
 									Latency:  
 								</div>
-								<div style="width: 60px;">
+								<div>
 									<span id="fritz-latency" class="latency">-</span> ms
 								</div>
 							</div>
 							<div class="hstack py-1">
-								<div style="width: 70px;">
+								<div style="width: 85px;">
 									Location:  
 								</div>
-								<div style="width: 90px;">
+								<div style="width: 120px;">
 									Great Britain
 								</div>
 							</div>
@@ -204,25 +281,26 @@ Copyright © 2024-2025 Yannick Dreher
 		</section>
 		
 		<section class="container my-5">
-			<div class="alert alert-info">
-				<h2 class="alert-heading text-center">Terms of Use</h2>
-				<hr />
-				<p style="text-align: justify;">
-					By choosing to use my DNS servers, you acknowledge and agree to the terms and conditions described.
-					Usage of these servers is entirely voluntary, and by doing so, you consent to the logging, data handling, 
-					and retention policies outlined in the provided documentation.
-					<br />
-					You also agree that no claims or rights can be asserted against me regarding the availability, performance, or operation of this service. 
-					I reserve the right to discontinue or modify this service at any time without prior notice.
-					<br />
-					If you do not agree with these terms, you are advised to refrain from using these DNS servers.
-				</p>
+			<div class="card card-info">
+				<div class="card-header text-uppercase fw-bold"># Terms of Use</div>
+				<div class="card-body">
+					<p class="card-text" style="text-align: justify;">
+						By choosing to use my DNS servers, you acknowledge and agree to the terms and conditions described.
+						Usage of these servers is entirely voluntary, and by doing so, you consent to the logging, data handling, 
+						and retention policies outlined in the provided documentation.
+						<br />
+						You also agree that no claims or rights can be asserted against me regarding the availability, performance, or operation of this service. 
+						I reserve the right to discontinue or modify this service at any time without prior notice.
+						<br />
+						If you do not agree with these terms, you are advised to refrain from using these DNS servers.
+					</p>
+				</div>
 			</div>	
 		</section>
 
 		<section class="container my-5">
-			<h2 class="text-center">Domain Query Tool</h2>
 			<div class="card">
+				<div class="card-header text-uppercase fw-bold"># Domain Query Tool</div>
 				<div class="card-body">
 					<form id="dns-query-form" class="row align-items-center">
 						<div class="col-sm-8 p-1">
@@ -248,437 +326,441 @@ Copyright © 2024-2025 Yannick Dreher
 							<button id="submit-query-button" type="submit" class="btn btn-primary w-100">Query</button>
 						</div>
 					</form>
-					<div id="dns-query-error-message" class="m-1 mt-2 alert alert-danger" role="alert" style="display: none;"></div>
-					<div id="dns-query-results" class="m-1 text-secondary-emphasis font-monospace bg-secondary-subtle rounded" style="display: none;"></div>
+					<div id="dns-query-error-message" class="m-1 alert alert-danger" role="alert" style="display: none;"></div>
+					<div id="dns-query-results" class="m-1 my-0 text-secondary-emphasis font-monospace bg-secondary-subtle rounded" style="display: none;"></div>
 				</div>
 			</div>
 		</section>
 		
 		<section class="container my-5">
-			<h2 class="text-center">Server Settings</h2>
-			<div class="accordion" id="technical-details">
-				<div class="accordion-item">
-					<h3 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-forwarders" aria-expanded="false" aria-controls="collapse-forwarders">
-							Recursion
-						</button>
-					</h3>
-					<div id="collapse-forwarders" class="accordion-collapse collapse" data-bs-parent="#technical-details">
-						<div class="accordion-body">
-							<div class="row">
-								<div class="col-sm">
-									<p>
-										In cases where the DNS servers are unable to resolve a query from the local cache, the servers rely on root hints to query 
-										the authoritative DNS hierarchy step by step, starting from the root servers. 
-										This ensures accurate and up-to-date responses while maintaining independence from external DNS providers.
-									</p>
-								</div>
-								<div class="col-sm">
-									<pre class="shadow m-0 bg-body-tertiary rounded">
-										<code class="language-ini">
-											options {
-												...
-												recursion yes;
-												allow-recursion { any; };
-												allow-query { any; };
-												allow-query-cache { any; };
-												...
-											};
-										</code>
-									</pre>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h3 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-logging" aria-expanded="false" aria-controls="collapse-logging">
-							Logging
-						</button>
-					</h3>
-					<div id="collapse-logging" class="accordion-collapse collapse" data-bs-parent="#technical-details">
-						<div class="accordion-body">
-							<div class="row">
-								<div class="col-sm">
-									<h4>Why logging data?</h4>
-									<p>
-										Logging serves several purposes essential to maintaining secure and reliable DNS operations:
-										<br />
-										<dl>
-											<dt>Troubleshooting:</dt>
-												<dd>Quickly identifying and resolving technical issues.</dd>
-											<dt>Security monitoring:</dt>
-												<dd>Detecting abuse, such as DDoS attacks or malicious queries.</dd>
-											<dt>Performance optimization:</dt>
-												<dd>Monitoring server performance to ensure reliability.</dd>
-											<dt>Abuse prevention:</dt>
-												<dd>Preventing misuse of our infrastructure by tracking suspicious activities.</dd>
-										</dl>
-									</p>
-									<hr>
-									<h4>What data is logged?</h4>
-									<p>
-										Certain categories of logs are disabled by default to prioritize privacy:
-										<br />
-										<dl>
-											<dt>General Operations (default):</dt>
-												<dd>Completely disabled, no general system activity is logged.</dd>
-											<dt>Queries (queries):</dt>
-												<dd>Disabled, no logs are maintained of regular DNS requests.</dd>
-											<dt>Query Errors (query-errors):</dt>
-												<dd>Disabled, no information about failed queries is logged.</dd>
-										</dl>
-									</p>
-									
-									<p>
-										The following logs are active and include data about client IP addresses, the domains being queried, and the specific actions taken by the server.
-										Below is an overview of the active logging categories:
-										<br />
-										<dl>
-											<dt>Authentication Server Logs (auth_servers_log):</dt>
-												<dd>Logs interactions between DNS servers (e.g., trust and authentication).</dd>
-											<dt>DNSSEC Logs (dnssec_log):</dt>
-												<dd>Records related to DNSSEC (Domain Name System Security Extensions), such as signing and validation events.</dd>
-											<dt>Zone Transfer Logs (zone_transfers_log):</dt>
-												<dd>Logs information about zone file transfers between servers.</dd>
-											<dt>Dynamic DNS Logs (ddns_log):</dt>
-												<dd>Tracks updates made through Dynamic DNS.</dd>
-											<dt>Client Security Logs (client_security_log):</dt>
-												<dd>Logs related to potentially unauthorized or malicious DNS requests, including source IPs and queried domains.</dd>
-											<dt>Rate-Limiting Logs (rate_limiting_log):</dt>
-												<dd>Records requests blocked due to exceeding rate limits.</dd>
-											<dt>RPZ Logs (rpz_log):</dt>
-												<dd>Tracks queries affected by Response Policy Zones (RPZ), often used to block or redirect malicious domains.</dd>
-											<dt>Debug Logs (default_debug):</dt>
-												<dd>Detailed logs used for debugging, only activated when necessary.</dd>
-										</dl>
-									</p>
-									<hr>
-									<h4>Retention and rotation policy</h4>
-									<p>
-										Logs are stored in files with a maximum duration of one day (24 hours) per file.<br>
-									</p>
-									<hr>
-									<h4>What does this mean for you?</h4>
-									<p>
-										<dl>
-											<dt>Logged Data:</dt>
-												<dd>For active logging categories, client IP addresses, the domains queried, and other technical details are logged.</dd>
-											<dt>Disabled Logging:</dt>
-												<dd>Regular DNS queries and errors are not logged (queries and query-errors are null).</dd>
-										</dl>
-									</p>
-									<hr>
-									<h4>Security and sharing</h4>
-									<p>
-										All logs are stored and accessible to the server administrators.
-										They are never shared with third parties, and their use is limited to operational purposes.
-									</p>
-								</div>
-								<div class="col-sm text-truncate">
-									<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
-										<code class="language-ini">
-											logging {
-												...
-												channel default_syslog {
-												print-time yes;
-												print-category yes;
-												print-severity yes;
-												syslog daemon;
-												severity info;
+			<div class="card">
+				<div class="card-header text-uppercase fw-bold"># Server Settings</div>
+				<div class="card-body accordion" id="technical-details">
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-forwarders" aria-expanded="false" aria-controls="collapse-forwarders">
+								Recursion
+							</button>
+						</h3>
+						<div id="collapse-forwarders" class="accordion-collapse collapse" data-bs-parent="#technical-details">
+							<div class="accordion-body">
+								<div class="row">
+									<div class="col-sm">
+										<p>
+											In cases where the DNS servers are unable to resolve a query from the local cache, the servers rely on root hints to query 
+											the authoritative DNS hierarchy step by step, starting from the root servers. 
+											This ensures accurate and up-to-date responses while maintaining independence from external DNS providers.
+										</p>
+									</div>
+									<div class="col-sm">
+										<pre class="shadow m-0 bg-body-tertiary rounded">
+											<code class="language-ini">
+												options {
+													...
+													recursion yes;
+													allow-recursion { any; };
+													allow-query { any; };
+													allow-query-cache { any; };
+													...
 												};
-												...
-												category default { null; };
-												category config { default_syslog; };
-												category dispatch { default_syslog; };
-												category network { default_syslog; };
-												category general { default_syslog; };
-												category zoneload { default_syslog; };
-												category resolver { default_syslog; };
-												category cname { default_syslog; };
-												category lame-servers { default_syslog; };
-												category edns-disabled { default_syslog; };
-												category dnssec { default_syslog; };
-												category notify { default_syslog; };
-												category xfer-in { default_syslog; };
-												category xfer-out { default_syslog; };
-												category update{ default_syslog; };
-												category update-security { default_syslog; };
-												category client { default_syslog; };
-												category security { default_syslog; };
-												category rate-limit { default_syslog; };
-												category spill { default_syslog; };
-												category database { default_syslog; };
-												category rpz { default_syslog; };
-												category dnstap { default_syslog; };
-												category trust-anchor-telemetry { default_syslog; };
-												category queries { null; };
-												category query-errors { null; };
-											};
-										</code>
-									</pre>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section class="container my-5">
-			<h2 class="text-center">Setup Instructions</h2>
-			<div class="accordion" id="setup-instructions">
-				<div class="accordion-item">
-					<h3 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-fritzbox" aria-expanded="false" aria-controls="collapse-setup-fritzbox">
-							Setting up DNS servers on a FritzBox
-						</button>
-					</h3>
-					<div id="collapse-setup-fritzbox" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
-						<div class="accordion-body">
-							<h5>1. Access the FritzBox web interface</h5>
-							<p>
-								Open a web browser and go to 
-								<a class="icon-link" href="http://fritz.box" target="_blank">http://fritz.box</a> or 
-								<a class="icon-link" href="http://192.168.178.1" target="_blank">http://192.168.178.1</a> 
-								(depending on your FritzBox model).<br />
-								Log in with your administrator credentials (username and password).
-							</p>
-							<h5>2. Navigate to the DNS settings</h5>
-							<p>
-								In the main menu of the FritzBox interface, go to "Internet".<br />
-								Then, click on "Account Information" or "Connection Settings" (the exact name may vary depending on the FritzBox model).<br />
-								Look for an option labeled "DNS Server" or "DNS Settings".
-							</p>
-							<h5>3. Configure the DNS servers</h5>
-							<p>
-								In the DNS settings section, you will typically find an option to either "Obtain DNS server addresses automatically" 
-								or to "Use the following DNS server addresses".<br />
-								Select "Use the following DNS server addresses" to manually set your DNS servers.<br />
-								Enter the IP addresses of your DNS servers:<br />
-								<dl>
-									<dt>Primary DNS:</dt>
-										<dd>85.215.153.54</dd>
-									<dt>Secondary DNS:</dt>
-										<dd>87.106.35.241</dd>
-								</dl>
-							</p>
-							<h5>4. Save the configuration</h5>
-							<p>
-								After entering the DNS server addresses, click "Apply" or "Save" to save the settings.<br />
-								The FritzBox will apply the new DNS settings to the network.
-							</p>
-							<img src="images/how-to/how-to-dns-servers-fritzbox.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox">
-							<br />
-							<img src="images/how-to/how-to-dns-servers-fritzbox-tls.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox-tls">
-						</div>
-					</div>
-				</div>
-				
-				<div class="accordion-item">
-					<h3 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-debian" aria-expanded="false" aria-controls="collapse-setup-debian">
-							Setting up DNS servers on Linux
-						</button>
-					</h3>
-					<div id="collapse-setup-debian" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
-						<div class="accordion-body">
-							<h5>1. Install packages</h5>
-							<p>
-								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
-									<code class="language-shell">
-										apt install resolvconf -y
-									</code>
-								</pre>
-							</p>
-							<h5>2. Open config file</h5>
-							<p>
-								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
-									<code class="language-shell">
-										nano /etc/resolvconf/resolv.conf.d/head
-									</code>
-								</pre>
-							</p>
-							<h5>3. Add nameservers</h5>
-							<p>
-								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
-									<code class="language-ini">
-										nameserver 85.215.153.54
-										nameserver 87.106.35.241
-									</code>
-								</pre>
-								and/or<br />
-								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
-									<code class="language-ini">
-										nameserver 2a01:239:251:a800::1
-										nameserver 2a00:da00:f425:5800::1
-									</code>
-								</pre>
-							</p>
-							<h5>4. Restart service</h5>
-							<p>
-								<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
-									<code class="language-shell">
-										resolvconf --enable-updates
-										resolvconf -u
-									</code>
-								</pre>
-							</p>
-						</div>
-					</div>
-				</div>
-			
-				<div class="accordion-item">
-					<h3 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-iphone" aria-expanded="false" aria-controls="collapse-setup-iphone">
-							Setting up DNS servers on an iPhone
-						</button>
-					</h3>
-					<div id="collapse-setup-iphone" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
-						<div class="accordion-body">
-							<div class="row">
-								<div class="col-sm text-center">
-									<div id="carousel-how-to-setup-iphone" class="carousel slide pb-4">
-										<div class="carousel-indicators">
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="1" aria-label="Slide 2"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="2" aria-label="Slide 3"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="3" aria-label="Slide 4"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="4" aria-label="Slide 5"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="5" aria-label="Slide 6"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="6" aria-label="Slide 7"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="7" aria-label="Slide 8"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="8" aria-label="Slide 9"></button>
-											<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="9" aria-label="Slide 10"></button>
-										</div>
-										<div class="carousel-inner">
-											<div class="carousel-item active">
-												<img src="images/how-to/how-to-dns-server-iphone-01.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-01">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-02.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-02">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-03.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-03">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-04.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-04">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-05.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-05">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-06.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-06">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-07.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-07">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-08.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-08">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-09.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-09">
-											</div>
-											<div class="carousel-item">
-												<img src="images/how-to/how-to-dns-server-iphone-10.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-10">
-											</div>
-										</div>
-										<button class="carousel-control-prev" type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide="prev">
-											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Previous</span>
-										</button>
-										<button class="carousel-control-next" type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide="next">
-											<span class="carousel-control-next-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Next</span>
-										</button>
+											</code>
+										</pre>
 									</div>
 								</div>
-								<div class="col-sm">
-									<p>
-										To use custom DNS settings on iPhone or iPad, a configuration profile is required. 
-										This profile allows you to specify DNS servers directly on the device, overriding the default settings.
-									</p>
-									<form>
-										<div class="mb-3">
-											<label for="input-excluded-wifi-networks" class="form-label">Excluded WiFi Networks</label>
-											<input type="text" class="form-control" id="input-excluded-wifi-networks">
-											<div id="excluded-wifi-network-help" class="form-text">MyHomeNetwork, MyWorkNetwork, ...</div>
-										</div>
-										<div class="mb-3">
-											<label for="input-excluded-domains" class="form-label">Excluded Domains</label>
-											<input type="text" class="form-control" id="input-excluded-domains">
-											<div id="excluded-wifi-network-help" class="form-text">dremaxx.de, google.com, ...</div>
-										</div>
-										<div class="mb-3 form-check">
-											<input type="checkbox" class="form-check-input" id="input-profile-enabled-on-wifi" checked>
-											<label class="form-check-label" for="input-profile-enabled-on-wifi">Enabled on WiFi</label>
-										</div>
-										<div class="mb-3 form-check">
-											<input type="checkbox" class="form-check-input" id="input-profile-enabled-on-cellular" checked>
-											<label class="form-check-label" for="input-profile-enabled-on-cellular">Enabled on cellular</label>
-										</div>
-										<div class="mb-3 form-check">
-											<input type="checkbox" class="form-check-input" id="input-profile-prohibit-disablement">
-											<label class="form-check-label" for="input-profile-prohibit-disablement">Prohibit disablement</label>
-										</div>
-										<button id="generate-mobile-config" type="button" class="btn btn-primary">Download Profile</button>
-									</form>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-logging" aria-expanded="false" aria-controls="collapse-logging">
+								Logging
+							</button>
+						</h3>
+						<div id="collapse-logging" class="accordion-collapse collapse" data-bs-parent="#technical-details">
+							<div class="accordion-body">
+								<div class="row">
+									<div class="col-sm">
+										<h4>Why logging data?</h4>
+										<p>
+											Logging serves several purposes essential to maintaining secure and reliable DNS operations:
+											<br />
+											<dl>
+												<dt>Troubleshooting:</dt>
+													<dd>Quickly identifying and resolving technical issues.</dd>
+												<dt>Security monitoring:</dt>
+													<dd>Detecting abuse, such as DDoS attacks or malicious queries.</dd>
+												<dt>Performance optimization:</dt>
+													<dd>Monitoring server performance to ensure reliability.</dd>
+												<dt>Abuse prevention:</dt>
+													<dd>Preventing misuse of our infrastructure by tracking suspicious activities.</dd>
+											</dl>
+										</p>
+										<hr>
+										<h4>What data is logged?</h4>
+										<p>
+											Certain categories of logs are disabled by default to prioritize privacy:
+											<br />
+											<dl>
+												<dt>General Operations (default):</dt>
+													<dd>Completely disabled, no general system activity is logged.</dd>
+												<dt>Queries (queries):</dt>
+													<dd>Disabled, no logs are maintained of regular DNS requests.</dd>
+												<dt>Query Errors (query-errors):</dt>
+													<dd>Disabled, no information about failed queries is logged.</dd>
+											</dl>
+										</p>
+										
+										<p>
+											The following logs are active and include data about client IP addresses, the domains being queried, and the specific actions taken by the server.
+											Below is an overview of the active logging categories:
+											<br />
+											<dl>
+												<dt>Authentication Server Logs (auth_servers_log):</dt>
+													<dd>Logs interactions between DNS servers (e.g., trust and authentication).</dd>
+												<dt>DNSSEC Logs (dnssec_log):</dt>
+													<dd>Records related to DNSSEC (Domain Name System Security Extensions), such as signing and validation events.</dd>
+												<dt>Zone Transfer Logs (zone_transfers_log):</dt>
+													<dd>Logs information about zone file transfers between servers.</dd>
+												<dt>Dynamic DNS Logs (ddns_log):</dt>
+													<dd>Tracks updates made through Dynamic DNS.</dd>
+												<dt>Client Security Logs (client_security_log):</dt>
+													<dd>Logs related to potentially unauthorized or malicious DNS requests, including source IPs and queried domains.</dd>
+												<dt>Rate-Limiting Logs (rate_limiting_log):</dt>
+													<dd>Records requests blocked due to exceeding rate limits.</dd>
+												<dt>RPZ Logs (rpz_log):</dt>
+													<dd>Tracks queries affected by Response Policy Zones (RPZ), often used to block or redirect malicious domains.</dd>
+												<dt>Debug Logs (default_debug):</dt>
+													<dd>Detailed logs used for debugging, only activated when necessary.</dd>
+											</dl>
+										</p>
+										<hr>
+										<h4>Retention and rotation policy</h4>
+										<p>
+											Logs are stored in files with a maximum duration of one day (24 hours) per file.<br>
+										</p>
+										<hr>
+										<h4>What does this mean for you?</h4>
+										<p>
+											<dl>
+												<dt>Logged Data:</dt>
+													<dd>For active logging categories, client IP addresses, the domains queried, and other technical details are logged.</dd>
+												<dt>Disabled Logging:</dt>
+													<dd>Regular DNS queries and errors are not logged (queries and query-errors are null).</dd>
+											</dl>
+										</p>
+										<hr>
+										<h4>Security and sharing</h4>
+										<p>
+											All logs are stored and accessible to the server administrators.
+											They are never shared with third parties, and their use is limited to operational purposes.
+										</p>
+									</div>
+									<div class="col-sm text-truncate">
+										<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+											<code class="language-ini">
+												logging {
+													...
+													channel default_syslog {
+													print-time yes;
+													print-category yes;
+													print-severity yes;
+													syslog daemon;
+													severity info;
+													};
+													...
+													category default { null; };
+													category config { default_syslog; };
+													category dispatch { default_syslog; };
+													category network { default_syslog; };
+													category general { default_syslog; };
+													category zoneload { default_syslog; };
+													category resolver { default_syslog; };
+													category cname { default_syslog; };
+													category lame-servers { default_syslog; };
+													category edns-disabled { default_syslog; };
+													category dnssec { default_syslog; };
+													category notify { default_syslog; };
+													category xfer-in { default_syslog; };
+													category xfer-out { default_syslog; };
+													category update{ default_syslog; };
+													category update-security { default_syslog; };
+													category client { default_syslog; };
+													category security { default_syslog; };
+													category rate-limit { default_syslog; };
+													category spill { default_syslog; };
+													category database { default_syslog; };
+													category rpz { default_syslog; };
+													category dnstap { default_syslog; };
+													category trust-anchor-telemetry { default_syslog; };
+													category queries { null; };
+													category query-errors { null; };
+												};
+											</code>
+										</pre>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+		</section>
+		
+		<section class="container my-5">
+			<div class="card">
+				<div class="card-header text-uppercase fw-bold"># Setup Instructions</div>
+				<div class="card-body accordion" id="setup-instructions">
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-fritzbox" aria-expanded="false" aria-controls="collapse-setup-fritzbox">
+								Setting up DNS servers on a FritzBox
+							</button>
+						</h3>
+						<div id="collapse-setup-fritzbox" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
+							<div class="accordion-body">
+								<h5>1. Access the FritzBox web interface</h5>
+								<p>
+									Open a web browser and go to 
+									<a class="icon-link" href="http://fritz.box" target="_blank">http://fritz.box</a> or 
+									<a class="icon-link" href="http://192.168.178.1" target="_blank">http://192.168.178.1</a> 
+									(depending on your FritzBox model).<br />
+									Log in with your administrator credentials (username and password).
+								</p>
+								<h5>2. Navigate to the DNS settings</h5>
+								<p>
+									In the main menu of the FritzBox interface, go to "Internet".<br />
+									Then, click on "Account Information" or "Connection Settings" (the exact name may vary depending on the FritzBox model).<br />
+									Look for an option labeled "DNS Server" or "DNS Settings".
+								</p>
+								<h5>3. Configure the DNS servers</h5>
+								<p>
+									In the DNS settings section, you will typically find an option to either "Obtain DNS server addresses automatically" 
+									or to "Use the following DNS server addresses".<br />
+									Select "Use the following DNS server addresses" to manually set your DNS servers.<br />
+									Enter the IP addresses of your DNS servers:<br />
+									<dl>
+										<dt>Primary DNS:</dt>
+											<dd>85.215.153.54</dd>
+										<dt>Secondary DNS:</dt>
+											<dd>87.106.35.241</dd>
+									</dl>
+								</p>
+								<h5>4. Save the configuration</h5>
+								<p>
+									After entering the DNS server addresses, click "Apply" or "Save" to save the settings.<br />
+									The FritzBox will apply the new DNS settings to the network.
+								</p>
+								<img src="images/how-to/how-to-dns-servers-fritzbox.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox">
+								<br />
+								<img src="images/how-to/how-to-dns-servers-fritzbox-tls.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox-tls">
+							</div>
+						</div>
+					</div>
+					
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-debian" aria-expanded="false" aria-controls="collapse-setup-debian">
+								Setting up DNS servers on Linux
+							</button>
+						</h3>
+						<div id="collapse-setup-debian" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
+							<div class="accordion-body">
+								<h5>1. Install packages</h5>
+								<p>
+									<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
+										<code class="language-shell">
+											apt install resolvconf -y
+										</code>
+									</pre>
+								</p>
+								<h5>2. Open config file</h5>
+								<p>
+									<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
+										<code class="language-shell">
+											nano /etc/resolvconf/resolv.conf.d/head
+										</code>
+									</pre>
+								</p>
+								<h5>3. Add nameservers</h5>
+								<p>
+									<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+										<code class="language-ini">
+											nameserver 85.215.153.54
+											nameserver 87.106.35.241
+										</code>
+									</pre>
+									and/or<br />
+									<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+										<code class="language-ini">
+											nameserver 2a01:239:251:a800::1
+											nameserver 2a00:da00:f425:5800::1
+										</code>
+									</pre>
+								</p>
+								<h5>4. Restart service</h5>
+								<p>
+									<pre class="shadow m-0 bg-body-tertiary rounded font-monospace command-line" data-user="root" data-host="localhost">
+										<code class="language-shell">
+											resolvconf --enable-updates
+											resolvconf -u
+										</code>
+									</pre>
+								</p>
+							</div>
+						</div>
+					</div>
 				
-				<div class="accordion-item">
-					<h3 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-andoid" aria-expanded="false" aria-controls="collapse-setup-andoid">
-							Setting up DNS servers on Android
-						</button>
-					</h3>
-					<div id="collapse-setup-andoid" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
-						<div class="accordion-body">
-							<h5>Configure DoT Using the Private DNS Setting (Android 9 and Newer)</h5>
-							<p>
-								Android 9 (Pie) and later have built-in support for DNS-over-TLS via the Private DNS feature.
-								This method works system-wide for both Wi-Fi and mobile data.
-							</p>
-							<h5>Steps:</h5>
-							<ol class="list-group list-group-numbered">
-								<li class="list-group-item"  style="border: none">
-									Open the <b>Settings</b> app
-								</li>
-								<li class="list-group-item" style="border: none">
-									Navigate to <b>Network & Internet</b>
-								</li>
-								<li class="list-group-item" style="border: none">
-									Select <b>Private DNS</b>
-									<ul class="list-group">
-										<li class="list-group-item" style="border: none">
-											If you don’t see this option, it may be located under <b>Advanced</b> or <b>Connections</b> depending on your device.
-										</li>
-									</ul>
-								</li>
-								<li class="list-group-item" style="border: none">
-									Choose <b>Private DNS provider hostname</b>
-								</li>
-								<li class="list-group-item" style="border: none">
-									Enter the hostname of the DoT provider:
-									<ul class="list-group">
-										<li class="list-group-item" style="border: none">
-											<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
-												<code class="language-ini">
-													dns.dremaxx.de
-												</code>
-											</pre>
-										</li>
-									</ul>
-								</li>
-								<li class="list-group-item" style="border: none">
-									Tap <b>Save</b>
-								</li>
-							</ol>
-							<p>Your Android device will now use DNS-over-TLS for all network connections.</p>
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-iphone" aria-expanded="false" aria-controls="collapse-setup-iphone">
+								Setting up DNS servers on an iPhone
+							</button>
+						</h3>
+						<div id="collapse-setup-iphone" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
+							<div class="accordion-body">
+								<div class="row">
+									<div class="col-sm text-center">
+										<div id="carousel-how-to-setup-iphone" class="carousel slide pb-4">
+											<div class="carousel-indicators">
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="1" aria-label="Slide 2"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="2" aria-label="Slide 3"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="3" aria-label="Slide 4"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="4" aria-label="Slide 5"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="5" aria-label="Slide 6"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="6" aria-label="Slide 7"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="7" aria-label="Slide 8"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="8" aria-label="Slide 9"></button>
+												<button type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide-to="9" aria-label="Slide 10"></button>
+											</div>
+											<div class="carousel-inner">
+												<div class="carousel-item active">
+													<img src="images/how-to/how-to-dns-server-iphone-01.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-01">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-02.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-02">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-03.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-03">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-04.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-04">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-05.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-05">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-06.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-06">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-07.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-07">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-08.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-08">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-09.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-09">
+												</div>
+												<div class="carousel-item">
+													<img src="images/how-to/how-to-dns-server-iphone-10.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-10">
+												</div>
+											</div>
+											<button class="carousel-control-prev" type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide="prev">
+												<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Previous</span>
+											</button>
+											<button class="carousel-control-next" type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide="next">
+												<span class="carousel-control-next-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Next</span>
+											</button>
+										</div>
+									</div>
+									<div class="col-sm">
+										<p>
+											To use custom DNS settings on iPhone or iPad, a configuration profile is required. 
+											This profile allows you to specify DNS servers directly on the device, overriding the default settings.
+										</p>
+										<form>
+											<div class="mb-3">
+												<label for="input-excluded-wifi-networks" class="form-label">Excluded WiFi Networks</label>
+												<input type="text" class="form-control" id="input-excluded-wifi-networks">
+												<div id="excluded-wifi-network-help" class="form-text">MyHomeNetwork, MyWorkNetwork, ...</div>
+											</div>
+											<div class="mb-3">
+												<label for="input-excluded-domains" class="form-label">Excluded Domains</label>
+												<input type="text" class="form-control" id="input-excluded-domains">
+												<div id="excluded-wifi-network-help" class="form-text">dremaxx.de, google.com, ...</div>
+											</div>
+											<div class="mb-3 form-check">
+												<input type="checkbox" class="form-check-input" id="input-profile-enabled-on-wifi" checked>
+												<label class="form-check-label" for="input-profile-enabled-on-wifi">Enabled on WiFi</label>
+											</div>
+											<div class="mb-3 form-check">
+												<input type="checkbox" class="form-check-input" id="input-profile-enabled-on-cellular" checked>
+												<label class="form-check-label" for="input-profile-enabled-on-cellular">Enabled on cellular</label>
+											</div>
+											<div class="mb-3 form-check">
+												<input type="checkbox" class="form-check-input" id="input-profile-prohibit-disablement">
+												<label class="form-check-label" for="input-profile-prohibit-disablement">Prohibit disablement</label>
+											</div>
+											<button id="generate-mobile-config" type="button" class="btn btn-primary">Download Profile</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-andoid" aria-expanded="false" aria-controls="collapse-setup-andoid">
+								Setting up DNS servers on Android
+							</button>
+						</h3>
+						<div id="collapse-setup-andoid" class="accordion-collapse collapse" data-bs-parent="#setup-instructions">
+							<div class="accordion-body">
+								<h5>Configure DoT Using the Private DNS Setting (Android 9 and Newer)</h5>
+								<p>
+									Android 9 (Pie) and later have built-in support for DNS-over-TLS via the Private DNS feature.
+									This method works system-wide for both Wi-Fi and mobile data.
+								</p>
+								<h5>Steps:</h5>
+								<ol class="list-group list-group-numbered">
+									<li class="list-group-item"  style="border: none">
+										Open the <b>Settings</b> app
+									</li>
+									<li class="list-group-item" style="border: none">
+										Navigate to <b>Network & Internet</b>
+									</li>
+									<li class="list-group-item" style="border: none">
+										Select <b>Private DNS</b>
+										<ul class="list-group">
+											<li class="list-group-item" style="border: none">
+												If you don’t see this option, it may be located under <b>Advanced</b> or <b>Connections</b> depending on your device.
+											</li>
+										</ul>
+									</li>
+									<li class="list-group-item" style="border: none">
+										Choose <b>Private DNS provider hostname</b>
+									</li>
+									<li class="list-group-item" style="border: none">
+										Enter the hostname of the DoT provider:
+										<ul class="list-group">
+											<li class="list-group-item" style="border: none">
+												<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
+													<code class="language-ini">
+														dns.dremaxx.de
+													</code>
+												</pre>
+											</li>
+										</ul>
+									</li>
+									<li class="list-group-item" style="border: none">
+										Tap <b>Save</b>
+									</li>
+								</ol>
+								<p>Your Android device will now use DNS-over-TLS for all network connections.</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -696,7 +778,7 @@ Copyright © 2024-2025 Yannick Dreher
 					<div id="collapse-open-source-information" class="accordion-collapse collapse" data-bs-parent="#open-source-information">
 						<div class="accordion-body">
 							<div class="table-responsive">
-								<table class="table">
+								<table class="table table-nobg">
 									<thead>
 										<tr>
 											<th>Library</th>
