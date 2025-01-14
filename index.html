@@ -468,9 +468,9 @@ Copyright © 2024-2025 Yannick Dreher
 								After entering the DNS server addresses, click "Apply" or "Save" to save the settings.<br />
 								The FritzBox will apply the new DNS settings to the network.
 							</p>
-							<img src="assets/how-to/how-to-dns-servers-fritzbox.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox">
+							<img src="images/how-to/how-to-dns-servers-fritzbox.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox">
 							<br />
-							<img src="assets/how-to/how-to-dns-servers-fritzbox-tls.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox-tls">
+							<img src="images/how-to/how-to-dns-servers-fritzbox-tls.png" class="img-thumbnail rounded" alt="how-to-dns-servers-fritzbox-tls">
 						</div>
 					</div>
 				</div>
@@ -553,34 +553,34 @@ Copyright © 2024-2025 Yannick Dreher
 										</div>
 										<div class="carousel-inner">
 											<div class="carousel-item active">
-												<img src="assets/how-to/how-to-dns-server-iphone-01.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-01">
+												<img src="images/how-to/how-to-dns-server-iphone-01.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-01">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-02.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-02">
+												<img src="images/how-to/how-to-dns-server-iphone-02.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-02">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-03.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-03">
+												<img src="images/how-to/how-to-dns-server-iphone-03.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-03">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-04.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-04">
+												<img src="images/how-to/how-to-dns-server-iphone-04.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-04">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-05.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-05">
+												<img src="images/how-to/how-to-dns-server-iphone-05.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-05">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-06.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-06">
+												<img src="images/how-to/how-to-dns-server-iphone-06.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-06">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-07.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-07">
+												<img src="images/how-to/how-to-dns-server-iphone-07.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-07">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-08.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-08">
+												<img src="images/how-to/how-to-dns-server-iphone-08.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-08">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-09.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-09">
+												<img src="images/how-to/how-to-dns-server-iphone-09.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-09">
 											</div>
 											<div class="carousel-item">
-												<img src="assets/how-to/how-to-dns-server-iphone-10.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-10">
+												<img src="images/how-to/how-to-dns-server-iphone-10.png" class="d-block w-50 mx-auto rounded" alt="how-to-dns-server-iphone-10">
 											</div>
 										</div>
 										<button class="carousel-control-prev" type="button" data-bs-target="#carousel-how-to-setup-iphone" data-bs-slide="prev">
@@ -803,8 +803,8 @@ Copyright © 2024-2025 Yannick Dreher
 	<script type="importmap">
 		{
 			"imports": {
-				"dnsclient": "./js/dnsclient.min.js",
-				"mustache": "./js/mustache.min.js",
+				"dnsclient": "./node_modules/dnsclient.js/src/dnsclient.min.js",
+				"mustache": "./node_modules/mustache/mustache.mjs",
 				"mobileconfig": "./js/mobileconfig.js",
 				"three": "./js/three.module.min.js",
 				"rainingips": "./js/rainingips.js"
@@ -813,6 +813,7 @@ Copyright © 2024-2025 Yannick Dreher
 	</script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/prism.js"></script>
+	<!-- <script src="node_modules/mustache/mustache.min.js"></script> -->
 	<script type="module">
 		import * as DNS from 'dnsclient';
 		import * as MC from 'mobileconfig';

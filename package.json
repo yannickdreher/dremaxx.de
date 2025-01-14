@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "dnsclient.js": "^1.0.5",
+    "mustache": "^4.2.0"
+  }
+}
