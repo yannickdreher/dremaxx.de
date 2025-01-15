@@ -14,7 +14,7 @@ Copyright © 2024-2025 Yannick Dreher
 <html lang="en" data-bs-theme="dark">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=0.8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Public DNS Resolvers</title>
 	<meta name="description" content="This DNS service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
@@ -23,6 +23,8 @@ Copyright © 2024-2025 Yannick Dreher
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/command-line/prism-command-line.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/toolbar/prism-toolbar.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
 		[data-bs-theme=dark] {
 			color-scheme: dark;
@@ -103,16 +105,6 @@ Copyright © 2024-2025 Yannick Dreher
 			background-color: var(--bs-alert-bg);
 			border: var(--bs-alert-border);
 			border-radius: var(--bs-alert-border-radius);
-		}
-
-		canvas {
-			display: block;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			z-index: -1;
 		}
 		
 		.content {
@@ -217,7 +209,6 @@ Copyright © 2024-2025 Yannick Dreher
 						</div>
 					</div>
 				</div>
-				
 				<div id="fritz" class="row align-items-center align-middle">
 					<div class="col-sm-4 py-4">
 						<h4 class="p-2 m-0 text-center rounded">
@@ -720,6 +711,322 @@ Copyright © 2024-2025 Yannick Dreher
 				</div>
 			</div>
 		</section>
+
+		<section class="container my-5">
+			<div class="card">
+				<div class="card-header text-uppercase fw-bold"># Server metrics</div>
+				<div class="card-body accordion" id="server-metrics">
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-theo-metrics" aria-expanded="false" aria-controls="collapse-theo-metrics">
+								theo.dremaxx.de
+							</button>
+						</h3>
+						<div id="collapse-theo-metrics" class="accordion-collapse collapse" data-bs-parent="#server-metrics">
+							<div class="accordion-body">
+								<div class="card my-2">
+									<div class="card-header text-uppercase fw-bold">
+										<div class="d-flex flex-wrap justify-content-between">
+											# Incomming queries
+											<div class="form-check form-switch">
+												<input class="form-check-input" type="checkbox" id="theo-incomming-queries-chart-auto-update-switch">
+												<label class="form-check-label text-body-secondary" for="theo-incomming-queries-chart-auto-update-switch">Auto update</label>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<canvas id="theo-incomming-queires-chart" height="150"></canvas>
+									</div>
+								</div>
+								<div class="card my-2">
+									<div class="card-header text-uppercase fw-bold">
+										<div class="d-flex flex-wrap justify-content-between">
+											# Queries by duration
+											<div class="form-check form-switch">
+												<input class="form-check-input" type="checkbox" id="theo-queries-by-duration-chart-auto-update-switch">
+												<label class="form-check-label text-body-secondary" for="theo-queries-by-duration-chart-auto-update-switch">Auto update</label>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<canvas id="theo-queries-by-duration-chart" height="150"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-fritz-metrics" aria-expanded="false" aria-controls="collapse-fritz-metrics">
+								fritz.dremaxx.de
+							</button>
+						</h3>
+						<div id="collapse-fritz-metrics" class="accordion-collapse collapse" data-bs-parent="#server-metrics">
+							<div class="accordion-body">
+								<div class="card my-2">
+									<div class="card-header text-uppercase fw-bold">
+										<div class="d-flex flex-wrap justify-content-between">
+											# Incomming queries
+											<div class="form-check form-switch">
+												<input class="form-check-input" type="checkbox" id="fritz-incomming-queries-chart-auto-update-switch">
+												<label class="form-check-label text-body-secondary" for="fritz-incomming-queries-chart-auto-update-switch">Auto update</label>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<canvas id="fritz-incomming-queires-chart" height="150"></canvas>
+									</div>
+								</div>
+								<div class="card my-2">
+									<div class="card-header text-uppercase fw-bold">
+										<div class="d-flex flex-wrap justify-content-between">
+											# Queries by duration
+											<div class="form-check form-switch">
+												<input class="form-check-input" type="checkbox" id="fritz-queries-by-duration-chart-auto-update-switch">
+												<label class="form-check-label text-body-secondary" for="fritz-queries-by-duration-chart-auto-update-switch">Auto update</label>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+										<canvas id="fritz-queries-by-duration-chart" height="150"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<script>
+			const PROMETHEUS_URL = "https://theo.dremaxx.de/api/prom/api/v1/";
+
+			async function query(query) {
+				const response = await fetch(`${PROMETHEUS_URL}/query?query=${query}`);
+				const data = await response.json();
+				return data.data.result;
+			}
+
+			async function queryRange(query, start, end, step) {
+				const response = await fetch(`${PROMETHEUS_URL}/query_range?query=${query}&start=${start}&end=${end}&step=${step}`);
+				const data = await response.json();
+				return data.data.result;
+			}
+
+			async function queryIncommingQueriesMetrics(instance) {
+				const query = `increase(bind_incoming_queries_total{instance="${instance}",job="bind"}[120s])`;
+				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
+				const end   = new Date(Date.now()).toISOString();
+				const step	= '120s';
+				const data	= await queryRange(query, start, end, step);
+
+				const labels = [];
+				const datasets = [];
+
+				data.forEach(item => {
+					const dataset = {
+						label: item.metric.type,
+						data: [],
+						borderWidth: 1,
+						fill: false,
+						tension: 0.1,
+						pointRadius: 0
+					};
+
+					item.values.forEach(value => {
+						const x = new Date(value[0] * 1000);
+						const y = value[1];
+						labels.push(x); 
+						dataset.data.push(y);
+					});
+
+					datasets.push(dataset);
+				});
+
+				return { labels, datasets };
+			}
+
+			async function queryQueriesByDurationMetrics(instance) {
+				const query = `increase(bind_resolver_query_duration_seconds_bucket{instance="${instance}",job="bind",view="_default"}[120s])`;
+				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
+				const end   = new Date(Date.now()).toISOString();
+				const step	= '120s';
+				const data	= await queryRange(query, start, end, step);
+
+				const labels = [];
+				const datasets = [];
+
+				data.forEach(item => {
+					const dataset = {
+						label: item.metric.le,
+						data: [],
+						borderWidth: 1,
+						fill: false,
+						tension: 0.1,
+						pointRadius: 0
+					};
+
+					item.values.forEach(value => {
+						const x = new Date(value[0] * 1000);
+						const y = value[1];
+						labels.push(x); 
+						dataset.data.push(y);
+					});
+
+					datasets.push(dataset);
+				});
+
+				return { labels, datasets };
+			}
+
+			class MetricsChart {
+				#autoUpdateIntervalId = null; 
+				#autoUpdateInterval = 10000;
+				#autoUpdateSwitchElementId;
+				#canvasElementId;
+				#instance;
+				#queryMetrics;
+				chart;
+
+				constructor(instance, canvasElementId, autoUpdateSwitchElementId, queryMetrics, autoUpdateInterval) {
+					this.#instance = instance;
+					this.#canvasElementId = canvasElementId;
+					this.#queryMetrics = queryMetrics;
+					this.#autoUpdateInterval = autoUpdateInterval;
+					this.#autoUpdateSwitchElementId = autoUpdateSwitchElementId;
+					this.updateChart = this.updateChart.bind(this);
+					this.initialize();
+				}
+
+				async initialize() {
+					const context = document.getElementById(this.#canvasElementId).getContext('2d');
+					const data = await this.#queryMetrics(this.#instance);
+					this.chart = this.renderChart(context, data.labels, data.datasets);
+					this.startAutoUpdate();
+
+					document.getElementById(this.#autoUpdateSwitchElementId).addEventListener("change", (evnet) => {
+						if (event.target.checked) {
+							this.startAutoUpdate();
+						} else {
+							this.stopAutoUpdate();
+						}
+					});
+				}
+
+				async updateChart() {
+					const data = await this.#queryMetrics(this.#instance);
+					this.chart.data.labels   = data.labels;
+					this.chart.data.datasets = data.datasets;
+					this.chart.update('none');
+				}
+
+				renderChart(context, labels, datasets) {
+					return new Chart(context, {
+						type: 'line',
+						data: {
+							labels: labels,
+							datasets: datasets
+						},
+						options: {
+							maintainAspectRatio: true,
+							responsive: true,
+							plugins: {
+								legend: {
+									position: 'bottom',
+								}
+							},
+							scales: {
+								x: {
+									type: 'time',
+									time: {
+										unit: 'minute',
+										tooltipFormat: 'Pp',
+										displayFormats: {
+											minute: 'HH:mm'
+										}
+									},
+									title: {
+										display: true,
+										text: 'Time'
+									}
+								},
+								y: {
+									title: {
+										display: true,
+										text: 'Amount of queries'
+									}
+								}
+							}
+						}
+					});
+				}
+
+				startAutoUpdate() {
+					if (this.#autoUpdateIntervalId !== null) {
+						console.log("Auto update is already enabled.");
+						return;
+					}
+					console.log(`Starting auto update with an interval of ${this.#autoUpdateInterval}ms.`);
+					this.#autoUpdateIntervalId = setInterval(this.updateChart, this.#autoUpdateInterval);
+					document.getElementById(this.#autoUpdateSwitchElementId).checked = true;
+				}
+
+				stopAutoUpdate() {
+					if (this.#autoUpdateIntervalId === null) {
+						console.log("Auto update is already stopped.");
+						return;
+					}
+					console.log("Stopping auto update.");
+					clearInterval(this.#autoUpdateIntervalId);
+					this.#autoUpdateIntervalId = null;
+					document.getElementById(this.#autoUpdateSwitchElementId).checked = false;
+				}
+
+				updateUpdateInterval(newInterval) {
+					if (typeof newInterval !== "number" || newInterval <= 0) {
+						throw new Error("Das Intervall muss eine positive Zahl sein.");
+					}
+					console.log(`Ändere Intervallzeit auf ${newInterval}ms.`);
+					this.#autoUpdateInterval = newInterval;
+
+					if (this.#autoUpdateIntervalId !== null) {
+						this.stopAutoUpdate();
+						this.startAutoUpdate();
+					}
+				}
+			}
+
+			const theoIncommingQueriesChart = new MetricsChart(
+				'theo.dremaxx.de',
+				'theo-incomming-queires-chart',
+				'theo-incomming-queries-chart-auto-update-switch',
+				queryIncommingQueriesMetrics,
+				30000
+			);
+
+			const theoQueriesByDurationChart = new MetricsChart(
+				'theo.dremaxx.de',
+				'theo-queries-by-duration-chart',
+				'theo-queries-by-duration-chart-auto-update-switch',
+				queryQueriesByDurationMetrics,
+				30000
+			);
+
+			const fritzIncommingQueriesChart = new MetricsChart(
+				'fritz.dremaxx.de',
+				'fritz-incomming-queires-chart',
+				'fritz-incomming-queries-chart-auto-update-switch',
+				queryIncommingQueriesMetrics,
+				30000
+			);
+
+			const fritzQueriesByDurationChart = new MetricsChart(
+				'fritz.dremaxx.de',
+				'fritz-queries-by-duration-chart',
+				'fritz-queries-by-duration-chart-auto-update-switch',
+				queryQueriesByDurationMetrics,
+				30000
+			);
+		</script>
 
 		<section class="container my-5">
 			<div class="accordion" id="open-source-information">
