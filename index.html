@@ -870,8 +870,6 @@ Copyright © 2024-2025 Yannick Dreher
 		import * as DNS from 'dnsclient';
 		import * as MC from 'mobileconfig';
 		import * as RIPS from 'rainingips';
-		
-		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
 
 		Prism.plugins.NormalizeWhitespace.setDefaults({
 			'remove-trailing': true,
@@ -879,7 +877,8 @@ Copyright © 2024-2025 Yannick Dreher
 			'left-trim': true,
 			'right-trim': true,
 		});
-
+		
+		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
 		const BACKGROUND_ANIMATION_SWITCH_EL = document.getElementById('background-animation-switch');
 
 		if (RIPS.animationId) {
@@ -958,13 +957,11 @@ Copyright © 2024-2025 Yannick Dreher
 			submitQueryButtonEl.disabled = false;
 		});
 
-		async function updateServerStatus(serverName) {
-			const parentEl   = document.getElementById(serverName);
-			const hostnameEl = parentEl.querySelector('.hostname');
-			const statusEl   = parentEl.querySelector('.status');
-			const latencyEl  = parentEl.querySelector('.latency');
-			const hostname 	 = hostnameEl.textContent.trim();
-			const question   = new DNS.Question('www.dremaxx.de', DNS.TYPE.A, DNS.CLAZZ.IN);
+		async function queryDnsServer(element) {
+			const statusEl  = element.querySelector('.status');
+			const latencyEl = element.querySelector('.latency');
+			const hostname  = element.querySelector('.hostname').textContent.trim();
+			const question  = new DNS.Question('www.dremaxx.de', DNS.TYPE.A, DNS.CLAZZ.IN);
 			const url = `https://${hostname}/dns-query`;
 
 			try {
@@ -987,9 +984,14 @@ Copyright © 2024-2025 Yannick Dreher
 			}
 		}
 		
-		const interval = setInterval(() => {
-			updateServerStatus('theo');
-			updateServerStatus('fritz');
+		const theoEl  = document.getElementById('theo');
+		const fritzEl = document.getElementById('fritz');
+		const queryTheointerval = setInterval(() => {
+			queryDnsServer(theoEl);
+		}, 1000);
+
+		const queryFritzinterval = setInterval(() => {
+			queryDnsServer(fritzEl);
 		}, 1000);
 
 		document.getElementById("generate-mobile-config").addEventListener("click", () => {
