@@ -17,11 +17,12 @@ Copyright © 2024-2025 Yannick Dreher
 	<meta name="viewport" content="width=device-width, initial-scale=0.8">
 	<title>Public DNS Resolvers</title>
 	<meta name="description" content="This DNS service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bootstrap-icons.min.css" rel="stylesheet">
-	<link href="css/prism.css" rel="stylesheet">
-	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/command-line/prism-command-line.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/toolbar/prism-toolbar.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
     <style>
 		[data-bs-theme=dark] {
 			color-scheme: dark;
@@ -193,7 +194,7 @@ Copyright © 2024-2025 Yannick Dreher
 								<div style="width: 90px;">
 									Status:  
 								</div>
-								<div style="width: 130px;">
+								<div>
 									<span id="theo-status" class="status badge text-bg-secondary">-</span>
 								</div>
 							</div>
@@ -209,8 +210,8 @@ Copyright © 2024-2025 Yannick Dreher
 								<div style="width: 90px;">
 									Location:  
 								</div>
-								<div style="width: 130px;">
-									Germany
+								<div>
+									DE
 								</div>
 							</div>
 						</div>
@@ -254,7 +255,7 @@ Copyright © 2024-2025 Yannick Dreher
 								<div style="width: 90px;">
 									Status:  
 								</div>
-								<div style="width: 130px;">
+								<div>
 									<span id="fritz-status" class="status badge text-bg-secondary">-</span>
 								</div>
 							</div>
@@ -270,8 +271,8 @@ Copyright © 2024-2025 Yannick Dreher
 								<div style="width: 90px;">
 									Location:  
 								</div>
-								<div style="width: 130px;">
-									Great Britain
+								<div>
+									GB
 								</div>
 							</div>
 						</div>
@@ -886,22 +887,36 @@ Copyright © 2024-2025 Yannick Dreher
 	<script type="importmap">
 		{
 			"imports": {
-				"dnsclient": "./node_modules/dnsclient.js/src/dnsclient.min.js",
-				"mustache": "./node_modules/mustache/mustache.mjs",
+				"dnsclient":	"https://cdn.jsdelivr.net/npm/dnsclient.js/+esm",
+				"mustache":		"https://cdn.jsdelivr.net/npm/mustache/+esm",
+				"three":		"https://cdn.jsdelivr.net/npm/three/+esm",
+				"prism":		"https://cdn.jsdelivr.net/npm/prismjs/+esm",
+				"prism/plugins/normalize-whitespace": 	"https://cdn.jsdelivr.net/npm/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.min.js",
+				"prism/plugins/toolbar":				"https://cdn.jsdelivr.net/npm/prismjs/plugins/toolbar/prism-toolbar.min.js",
+				"prism/plugins/command-line":			"https://cdn.jsdelivr.net/npm/prismjs/plugins/command-line/prism-command-line.min.js",
+				"prism/plugins/copy-to-clipboard":		"https://cdn.jsdelivr.net/npm/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js",
+				"prism/components/prism-ini":			"https://cdn.jsdelivr.net/npm/prismjs/components/prism-ini.min.js",
+				"prism/components/prism-bash":			"https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js",
+				"prism/components/prism-javascript":	"https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js",
 				"mobileconfig": "./js/mobileconfig.js",
-				"three": "./js/three.module.min.js",
-				"rainingips": "./js/rainingips.js"
+				"rainingips":	"./js/rainingips.js"
 			}
 		}
 	</script>
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/prism.js"></script>
-	<!-- <script src="node_modules/mustache/mustache.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="module">
+		import Mustache from 'mustache';
+		import Prism from 'prism';
+		import 'prism/plugins/normalize-whitespace';
+		import 'prism/plugins/toolbar';
+		import 'prism/plugins/command-line';
+		import 'prism/plugins/copy-to-clipboard';
+		import 'prism/components/prism-ini';
+		import 'prism/components/prism-bash';
+		import 'prism/components/prism-javascript';
 		import * as DNS from 'dnsclient';
 		import * as MC from 'mobileconfig';
 		import * as RIPS from 'rainingips';
-		import Mustache from 'mustache';
 		
 		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
 
