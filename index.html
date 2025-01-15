@@ -379,127 +379,80 @@ Copyright © 2024-2025 Yannick Dreher
 						</h3>
 						<div id="collapse-logging" class="accordion-collapse collapse" data-bs-parent="#technical-details">
 							<div class="accordion-body">
-								<div class="row">
-									<div class="col-sm">
-										<h4>Why logging data?</h4>
-										<p>
-											Logging serves several purposes essential to maintaining secure and reliable DNS operations:
-											<br />
-											<dl>
-												<dt>Troubleshooting:</dt>
-													<dd>Quickly identifying and resolving technical issues.</dd>
-												<dt>Security monitoring:</dt>
-													<dd>Detecting abuse, such as DDoS attacks or malicious queries.</dd>
-												<dt>Performance optimization:</dt>
-													<dd>Monitoring server performance to ensure reliability.</dd>
-												<dt>Abuse prevention:</dt>
-													<dd>Preventing misuse of our infrastructure by tracking suspicious activities.</dd>
-											</dl>
-										</p>
-										<hr>
-										<h4>What data is logged?</h4>
-										<p>
-											Certain categories of logs are disabled by default to prioritize privacy:
-											<br />
-											<dl>
-												<dt>General Operations (default):</dt>
-													<dd>Completely disabled, no general system activity is logged.</dd>
-												<dt>Queries (queries):</dt>
-													<dd>Disabled, no logs are maintained of regular DNS requests.</dd>
-												<dt>Query Errors (query-errors):</dt>
-													<dd>Disabled, no information about failed queries is logged.</dd>
-											</dl>
-										</p>
-										
-										<p>
-											The following logs are active and include data about client IP addresses, the domains being queried, and the specific actions taken by the server.
-											Below is an overview of the active logging categories:
-											<br />
-											<dl>
-												<dt>Authentication Server Logs (auth_servers_log):</dt>
-													<dd>Logs interactions between DNS servers (e.g., trust and authentication).</dd>
-												<dt>DNSSEC Logs (dnssec_log):</dt>
-													<dd>Records related to DNSSEC (Domain Name System Security Extensions), such as signing and validation events.</dd>
-												<dt>Zone Transfer Logs (zone_transfers_log):</dt>
-													<dd>Logs information about zone file transfers between servers.</dd>
-												<dt>Dynamic DNS Logs (ddns_log):</dt>
-													<dd>Tracks updates made through Dynamic DNS.</dd>
-												<dt>Client Security Logs (client_security_log):</dt>
-													<dd>Logs related to potentially unauthorized or malicious DNS requests, including source IPs and queried domains.</dd>
-												<dt>Rate-Limiting Logs (rate_limiting_log):</dt>
-													<dd>Records requests blocked due to exceeding rate limits.</dd>
-												<dt>RPZ Logs (rpz_log):</dt>
-													<dd>Tracks queries affected by Response Policy Zones (RPZ), often used to block or redirect malicious domains.</dd>
-												<dt>Debug Logs (default_debug):</dt>
-													<dd>Detailed logs used for debugging, only activated when necessary.</dd>
-											</dl>
-										</p>
-										<hr>
-										<h4>Retention and rotation policy</h4>
-										<p>
-											Logs are stored in files with a maximum duration of one day (24 hours) per file.<br>
-										</p>
-										<hr>
-										<h4>What does this mean for you?</h4>
-										<p>
-											<dl>
-												<dt>Logged Data:</dt>
-													<dd>For active logging categories, client IP addresses, the domains queried, and other technical details are logged.</dd>
-												<dt>Disabled Logging:</dt>
-													<dd>Regular DNS queries and errors are not logged (queries and query-errors are null).</dd>
-											</dl>
-										</p>
-										<hr>
-										<h4>Security and sharing</h4>
-										<p>
-											All logs are stored and accessible to the server administrators.
-											They are never shared with third parties, and their use is limited to operational purposes.
-										</p>
-									</div>
-									<div class="col-sm text-truncate">
-										<pre class="shadow m-0 bg-body-tertiary rounded font-monospace">
-											<code class="language-ini">
-												logging {
-													...
-													channel default_syslog {
-													print-time yes;
-													print-category yes;
-													print-severity yes;
-													syslog daemon;
-													severity info;
-													};
-													...
-													category default { null; };
-													category config { default_syslog; };
-													category dispatch { default_syslog; };
-													category network { default_syslog; };
-													category general { default_syslog; };
-													category zoneload { default_syslog; };
-													category resolver { default_syslog; };
-													category cname { default_syslog; };
-													category lame-servers { default_syslog; };
-													category edns-disabled { default_syslog; };
-													category dnssec { default_syslog; };
-													category notify { default_syslog; };
-													category xfer-in { default_syslog; };
-													category xfer-out { default_syslog; };
-													category update{ default_syslog; };
-													category update-security { default_syslog; };
-													category client { default_syslog; };
-													category security { default_syslog; };
-													category rate-limit { default_syslog; };
-													category spill { default_syslog; };
-													category database { default_syslog; };
-													category rpz { default_syslog; };
-													category dnstap { default_syslog; };
-													category trust-anchor-telemetry { default_syslog; };
-													category queries { null; };
-													category query-errors { null; };
-												};
-											</code>
-										</pre>
-									</div>
-								</div>
+								<h4>Why logging data?</h4>
+								<p>
+									Logging serves several purposes essential to maintaining secure and reliable DNS operations:
+									<br />
+									<dl>
+										<dt>Troubleshooting:</dt>
+											<dd>Quickly identifying and resolving technical issues.</dd>
+										<dt>Security monitoring:</dt>
+											<dd>Detecting abuse, such as DDoS attacks or malicious queries.</dd>
+										<dt>Performance optimization:</dt>
+											<dd>Monitoring server performance to ensure reliability.</dd>
+										<dt>Abuse prevention:</dt>
+											<dd>Preventing misuse of our infrastructure by tracking suspicious activities.</dd>
+									</dl>
+								</p>
+								<hr>
+								<h4>What data is logged?</h4>
+								<p>
+									Certain categories of logs are disabled by default to prioritize privacy:
+									<br />
+									<dl>
+										<dt>General Operations (default):</dt>
+											<dd>Completely disabled, no general system activity is logged.</dd>
+										<dt>Queries (queries):</dt>
+											<dd>Disabled, no logs are maintained of regular DNS requests.</dd>
+										<dt>Query Errors (query-errors):</dt>
+											<dd>Disabled, no information about failed queries is logged.</dd>
+									</dl>
+								</p>
+								
+								<p>
+									The following logs are active and include data about client IP addresses, the domains being queried, and the specific actions taken by the server.
+									Below is an overview of the active logging categories:
+									<br />
+									<dl>
+										<dt>Authentication Server Logs (auth_servers_log):</dt>
+											<dd>Logs interactions between DNS servers (e.g., trust and authentication).</dd>
+										<dt>DNSSEC Logs (dnssec_log):</dt>
+											<dd>Records related to DNSSEC (Domain Name System Security Extensions), such as signing and validation events.</dd>
+										<dt>Zone Transfer Logs (zone_transfers_log):</dt>
+											<dd>Logs information about zone file transfers between servers.</dd>
+										<dt>Dynamic DNS Logs (ddns_log):</dt>
+											<dd>Tracks updates made through Dynamic DNS.</dd>
+										<dt>Client Security Logs (client_security_log):</dt>
+											<dd>Logs related to potentially unauthorized or malicious DNS requests, including source IPs and queried domains.</dd>
+										<dt>Rate-Limiting Logs (rate_limiting_log):</dt>
+											<dd>Records requests blocked due to exceeding rate limits.</dd>
+										<dt>RPZ Logs (rpz_log):</dt>
+											<dd>Tracks queries affected by Response Policy Zones (RPZ), often used to block or redirect malicious domains.</dd>
+										<dt>Debug Logs (default_debug):</dt>
+											<dd>Detailed logs used for debugging, only activated when necessary.</dd>
+									</dl>
+								</p>
+								<hr>
+								<h4>Retention and rotation policy</h4>
+								<p>
+									Logs are stored in files with a maximum duration of one day (24 hours) per file.<br>
+								</p>
+								<hr>
+								<h4>What does this mean for you?</h4>
+								<p>
+									<dl>
+										<dt>Logged Data:</dt>
+											<dd>For active logging categories, client IP addresses, the domains queried, and other technical details are logged.</dd>
+										<dt>Disabled Logging:</dt>
+											<dd>Regular DNS queries and errors are not logged (queries and query-errors are null).</dd>
+									</dl>
+								</p>
+								<hr>
+								<h4>Security and sharing</h4>
+								<p>
+									All logs are stored and accessible to the server administrators.
+									They are never shared with third parties, and their use is limited to operational purposes.
+								</p>
 							</div>
 						</div>
 					</div>
