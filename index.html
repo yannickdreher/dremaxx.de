@@ -26,6 +26,30 @@ Copyright © 2024-2025 Yannick Dreher
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
+		/* Für WebKit-basierte Browser */
+		::-webkit-scrollbar {
+			width: 14px;
+			height: 14px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			background: var(--bs-dark-border-subtle);
+			border-radius: 8px;
+			border: 4px solid transparent;
+			background-clip: padding-box;
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			background: var(--bs-light-border-subtle);
+			border-radius: 8px;
+			border: 4px solid transparent;
+			background-clip: padding-box;
+		}
+
+		::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
 		[data-bs-theme=dark] {
 			color-scheme: dark;
 			--bs-body-color: #dee2e6;
@@ -142,12 +166,12 @@ Copyright © 2024-2025 Yannick Dreher
 			</p>
 		</section>
 		<section class="container my-5">
-			<div class="d-flex justify-content-end align-items-start">
+			<!-- <div class="d-flex justify-content-end align-items-start">
 				<div class="form-check form-switch ">
 					<input class="form-check-input" type="checkbox" id="background-animation-switch">
 					<label class="form-check-label text-body-secondary" for="background-animation-switch">Background Animation</label>
 				</div>
-			</div>
+			</div> -->
 			<div class="bg-dark-subtle border bg-secondary-subtle rounded">
 				<div id="theo" class="row align-items-center border-bottom">
 					<div class="col-sm-4 py-4">
@@ -718,40 +742,15 @@ Copyright © 2024-2025 Yannick Dreher
 				<div class="card-body accordion" id="server-metrics">
 					<div class="accordion-item">
 						<h3 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-theo-metrics" aria-expanded="false" aria-controls="collapse-theo-metrics">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-theo-metrics" aria-expanded="false" aria-controls="collapse-theo-metrics">
 								theo.dremaxx.de
 							</button>
 						</h3>
-						<div id="collapse-theo-metrics" class="accordion-collapse collapse" data-bs-parent="#server-metrics">
+						<div id="collapse-theo-metrics" class="accordion-collapse show" data-bs-parent="#server-metrics">
 							<div class="accordion-body">
-								<div class="card my-2">
-									<div class="card-header text-uppercase fw-bold">
-										<div class="d-flex flex-wrap justify-content-between">
-											# Incomming queries
-											<div class="form-check form-switch">
-												<input class="form-check-input" type="checkbox" id="theo-incomming-queries-chart-auto-update-switch">
-												<label class="form-check-label text-body-secondary" for="theo-incomming-queries-chart-auto-update-switch">Auto update</label>
-											</div>
-										</div>
-									</div>
-									<div class="card-body">
-										<canvas id="theo-incomming-queires-chart" height="150"></canvas>
-									</div>
-								</div>
-								<div class="card my-2">
-									<div class="card-header text-uppercase fw-bold">
-										<div class="d-flex flex-wrap justify-content-between">
-											# Queries by duration
-											<div class="form-check form-switch">
-												<input class="form-check-input" type="checkbox" id="theo-queries-by-duration-chart-auto-update-switch">
-												<label class="form-check-label text-body-secondary" for="theo-queries-by-duration-chart-auto-update-switch">Auto update</label>
-											</div>
-										</div>
-									</div>
-									<div class="card-body">
-										<canvas id="theo-queries-by-duration-chart" height="150"></canvas>
-									</div>
-								</div>
+								<div id="theo-incomming-queires-chart" class="p-2 mb-4"></div>
+								<div id="theo-queries-by-duration-chart" class="p-2 mb-4 mt-4"></div>
+								<div id="theo-cached-rr-sets-chart" class="p-2 mt-4"></div>
 							</div>
 						</div>
 					</div>
@@ -763,40 +762,16 @@ Copyright © 2024-2025 Yannick Dreher
 						</h3>
 						<div id="collapse-fritz-metrics" class="accordion-collapse collapse" data-bs-parent="#server-metrics">
 							<div class="accordion-body">
-								<div class="card my-2">
-									<div class="card-header text-uppercase fw-bold">
-										<div class="d-flex flex-wrap justify-content-between">
-											# Incomming queries
-											<div class="form-check form-switch">
-												<input class="form-check-input" type="checkbox" id="fritz-incomming-queries-chart-auto-update-switch">
-												<label class="form-check-label text-body-secondary" for="fritz-incomming-queries-chart-auto-update-switch">Auto update</label>
-											</div>
-										</div>
-									</div>
-									<div class="card-body">
-										<canvas id="fritz-incomming-queires-chart" height="150"></canvas>
-									</div>
-								</div>
-								<div class="card my-2">
-									<div class="card-header text-uppercase fw-bold">
-										<div class="d-flex flex-wrap justify-content-between">
-											# Queries by duration
-											<div class="form-check form-switch">
-												<input class="form-check-input" type="checkbox" id="fritz-queries-by-duration-chart-auto-update-switch">
-												<label class="form-check-label text-body-secondary" for="fritz-queries-by-duration-chart-auto-update-switch">Auto update</label>
-											</div>
-										</div>
-									</div>
-									<div class="card-body">
-										<canvas id="fritz-queries-by-duration-chart" height="150"></canvas>
-									</div>
-								</div>
+								<div id="fritz-incomming-queires-chart" class="p-2 mb-4"></div>
+								<div id="fritz-queries-by-duration-chart" class="p-2 mb-4 mt-4"></div>
+								<div id="fritz-cached-rr-sets-chart" class="p-2 mt-4"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+		<script src="./js/chartjs.plugin.htmllegend.js"></script>
 		<script>
 			const PROMETHEUS_URL = "https://theo.dremaxx.de/api/prom/api/v1/";
 
@@ -816,7 +791,7 @@ Copyright © 2024-2025 Yannick Dreher
 				const query = `increase(bind_incoming_queries_total{instance="${instance}",job="bind"}[120s])`;
 				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
 				const end   = new Date(Date.now()).toISOString();
-				const step	= '120s';
+				const step	= '60s';
 				const data	= await queryRange(query, start, end, step);
 
 				const labels = [];
@@ -849,7 +824,7 @@ Copyright © 2024-2025 Yannick Dreher
 				const query = `increase(bind_resolver_query_duration_seconds_bucket{instance="${instance}",job="bind",view="_default"}[120s])`;
 				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
 				const end   = new Date(Date.now()).toISOString();
-				const step	= '120s';
+				const step	= '60s';
 				const data	= await queryRange(query, start, end, step);
 
 				const labels = [];
@@ -878,59 +853,171 @@ Copyright © 2024-2025 Yannick Dreher
 				return { labels, datasets };
 			}
 
+			async function queryCachedRrSetsMetrics(instance) {
+				const query = `bind_resolver_cache_rrsets{instance="${instance}",job="bind"}`;
+				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
+				const end   = new Date(Date.now()).toISOString();
+				const step	= '60s';
+				const data	= await queryRange(query, start, end, step);
+
+				const labels = [];
+				const datasets = [];
+
+				data.forEach(item => {
+					const dataset = {
+						label: item.metric.type,
+						data: [],
+						borderWidth: 1,
+						fill: false,
+						tension: 0.1,
+						pointRadius: 0
+					};
+
+					item.values.forEach(value => {
+						const x = new Date(value[0] * 1000);
+						const y = value[1];
+						labels.push(x); 
+						dataset.data.push(y);
+					});
+
+					datasets.push(dataset);
+				});
+
+				return { labels, datasets };
+			}
+
 			class MetricsChart {
+				#id;
+				#title;
 				#autoUpdateIntervalId = null; 
 				#autoUpdateInterval = 10000;
-				#autoUpdateSwitchElementId;
-				#canvasElementId;
+				#autoUpdateSwitchInputEl;
+				#elementId;
 				#instance;
 				#queryMetrics;
-				chart;
+				#chart;
+				#yAxisLabel;
 
-				constructor(instance, canvasElementId, autoUpdateSwitchElementId, queryMetrics, autoUpdateInterval) {
-					this.#instance = instance;
-					this.#canvasElementId = canvasElementId;
-					this.#queryMetrics = queryMetrics;
+				constructor(title, instance, elementId, queryMetrics, autoUpdateInterval, yAxisLabel) {
 					this.#autoUpdateInterval = autoUpdateInterval;
-					this.#autoUpdateSwitchElementId = autoUpdateSwitchElementId;
+					this.#id = crypto.randomUUID();
+					this.#title = title;
+					this.#instance = instance;
+					this.#elementId = elementId;
+					this.#queryMetrics = queryMetrics;
+					this.#yAxisLabel = yAxisLabel;
 					this.updateChart = this.updateChart.bind(this);
 					this.initialize();
 				}
 
 				async initialize() {
-					const context = document.getElementById(this.#canvasElementId).getContext('2d');
-					const data = await this.#queryMetrics(this.#instance);
-					this.chart = this.renderChart(context, data.labels, data.datasets);
+					const rootEl = document.getElementById(this.#elementId);
+					rootEl.className = `${rootEl.className} border rounded`;
+					await this.renderControlBar(rootEl);
+					await this.renderChart(rootEl);
 					this.startAutoUpdate();
+				}
 
-					document.getElementById(this.#autoUpdateSwitchElementId).addEventListener("change", (evnet) => {
+				async updateChart() {
+					const data = await this.#queryMetrics(this.#instance);
+					this.#chart.data.labels   = data.labels;
+					this.#chart.data.datasets = data.datasets;
+					this.#chart.update('none');
+				}
+
+				async renderControlBar(parentEl) {
+					const controlBarEl = document.createElement('div');
+					controlBarEl.className = 'hstack gap-2 mb-2 pb-2 border-bottom';
+					await this.renderTitle(controlBarEl);
+					await this.renderAutoUpdateSwitch(controlBarEl);
+					await this.renderReloadButton(controlBarEl);
+					parentEl.appendChild(controlBarEl);
+				}
+
+				async renderTitle(parentEl) {
+					const titleEl = document.createElement('div');
+					titleEl.className = "me-auto text-uppercase fw-bold";
+					titleEl.textContent = this.#title;
+					parentEl.appendChild(titleEl);
+
+					const verticalDeviderEl = document.createElement('div');
+					verticalDeviderEl.className = 'vr';
+					parentEl.appendChild(verticalDeviderEl);
+				}
+
+				async renderReloadButton(parentEl) {
+					const reloadButtonId = `${this.#id}-refresh-button`;
+					const reloadButtonEl = document.createElement('button');
+					reloadButtonEl.className = 'btn btn-outline-secondary btn-sm';
+					reloadButtonEl.type = 'button';
+					reloadButtonEl.onclick = this.updateChart;
+
+					const reloadButtonIconEl = document.createElement('i');
+					reloadButtonIconEl.className = 'bi bi-arrow-clockwise';
+					reloadButtonEl.appendChild(reloadButtonIconEl);
+					parentEl.appendChild(reloadButtonEl);
+				}
+
+				async renderAutoUpdateSwitch(parentEl) {
+					const autoUpdateSwitchId = `${this.#id}-auto-update-switch`;
+					const autoUpdateSwitchFormEl = document.createElement('form');
+
+					const autoUpdateSwitchFormCheckEl = document.createElement('div');
+					autoUpdateSwitchFormCheckEl.className = 'form-check form-switch';
+
+					this.#autoUpdateSwitchInputEl = document.createElement('input');
+					this.#autoUpdateSwitchInputEl.id = autoUpdateSwitchId;
+					this.#autoUpdateSwitchInputEl.className = 'form-check-input';
+					this.#autoUpdateSwitchInputEl.type = 'checkbox';
+					this.#autoUpdateSwitchInputEl.addEventListener("change", (evnet) => {
 						if (event.target.checked) {
 							this.startAutoUpdate();
 						} else {
 							this.stopAutoUpdate();
 						}
 					});
+					autoUpdateSwitchFormCheckEl.appendChild(this.#autoUpdateSwitchInputEl);
+
+					const autoUpdateSwitchLabelEl = document.createElement('label');
+					autoUpdateSwitchLabelEl.className = 'form-check-label text-body-secondary';
+					autoUpdateSwitchLabelEl.htmlFor = autoUpdateSwitchId;
+					autoUpdateSwitchLabelEl.textContent = 'Auto update';
+					autoUpdateSwitchFormCheckEl.appendChild(autoUpdateSwitchLabelEl);
+					autoUpdateSwitchFormEl.appendChild(autoUpdateSwitchFormCheckEl);
+					parentEl.appendChild(autoUpdateSwitchFormEl);
 				}
 
-				async updateChart() {
+				async renderChart(parentEl) {
+					const chartEl = document.createElement('div');
+					chartEl.style.height = '300px';
+
+					const canvasEl = document.createElement('canvas');
+					chartEl.appendChild(canvasEl);
+					parentEl.appendChild(chartEl);
+
+					const legendEl = document.createElement('div');
+					legendEl.id = `${this.#id}-legend`;
+					legendEl.className = 'overflow-auto';
+					parentEl.appendChild(legendEl);
+
 					const data = await this.#queryMetrics(this.#instance);
-					this.chart.data.labels   = data.labels;
-					this.chart.data.datasets = data.datasets;
-					this.chart.update('none');
-				}
+					const context = canvasEl.getContext('2d');
 
-				renderChart(context, labels, datasets) {
-					return new Chart(context, {
+					this.#chart = new Chart(context, {
 						type: 'line',
 						data: {
-							labels: labels,
-							datasets: datasets
+							labels: data.labels,
+							datasets: data.datasets
 						},
 						options: {
-							maintainAspectRatio: true,
+							maintainAspectRatio: false,
 							responsive: true,
 							plugins: {
+								htmlLegend: {
+									containerID: `${this.#id}-legend`,
+								},
 								legend: {
+									display: false,
 									position: 'bottom',
 								}
 							},
@@ -952,11 +1039,12 @@ Copyright © 2024-2025 Yannick Dreher
 								y: {
 									title: {
 										display: true,
-										text: 'Amount of queries'
+										text: this.#yAxisLabel
 									}
 								}
 							}
-						}
+						},
+						plugins: [htmlLegend],
 					});
 				}
 
@@ -967,7 +1055,7 @@ Copyright © 2024-2025 Yannick Dreher
 					}
 					console.log(`Starting auto update with an interval of ${this.#autoUpdateInterval}ms.`);
 					this.#autoUpdateIntervalId = setInterval(this.updateChart, this.#autoUpdateInterval);
-					document.getElementById(this.#autoUpdateSwitchElementId).checked = true;
+					this.#autoUpdateSwitchInputEl.checked = true;
 				}
 
 				stopAutoUpdate() {
@@ -978,7 +1066,7 @@ Copyright © 2024-2025 Yannick Dreher
 					console.log("Stopping auto update.");
 					clearInterval(this.#autoUpdateIntervalId);
 					this.#autoUpdateIntervalId = null;
-					document.getElementById(this.#autoUpdateSwitchElementId).checked = false;
+					this.#autoUpdateSwitchInputEl.checked = false;
 				}
 
 				updateUpdateInterval(newInterval) {
@@ -996,35 +1084,57 @@ Copyright © 2024-2025 Yannick Dreher
 			}
 
 			const theoIncommingQueriesChart = new MetricsChart(
+				'Incomming queries past 24h',
 				'theo.dremaxx.de',
 				'theo-incomming-queires-chart',
-				'theo-incomming-queries-chart-auto-update-switch',
 				queryIncommingQueriesMetrics,
-				30000
+				30000,
+				'Amount of queries'
 			);
 
 			const theoQueriesByDurationChart = new MetricsChart(
+				'Queries by duration past 24h',
 				'theo.dremaxx.de',
 				'theo-queries-by-duration-chart',
-				'theo-queries-by-duration-chart-auto-update-switch',
 				queryQueriesByDurationMetrics,
-				30000
+				30000,
+				'Amount of queries'
+			);
+
+			const theoCachedRrSetsChart = new MetricsChart(
+				'Cached RR sets past 24h',
+				'theo.dremaxx.de',
+				'theo-cached-rr-sets-chart',
+				queryCachedRrSetsMetrics,
+				30000,
+				'Amount of RR sets'
 			);
 
 			const fritzIncommingQueriesChart = new MetricsChart(
+				'Incomming queries past 24h',
 				'fritz.dremaxx.de',
 				'fritz-incomming-queires-chart',
-				'fritz-incomming-queries-chart-auto-update-switch',
 				queryIncommingQueriesMetrics,
-				30000
+				30000,
+				'Amount of queries'
 			);
 
 			const fritzQueriesByDurationChart = new MetricsChart(
+				'Queries by duration past 24h',
 				'fritz.dremaxx.de',
 				'fritz-queries-by-duration-chart',
-				'fritz-queries-by-duration-chart-auto-update-switch',
 				queryQueriesByDurationMetrics,
-				30000
+				30000,
+				'Amount of queries'
+			);
+
+			const fritzCachedRrSetsChart = new MetricsChart(
+				'Cached RR sets past 24h',
+				'fritz.dremaxx.de',
+				'fritz-cached-rr-sets-chart',
+				queryCachedRrSetsMetrics,
+				30000,
+				'Amount of RR sets'
 			);
 		</script>
 
@@ -1158,8 +1268,7 @@ Copyright © 2024-2025 Yannick Dreher
 				"prism/components/prism-ini":			"https://cdn.jsdelivr.net/npm/prismjs/components/prism-ini.min.js",
 				"prism/components/prism-bash":			"https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js",
 				"prism/components/prism-javascript":	"https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js",
-				"mobileconfig": "./js/mobileconfig.js",
-				"rainingips":	"./js/rainingips.js"
+				"mobileconfig": "./js/mobileconfig.js"
 			}
 		}
 	</script>
@@ -1176,7 +1285,7 @@ Copyright © 2024-2025 Yannick Dreher
 		import 'prism/components/prism-javascript';
 		import * as DNS from 'dnsclient';
 		import * as MC from 'mobileconfig';
-		import * as RIPS from 'rainingips';
+		//import * as RIPS from 'rainingips';
 
 		Prism.plugins.NormalizeWhitespace.setDefaults({
 			'remove-trailing': true,
@@ -1188,19 +1297,19 @@ Copyright © 2024-2025 Yannick Dreher
 		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
 		const BACKGROUND_ANIMATION_SWITCH_EL = document.getElementById('background-animation-switch');
 
-		if (RIPS.animationId) {
-			BACKGROUND_ANIMATION_SWITCH_EL.checked = true;
-		} else {
-			BACKGROUND_ANIMATION_SWITCH_EL.checked = false;
-		}
+		// if (RIPS.animationId) {
+		// 	BACKGROUND_ANIMATION_SWITCH_EL.checked = true;
+		// } else {
+		// 	BACKGROUND_ANIMATION_SWITCH_EL.checked = false;
+		// }
 
-		BACKGROUND_ANIMATION_SWITCH_EL.addEventListener("change", (evnet) => {
-			if (event.target.checked) {
-				RIPS.startAnimation();
-			} else {
-				RIPS.stopAnimation();
-			}
-		});
+		// BACKGROUND_ANIMATION_SWITCH_EL.addEventListener("change", (evnet) => {
+		// 	if (event.target.checked) {
+		// 		RIPS.startAnimation();
+		// 	} else {
+		// 		RIPS.stopAnimation();
+		// 	}
+		// });
 
 		document.querySelectorAll(".ctc").forEach(function(element) {
 			element.addEventListener("click", function() {
