@@ -1442,13 +1442,17 @@ Copyright © 2024-2025 Yannick Dreher
 		
 		const theoEl  = document.getElementById('theo');
 		const fritzEl = document.getElementById('fritz');
-		const queryTheointerval = setInterval(() => {
-			queryDnsServer(theoEl);
-		}, 1000);
+		
+		queryDnsServer(theoEl);
+		queryDnsServer(fritzEl);
 
-		const queryFritzinterval = setInterval(() => {
+		const queryTheoInterval = setInterval(() => {
+			queryDnsServer(theoEl);
+		}, 4000);
+
+		const queryFritzInterval = setInterval(() => {
 			queryDnsServer(fritzEl);
-		}, 1000);
+		}, 4000);
 
 		document.getElementById("generate-mobile-config").addEventListener("click", () => {
 			const excludedSsids = document.getElementById("input-excluded-wifi-networks").value;
