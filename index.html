@@ -14,7 +14,7 @@ Copyright © 2024-2025 Yannick Dreher
 <html lang="en" data-bs-theme="dark">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=0.8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Public DNS Resolvers</title>
 	<meta name="description" content="This DNS service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
@@ -108,6 +108,10 @@ Copyright © 2024-2025 Yannick Dreher
 
 		body {
 			--bs-body-font-family: var(--bs-font-monospace);
+			transform: scale(0.8);
+			transform-origin: top left;
+			width: 125%;
+			height: 100vh;
 		}
 
 		.table {
@@ -1205,12 +1209,35 @@ Copyright © 2024-2025 Yannick Dreher
 			</div>
 		</section>
 
-		<section class="container fw-lighter text-center mb-3">
+		<section class="container text-center mb-3">
 			<p>
-				My DNS servers are hosted on virtual servers from IONOS, and I can highly recommend their services.<br>
-				By using the following link, you can receive a bonus when signing up for a hosting contract:<br>
-				<a href="https://aklam.io/e8Dpxm" target="_blank">Get your service + bonus</a>
+				Service providers that I use to provide my services and can recommend:<br>
 			</p>
+			<div class="row align-items-center justify-content-center" style="height: 60px;">
+				<div class="col-2 h-100">
+					<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
+						<a href="https://aklam.io/e8Dpxm" target="_blank">
+							<img src="images/logo-ionos.png" style="height: 100%; width: 100%;" class="img-fluent text-bg-light" alt="IONOS">
+						</a>
+					</div>
+				</div>
+				<div class="col-2 h-100">
+					<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
+						<a href="https://www.inwx.de/" target="_blank" class="h-100">
+							<img src="images/logo-inwx.png" style="height: 100%; width: 100%;" class="img-fluent rounded text-bg-light" alt="INWX">
+						</a>
+					</div>
+				</div>
+				<div class="col-2 h-100">
+					<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
+						<a href="https://www.lansol.de/" target="_blank" class="h-100">
+							<img src="images/logo-lansol.svg" style="height: 100%; width: 100%;" class="img-fluent rounded text-bg-light" alt="Lansol">
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="container fw-lighter text-center mb-3">
 			<p>
 				You like the service and would like to support me?<br>
 				<a href="http://paypal.me/YannickDreher" target="_blank">PayPal.Me</a>
@@ -1222,9 +1249,11 @@ Copyright © 2024-2025 Yannick Dreher
 				<span class="p-2 text-nowrap">
 					© 2025 Yannick Dreher
 				</span>
+				<div class="vr"></div>
 				<span class="p-2 text-nowrap">
 					All rights reserved.
 				</span>
+				<div class="vr"></div>
 				<span class="p-2">
 					<button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#impressum">Impressum</button>
 				</span>
