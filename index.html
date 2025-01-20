@@ -742,19 +742,19 @@ Copyright © 2024-2025 Yannick Dreher
 
 		<section class="container my-5">
 			<div class="card">
-				<div class="card-header text-uppercase fw-bold"># Server metrics</div>
+				<div class="card-header text-uppercase fw-bold"># DNS metrics</div>
 				<div class="card-body accordion" id="server-metrics">
 					<div class="accordion-item">
 						<h3 class="accordion-header">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-theo-metrics" aria-expanded="false" aria-controls="collapse-theo-metrics">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-theo-metrics" aria-expanded="true" aria-controls="collapse-theo-metrics">
 								theo.dremaxx.de
 							</button>
 						</h3>
-						<div id="collapse-theo-metrics" class="accordion-collapse show" data-bs-parent="#server-metrics">
+						<div id="collapse-theo-metrics" class="accordion-collapse collapse show" data-bs-parent="#server-metrics">
 							<div class="accordion-body">
-								<div id="theo-incomming-queires-chart" class="p-2 mb-4"></div>
-								<div id="theo-queries-by-duration-chart" class="p-2 mb-4 mt-4"></div>
-								<div id="theo-cached-rr-sets-chart" class="p-2 mt-4"></div>
+								<div id="theo-incomming-queires-chart" class="mb-3"></div>
+								<div id="theo-queries-by-duration-chart" class="my-3"></div>
+								<div id="theo-cached-rr-sets-chart" class="mt-3"></div>
 							</div>
 						</div>
 					</div>
@@ -766,9 +766,9 @@ Copyright © 2024-2025 Yannick Dreher
 						</h3>
 						<div id="collapse-fritz-metrics" class="accordion-collapse collapse" data-bs-parent="#server-metrics">
 							<div class="accordion-body">
-								<div id="fritz-incomming-queires-chart" class="p-2 mb-4"></div>
-								<div id="fritz-queries-by-duration-chart" class="p-2 mb-4 mt-4"></div>
-								<div id="fritz-cached-rr-sets-chart" class="p-2 mt-4"></div>
+								<div id="fritz-incomming-queires-chart" class="mb-3"></div>
+								<div id="fritz-queries-by-duration-chart" class="my-3"></div>
+								<div id="fritz-cached-rr-sets-chart" class="mt-3"></div>
 							</div>
 						</div>
 					</div>
@@ -931,7 +931,7 @@ Copyright © 2024-2025 Yannick Dreher
 
 				async renderControlBar(parentEl) {
 					const controlBarEl = document.createElement('div');
-					controlBarEl.className = 'hstack gap-2 mb-2 pb-2 border-bottom';
+					controlBarEl.className = 'hstack gap-2 p-2 border-bottom';
 					await this.renderTitle(controlBarEl);
 					await this.renderAutoUpdateSwitch(controlBarEl);
 					await this.renderReloadButton(controlBarEl);
@@ -993,6 +993,7 @@ Copyright © 2024-2025 Yannick Dreher
 
 				async renderChart(parentEl) {
 					const chartEl = document.createElement('div');
+					chartEl.className = 'p-2';
 					chartEl.style.height = '300px';
 
 					const canvasEl = document.createElement('canvas');
@@ -1001,7 +1002,7 @@ Copyright © 2024-2025 Yannick Dreher
 
 					const legendEl = document.createElement('div');
 					legendEl.id = `${this.#id}-legend`;
-					legendEl.className = 'overflow-auto';
+					legendEl.className = 'p-2 overflow-auto';
 					parentEl.appendChild(legendEl);
 
 					const data = await this.#queryMetrics(this.#instance);
@@ -1016,6 +1017,7 @@ Copyright © 2024-2025 Yannick Dreher
 						options: {
 							maintainAspectRatio: false,
 							responsive: true,
+							animation: false,
 							plugins: {
 								htmlLegend: {
 									containerID: `${this.#id}-legend`,
@@ -1146,8 +1148,8 @@ Copyright © 2024-2025 Yannick Dreher
 			<div class="accordion" id="open-source-information">
 				<div class="accordion-item">
 					<h3 class="accordion-header">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-open-source-information" aria-expanded="false" aria-controls="collapse-open-source-information">
-							Open source information
+						<button class="accordion-button collapsed text-uppercase fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-open-source-information" aria-expanded="false" aria-controls="collapse-open-source-information">
+							# Open source information
 						</button>
 					</h3>
 					<div id="collapse-open-source-information" class="accordion-collapse collapse" data-bs-parent="#open-source-information">
@@ -1202,46 +1204,51 @@ Copyright © 2024-2025 Yannick Dreher
 									</tbody>
 								</table>
 							</div>
-							<p class="m-0">Many thanks to everyone who is working on these projects! <i class="bi bi-heart-fill text-danger"></i></p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<section class="container text-center mb-3">
-			<p>
-				Service providers that I use to provide my services and can recommend:<br>
-			</p>
-			<div class="row align-items-center justify-content-center" style="height: 60px;">
-				<div class="col col-xs-6 col-sm-3 col-md-2 h-100">
-					<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
-						<a href="https://aklam.io/e8Dpxm" target="_blank">
-							<img src="images/logo-ionos.png" style="height: 100%; width: 100%;" class="img-fluent text-bg-light" alt="IONOS">
-						</a>
-					</div>
-				</div>
-				<div class="col col-xs-6 col-sm-3 col-md-2 h-100">
-					<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
-						<a href="https://www.inwx.de/" target="_blank" class="h-100">
-							<img src="images/logo-inwx.png" style="height: 100%; width: 100%;" class="img-fluent rounded text-bg-light" alt="INWX">
-						</a>
-					</div>
-				</div>
-				<div class="col col-xs-6 col-sm-3 col-md-2 h-100">
-					<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
-						<a href="https://www.lansol.de/" target="_blank" class="h-100">
-							<img src="images/logo-lansol.svg" style="height: 100%; width: 100%;" class="img-fluent rounded text-bg-light" alt="Lansol">
-						</a>
+		<section class="container my-5">
+			<div class="card">
+				<div class="card-body text-center">
+					<p>
+						Service providers that I use to provide my services and can recommend:<br>
+					</p>
+					<div class="row align-items-center justify-content-center" style="height: 60px;">
+						<div class="col col-xs-6 col-sm-3 col-md-2 h-100">
+							<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
+								<a href="https://aklam.io/e8Dpxm" target="_blank">
+									<img src="images/logo-ionos.png" style="height: 100%; width: 100%;" class="img-fluent text-bg-light" alt="IONOS">
+								</a>
+							</div>
+						</div>
+						<div class="col col-xs-6 col-sm-3 col-md-2 h-100">
+							<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
+								<a href="https://www.inwx.de/" target="_blank" class="h-100">
+									<img src="images/logo-inwx.png" style="height: 100%; width: 100%;" class="img-fluent rounded text-bg-light" alt="INWX">
+								</a>
+							</div>
+						</div>
+						<div class="col col-xs-6 col-sm-3 col-md-2 h-100">
+							<div class="p-1 h-100 rounded text-bg-light d-flex justify-content-center align-items-center">
+								<a href="https://www.lansol.de/" target="_blank" class="h-100">
+									<img src="images/logo-lansol.svg" style="height: 100%; width: 100%;" class="img-fluent rounded text-bg-light" alt="Lansol">
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section class="container fw-lighter text-center mb-3">
-			<p>
-				You like the service and would like to support me?<br>
-				<a href="http://paypal.me/YannickDreher" target="_blank">PayPal.Me</a>
-			</p>
+		<section class="container my-5">
+			<div class="card">
+				<div class="card-body text-center">
+					You like the service and would like to support me?<br>
+					<a href="http://paypal.me/YannickDreher" target="_blank">PayPal.Me</a>
+				</div>
+			</div>
 		</section>
 		
 		<footer class="container-fluid align-items-center border-top">
