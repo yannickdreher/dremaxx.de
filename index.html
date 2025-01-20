@@ -99,6 +99,10 @@
 			--bs-body-font-family: var(--bs-font-monospace);
 		}
 
+		tr:last-child td {
+			border: none;
+		}
+
 		.content {
 			--bs-body-font-family: var(--bs-font-monospace);
 			position: relative;
@@ -160,130 +164,152 @@
 			</p>
 		</section>
 		<section class="container my-5">
-			<!-- <div class="d-flex justify-content-end align-items-start">
-				<div class="form-check form-switch ">
-					<input class="form-check-input" type="checkbox" id="background-animation-switch">
-					<label class="form-check-label text-body-secondary" for="background-animation-switch">Background Animation</label>
-				</div>
-			</div> -->
-			<div class="bg-dark-subtle border bg-secondary-subtle rounded">
-				<div id="theo" class="row align-items-center border-bottom">
-					<div class="col-sm-4 py-4">
-						<h4 class="p-2 m-0 text-center rounded">
-							<span class="hostname text-info">theo.dremaxx.de</span>
-							<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
-						</h4>
+			<div class="card">
+				<div class="card-header text-uppercase fw-bold"># Theo & Fritz unfiltered</div>
+				<div class="card-body p-0">
+					<div id="theo" class="row no-gutters align-items-center border-bottom">
+						<div class="col-sm-4 py-4">
+							<h4 class="p-2 m-0 text-center rounded">
+								<span class="hostname text-info">theo.dremaxx.de</span>
+								<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+							</h4>
+						</div>
+						<div class="col-sm-5 py-2">
+							<div class="table-responsive rounded overflow-hidden">
+								<table class="table table-borderless align-middle rounded  m-0">
+									<tr class="border-bottom">
+										<th>IPv4:</th>
+										<td class="ipv4">
+											<div class="d-flex justify-content-between align-items-center">
+												<span>85.215.153.54</span>
+												<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>IPv6:</th>
+										<td class="ipv6">
+											<div class="d-flex justify-content-between align-items-center">
+												<span>2a01:239:251:a800::1</span>
+												<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-3 py-2 fw-light">
+							<div class="d-flex flex-wrap justify-content-between">
+								<div class="hstack py-1">
+									<div style="width: 90px;">
+										Status:  
+									</div>
+									<div>
+										<span id="theo-status" class="status badge text-bg-secondary">-</span>
+									</div>
+								</div>
+								<div class="hstack py-1">
+									<div style="width: 90px;">
+										Latency:  
+									</div>
+									<div>
+										<span id="theo-latency" class="latency">-</span>ms
+									</div>
+								</div>
+								<div class="hstack py-1">
+									<div style="width: 90px;">
+										Location:  
+									</div>
+									<div>
+										DE
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col-sm-5 py-2">
-						<div class="table-responsive rounded overflow-hidden">
-							<table class="table table-borderless align-middle rounded  m-0">
-								<tr class="border-bottom">
-									<th>IPv4:</th>
-									<td class="ipv4">
-										<div class="d-flex justify-content-between align-items-center">
-											<span>85.215.153.54</span>
-											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<th>IPv6:</th>
-									<td class="ipv6">
-										<div class="d-flex justify-content-between align-items-center">
-											<span>2a01:239:251:a800::1</span>
-											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
-										</div>
-									</td>
-								</tr>
+					<div id="fritz" class="row no-gutters align-items-center">
+						<div class="col-sm-4 py-4">
+							<h4 class="p-2 m-0 text-center rounded">
+								<span class="hostname text-info">fritz.dremaxx.de</span>
+								<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+							</h4>
+						</div>
+						<div class="col-sm-5 py-2">
+							<div class="table-responsive rounded overflow-hidden">
+								<table class="table table-borderless align-middle rounded  m-0">
+									<tr class="border-bottom">
+										<th>IPv4:</th>
+										<td class="ipv4">
+											<div class="d-flex justify-content-between align-items-center">
+												<span>87.106.35.241</span>
+												<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>IPv6:</th>
+										<td class="ipv6">
+											<div class="d-flex justify-content-between align-items-center">
+												<span>2a00:da00:f425:5800::1</span>
+												<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-3 py-2 fw-light">
+							<div class="d-flex flex-wrap justify-content-between">
+								<div class="hstack py-1">
+									<div style="width: 90px;">
+										Status:  
+									</div>
+									<div>
+										<span id="fritz-status" class="status badge text-bg-secondary">-</span>
+									</div>
+								</div>
+								<div class="hstack py-1">
+									<div style="width: 90px;">
+										Latency:  
+									</div>
+									<div>
+										<span id="fritz-latency" class="latency">-</span>ms
+									</div>
+								</div>
+								<div class="hstack py-1">
+									<div style="width: 90px;">
+										Location:  
+									</div>
+									<div>
+										GB
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card m-2">
+						<div class="card-header text-uppercase fw-bold">Features</div>
+						<div class="card-body p-0">
+							<table class="table table-nobg m-0">
+								<tbody>
+									<tr>
+										<td>Domain name:</td>
+										<td>
+											<code class="language-ini">
+												dns.dremaxx.de
+											</code>
+										</td>
+									</tr>
+									<tr>
+										<td>Filtering:</td>
+										<td>No filtering</td>
+									</tr>
+									<tr>
+										<td>Privacy:</td>
+										<td>No query logging</td>
+									</tr>
+								</tbody>
 							</table>
-						</div>
-					</div>
-					<div class="col-sm-3 py-2 fw-light">
-						<div class="d-flex flex-wrap justify-content-between">
-							<div class="hstack py-1">
-								<div style="width: 90px;">
-									Status:  
-								</div>
-								<div>
-									<span id="theo-status" class="status badge text-bg-secondary">-</span>
-								</div>
-							</div>
-							<div class="hstack py-1">
-								<div style="width: 90px;">
-									Latency:  
-								</div>
-								<div>
-									<span id="theo-latency" class="latency">-</span>ms
-								</div>
-							</div>
-							<div class="hstack py-1">
-								<div style="width: 90px;">
-									Location:  
-								</div>
-								<div>
-									DE
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div id="fritz" class="row align-items-center align-middle">
-					<div class="col-sm-4 py-4">
-						<h4 class="p-2 m-0 text-center rounded">
-							<span class="hostname text-info">fritz.dremaxx.de</span>
-							<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
-						</h4>
-					</div>
-					<div class="col-sm-5 py-2">
-						<div class="table-responsive rounded overflow-hidden">
-							<table class="table table-borderless align-middle rounded  m-0">
-								<tr class="border-bottom">
-									<th>IPv4:</th>
-									<td class="ipv4">
-										<div class="d-flex justify-content-between align-items-center">
-											<span>87.106.35.241</span>
-											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<th>IPv6:</th>
-									<td class="ipv6">
-										<div class="d-flex justify-content-between align-items-center">
-											<span>2a00:da00:f425:5800::1</span>
-											<button type="button" class="btn btn-link p-0 ctc"><i class="bi bi-clipboard"></i></button>
-										</div>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<div class="col-sm-3 py-2 fw-light">
-						<div class="d-flex flex-wrap justify-content-between">
-							<div class="hstack py-1">
-								<div style="width: 90px;">
-									Status:  
-								</div>
-								<div>
-									<span id="fritz-status" class="status badge text-bg-secondary">-</span>
-								</div>
-							</div>
-							<div class="hstack py-1">
-								<div style="width: 90px;">
-									Latency:  
-								</div>
-								<div>
-									<span id="fritz-latency" class="latency">-</span>ms
-								</div>
-							</div>
-							<div class="hstack py-1">
-								<div style="width: 90px;">
-									Location:  
-								</div>
-								<div>
-									GB
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
