@@ -1,20 +1,8 @@
-<!--
-Project:  dremaxx.de
-File:     index.html
-Author:   Yannick Dreher (yannick.dreher@dremaxx.de)
------
-Created:  Friday, 29th November 2024 7:12:53 pm
-Modified: Wednesday, 15th January 2025 1:48:06 am
------
-License: MIT License (https://opensource.org/licenses/MIT)
-Copyright © 2024-2025 Yannick Dreher
--->
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>Public DNS Resolvers</title>
 	<meta name="description" content="This DNS service ensures your online privacy and security by offering DNS over TLS (DoT) and DNS over HTTPS (DoH).">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
@@ -25,6 +13,7 @@ Copyright © 2024-2025 Yannick Dreher
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+	<script src="./js/chartjs.plugin.htmllegend.js"></script>
     <style>
 		/* Für WebKit-basierte Browser */
 		::-webkit-scrollbar {
@@ -108,7 +97,19 @@ Copyright © 2024-2025 Yannick Dreher
 
 		body {
 			--bs-body-font-family: var(--bs-font-monospace);
-			zoom: 0.8;
+		}
+
+		.content {
+			--bs-body-font-family: var(--bs-font-monospace);
+			position: relative;
+			transform: scale(0.8);
+			transform-origin: top left;
+			width: 125%;
+			height: 100vh;
+		}
+
+		.container {
+			max-width: 960px !important;
 		}
 
 		.table {
@@ -131,14 +132,6 @@ Copyright © 2024-2025 Yannick Dreher
 			border: var(--bs-alert-border);
 			border-radius: var(--bs-alert-border-radius);
 		}
-		
-		.content {
-			position: relative;
-		}
-		
-		.container {
-            max-width: 960px;
-        }
 		
 		.row {
 			margin-left: 0;
@@ -772,7 +765,6 @@ Copyright © 2024-2025 Yannick Dreher
 				</div>
 			</div>
 		</section>
-		<script src="./js/chartjs.plugin.htmllegend.js"></script>
 		<script>
 			const PROMETHEUS_URL = "https://theo.dremaxx.de/api/prom/api/v1/";
 
@@ -1163,16 +1155,16 @@ Copyright © 2024-2025 Yannick Dreher
 									</thead>
 									<tbody>
 										<tr>
-											<td>chart.js</td>
-											<td>MIT</td>
-											<td><a href="https://www.chartjs.org/" target="_blank">chartjs.org</a></td>
-											<td><a class="text-nowrap" href="https://github.com/chartjs/Chart.js">GitHub - chartjs/Chart.js</a></td>
-										</tr>
-										<tr>
 											<td>bootstrap</td>
 											<td>MIT</td>
 											<td><a href="https://getbootstrap.com/" target="_blank">getbootstrap.com</a></td>
 											<td><a class="text-nowrap" href="https://github.com/twbs/bootstrap">GitHub - twbs/bootstrap</a></td>
+										</tr>
+										<tr>
+											<td>chart.js</td>
+											<td>MIT</td>
+											<td><a href="https://www.chartjs.org/" target="_blank">chartjs.org</a></td>
+											<td><a class="text-nowrap" href="https://github.com/chartjs/Chart.js">GitHub - chartjs/Chart.js</a></td>
 										</tr>
 										<tr>
 											<td>three.js</td>
@@ -1239,6 +1231,7 @@ Copyright © 2024-2025 Yannick Dreher
 				</div>
 			</div>
 		</section>
+
 		<section class="container my-5">
 			<div class="card">
 				<div class="card-body text-center">
@@ -1263,37 +1256,37 @@ Copyright © 2024-2025 Yannick Dreher
 				</span>
 			</div>
 		</footer>
-		
-		<div class="modal fade" id="impressum" tabindex="-1" aria-labelledby="impressum-label" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="impressum-label">Impressum</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<address>
-							Yannick Dreher<br />
-							Gertrude-Neumark-Weg 17<br />
-							90431 N&uuml;rnberg<br />
-							Germany
-						</address>
-						<h4>Kontakt</h4>
-						<table>
-							<tr>
-								<td>Telefon:</td><td><a href="tel:+4915158056065">+49 151 58056065</a></td>
-							</tr>
-							<tr>
-								<td>E-Mail:</td><td><a href="mailto:yannick.dreher@dremaxx.de">yannick.dreher@dremaxx.de</a></td>
-							</tr>
-							<tr>
-								<td>Threema:</td><td><a href="https://threema.id/559UTU46" target="_blank">559UTU46</a></td>
-							</tr>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					</div>
+	</div>
+
+	<div class="modal fade" id="impressum" tabindex="-1" aria-labelledby="impressum-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="impressum-label">Impressum</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<address>
+						Yannick Dreher<br />
+						Gertrude-Neumark-Weg 17<br />
+						90431 N&uuml;rnberg<br />
+						Germany
+					</address>
+					<h4>Kontakt</h4>
+					<table>
+						<tr>
+							<td>Telefon:</td><td><a href="tel:+4915158056065">+49 151 58056065</a></td>
+						</tr>
+						<tr>
+							<td>E-Mail:</td><td><a href="mailto:yannick.dreher@dremaxx.de">yannick.dreher@dremaxx.de</a></td>
+						</tr>
+						<tr>
+							<td>Threema:</td><td><a href="https://threema.id/559UTU46" target="_blank">559UTU46</a></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -1450,13 +1443,8 @@ Copyright © 2024-2025 Yannick Dreher
 		queryDnsServer(theoEl);
 		queryDnsServer(fritzEl);
 
-		const queryTheoInterval = setInterval(() => {
-			queryDnsServer(theoEl);
-		}, 4000);
-
-		const queryFritzInterval = setInterval(() => {
-			queryDnsServer(fritzEl);
-		}, 4000);
+		const queryTheoInterval = setInterval(async () => await queryDnsServer(theoEl), 2000);
+		const queryFritzInterval = setInterval(async () => await queryDnsServer(fritzEl), 2000);
 
 		document.getElementById("generate-mobile-config").addEventListener("click", () => {
 			const excludedSsids = document.getElementById("input-excluded-wifi-networks").value;
