@@ -100,7 +100,7 @@
 		}
 
 		tr:last-child td {
-			border: none;
+			border-bottom: none;
 		}
 
 		.content {
@@ -120,7 +120,7 @@
 			--bs-table-bg: var(--bs-secondary-bg);
 		}
 
-		.table-nobg tr td, .table-nobg tr th {
+		.table-bg-transparent tr td, .table-bg-transparent tr th {
 			background-color: transparent !important;
 		}
 
@@ -237,7 +237,7 @@
 						</div>
 						<div class="col-sm-5 py-2">
 							<div class="table-responsive rounded overflow-hidden">
-								<table class="table table-borderless align-middle rounded  m-0">
+								<table class="table table-borderless align-middle rounded m-0">
 									<tr class="border-bottom">
 										<th>IPv4:</th>
 										<td class="ipv4">
@@ -290,27 +290,25 @@
 					</div>
 					<div class="card m-2">
 						<div class="card-header text-uppercase fw-bold">Features</div>
-						<div class="card-body p-0">
-							<table class="table table-nobg m-0">
-								<tbody>
-									<tr>
-										<td>Domain name:</td>
-										<td>
-											<code class="language-ini">
-												dns.dremaxx.de
-											</code>
-										</td>
-									</tr>
-									<tr>
-										<td>Filtering:</td>
-										<td>No filtering</td>
-									</tr>
-									<tr>
-										<td>Privacy:</td>
-										<td>No query logging</td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="card-body">
+							<div class=" table-responsive">
+								<table class="table table-bg-transparent m-0">
+									<thead class="text-uppercase fw-bold">
+										<tr>
+											<th scope="col">Domain name:</th>
+											<th scope="col">Filtering:</th>
+											<th scope="col">Privacy:</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-nowrap">dns.dremaxx.de</td>
+											<td class="text-nowrap">No filtering</td>
+											<td class="text-nowrap">No query logging</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -1171,7 +1169,7 @@
 					<div id="collapse-open-source-information" class="accordion-collapse collapse" data-bs-parent="#open-source-information">
 						<div class="accordion-body">
 							<div class="table-responsive">
-								<table class="table table-nobg">
+								<table class="table table-bg-transparent">
 									<thead>
 										<tr>
 											<th>Library</th>
