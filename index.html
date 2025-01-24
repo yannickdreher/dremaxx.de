@@ -97,19 +97,24 @@
 
 		body {
 			--bs-body-font-family: var(--bs-font-monospace);
-		}
-
-		tr:last-child td {
-			border-bottom: none;
-		}
-
-		.content {
-			--bs-body-font-family: var(--bs-font-monospace);
-			position: relative;
+			position: absolute;
 			transform: scale(0.8);
 			transform-origin: top left;
 			width: 125%;
 			height: 100vh;
+		}
+
+		.modal {
+			height: 125%;
+		}
+
+		.modal-backdrop {
+			width: 125%;
+			height: 125%;
+		}
+
+		tr:last-child td {
+			border-bottom: none;
 		}
 
 		.container {
@@ -1271,11 +1276,9 @@
 				<span class="p-2 text-nowrap">
 					© 2025 Yannick Dreher
 				</span>
-				<div class="vr"></div>
 				<span class="p-2 text-nowrap">
 					All rights reserved.
 				</span>
-				<div class="vr"></div>
 				<span class="p-2">
 					<button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#impressum">Impressum</button>
 				</span>
@@ -1283,21 +1286,22 @@
 		</footer>
 	</div>
 
-	<div class="modal fade" id="impressum" tabindex="-1" aria-labelledby="impressum-label" aria-hidden="true">
-		<div class="modal-dialog">
+	<div class="modal" id="impressum" tabindex="-1" aria-labelledby="impressum-label" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="impressum-label">Impressum</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
+					<h4>Angaben gemäß § 5 TMG und § 18 Abs. 2 MStV:</h4>
 					<address>
 						Yannick Dreher<br />
 						Gertrude-Neumark-Weg 17<br />
 						90431 N&uuml;rnberg<br />
 						Germany
 					</address>
-					<h4>Kontakt</h4>
+					<h5>Kontakt</h5>
 					<table>
 						<tr>
 							<td>Telefon:</td><td><a href="tel:+4915158056065">+49 151 58056065</a></td>
@@ -1309,6 +1313,27 @@
 							<td>Threema:</td><td><a href="https://threema.id/559UTU46" target="_blank">559UTU46</a></td>
 						</tr>
 					</table>
+					<hr />
+					<h4>Haftungsausschluss (Disclaimer):</h4>
+					<br />
+					<h5>Haftung für Inhalte:</h5>
+					<p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. 
+					Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu 
+					überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+					Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. 
+					Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden 
+					von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+					<br />
+					<h5>Haftung für Links:</h5>
+					<p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. 
+					Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige 
+					Anbieter oder Betreiber der Seiten verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+					<br />
+					<h5>Urheberrecht:</h5>
+					<p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. 
+					Beiträge Dritter sind als solche gekennzeichnet. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der 
+					Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite 
+					sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1316,6 +1341,7 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="importmap">
 		{
 			"imports": {
