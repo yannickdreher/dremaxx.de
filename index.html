@@ -510,6 +510,7 @@
 			<div class="card">
 				<div class="card-header text-uppercase fw-bold"># Setup Instructions</div>
 				<div class="card-body accordion" id="setup-instructions">
+					<!-- ===== Setting up DNS servers on a FritzBox =====-->
 					<div class="accordion-item">
 						<h3 class="accordion-header">
 							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-fritzbox" aria-expanded="false" aria-controls="collapse-setup-fritzbox">
@@ -556,7 +557,7 @@
 							</div>
 						</div>
 					</div>
-					
+					<!-- ===== Setting up DNS servers on Linux ==========-->
 					<div class="accordion-item">
 						<h3 class="accordion-header">
 							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-debian" aria-expanded="false" aria-controls="collapse-setup-debian">
@@ -609,7 +610,7 @@
 							</div>
 						</div>
 					</div>
-				
+					<!-- ===== Setting up DNS servers on an iPhone ======-->
 					<div class="accordion-item">
 						<h3 class="accordion-header">
 							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-iphone" aria-expanded="false" aria-controls="collapse-setup-iphone">
@@ -680,7 +681,7 @@
 											To use custom DNS settings on iPhone or iPad, a configuration profile is required. 
 											This profile allows you to specify DNS servers directly on the device, overriding the default settings.
 										</p>
-										<form>
+										<form id="generate-mobile-config-form">
 											<div class="mb-3">
 												<label for="input-excluded-wifi-networks" class="form-label">Excluded WiFi Networks</label>
 												<input type="text" class="form-control" id="input-excluded-wifi-networks">
@@ -703,14 +704,14 @@
 												<input type="checkbox" class="form-check-input" id="input-profile-prohibit-disablement">
 												<label class="form-check-label" for="input-profile-prohibit-disablement">Prohibit disablement</label>
 											</div>
-											<button id="generate-mobile-config" type="button" class="btn btn-primary">Download Profile</button>
+											<button id="generate-mobile-config-button" type="submit" class="btn btn-primary">Download Profile</button>
 										</form>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+					<!-- ===== Setting up DNS servers on Android ========-->
 					<div class="accordion-item">
 						<h3 class="accordion-header">
 							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-setup-andoid" aria-expanded="false" aria-controls="collapse-setup-andoid">
@@ -917,6 +918,39 @@
 				return { labels, datasets };
 			}
 
+			async function querySumByTypeOfIncommingQueriesMetrics(instance) {
+				const query = `sum by(type) (bind_incoming_queries_total{instance="${instance}", job="bind"})`;
+				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
+				const end   = new Date(Date.now()).toISOString();
+				const step	= '60s';
+				const data	= await queryRange(query, start, end, step);
+
+				const labels = [];
+				const datasets = [];
+
+				data.forEach(item => {
+					const dataset = {
+						label: item.metric.type,
+						data: [],
+						borderWidth: 1,
+						fill: false,
+						tension: 0.1,
+						pointRadius: 0
+					};
+
+					item.values.forEach(value => {
+						const x = new Date(value[0] * 1000);
+						const y = value[1];
+						labels.push(x); 
+						dataset.data.push(y);
+					});
+
+					datasets.push(dataset);
+				});
+
+				return { labels, datasets };
+			}
+
 			class MetricsChart {
 				#id;
 				#title;
@@ -925,6 +959,7 @@
 				#autoUpdateSwitchInputEl;
 				#elementId;
 				#instance;
+				#reloadButtonEl
 				#queryMetrics;
 				#chart;
 				#yAxisLabel;
@@ -950,10 +985,14 @@
 				}
 
 				async updateChart() {
+					this.#reloadButtonEl.disabled = true;
 					const data = await this.#queryMetrics(this.#instance);
 					this.#chart.data.labels   = data.labels;
 					this.#chart.data.datasets = data.datasets;
 					this.#chart.update('none');
+					setInterval(() => {
+						this.#reloadButtonEl.disabled = false;
+					}, 2000);
 				}
 
 				async renderControlBar(parentEl) {
@@ -977,16 +1016,16 @@
 				}
 
 				async renderReloadButton(parentEl) {
-					const reloadButtonId = `${this.#id}-refresh-button`;
-					const reloadButtonEl = document.createElement('button');
-					reloadButtonEl.className = 'btn btn-outline-secondary btn-sm';
-					reloadButtonEl.type = 'button';
-					reloadButtonEl.onclick = this.updateChart;
+					this.#reloadButtonEl = document.createElement('button');
+					this.#reloadButtonEl.id = `${this.#id}-reload-button`;
+					this.#reloadButtonEl.className = 'btn btn-outline-secondary btn-sm';
+					this.#reloadButtonEl.type = 'button';
+					this.#reloadButtonEl.onclick = this.updateChart;
 
 					const reloadButtonIconEl = document.createElement('i');
 					reloadButtonIconEl.className = 'bi bi-arrow-clockwise';
-					reloadButtonEl.appendChild(reloadButtonIconEl);
-					parentEl.appendChild(reloadButtonEl);
+					this.#reloadButtonEl.appendChild(reloadButtonIconEl);
+					parentEl.appendChild(this.#reloadButtonEl);
 				}
 
 				async renderAutoUpdateSwitch(parentEl) {
@@ -1396,21 +1435,6 @@
 		});
 		
 		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
-		const BACKGROUND_ANIMATION_SWITCH_EL = document.getElementById('background-animation-switch');
-
-		// if (RIPS.animationId) {
-		// 	BACKGROUND_ANIMATION_SWITCH_EL.checked = true;
-		// } else {
-		// 	BACKGROUND_ANIMATION_SWITCH_EL.checked = false;
-		// }
-
-		// BACKGROUND_ANIMATION_SWITCH_EL.addEventListener("change", (evnet) => {
-		// 	if (event.target.checked) {
-		// 		RIPS.startAnimation();
-		// 	} else {
-		// 		RIPS.stopAnimation();
-		// 	}
-		// });
 
 		document.querySelectorAll(".ctc").forEach(function(element) {
 			element.addEventListener("click", function() {
@@ -1471,7 +1495,9 @@
 				document.getElementById('dns-query-results').innerHTML = '';
 			}
 
-			submitQueryButtonEl.disabled = false;
+			setInterval(() => {
+				submitQueryButtonEl.disabled = false
+			}, 1000);
 		});
 
 		async function queryDnsServer(element) {
@@ -1510,7 +1536,9 @@
 		const queryTheoInterval = setInterval(async () => await queryDnsServer(theoEl), 2000);
 		const queryFritzInterval = setInterval(async () => await queryDnsServer(fritzEl), 2000);
 
-		document.getElementById("generate-mobile-config").addEventListener("click", () => {
+		document.getElementById("generate-mobile-config-form").addEventListener("submit", function(event) {
+			event.preventDefault();
+
 			const excludedSsids = document.getElementById("input-excluded-wifi-networks").value;
 			const excludedDomains = document.getElementById("input-excluded-domains").value;
 			const enabledOnWifi = document.getElementById("input-profile-enabled-on-wifi").checked;
