@@ -820,10 +820,10 @@
 			}
 
 			async function queryIncommingQueriesMetrics(instance) {
-				const query = `increase(bind_incoming_queries_total{instance="${instance}",job="bind"}[120s])`;
-				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
+				const query = `increase(bind_incoming_queries_total{instance="${instance}",job="bind"}[2m])`;
+				const start = new Date(Date.now() - (12 * 60 * 60 * 1000)).toISOString();
 				const end   = new Date(Date.now()).toISOString();
-				const step	= '60s';
+				const step	= '10';
 				const data	= await queryRange(query, start, end, step);
 
 				const labels = [];
@@ -853,10 +853,10 @@
 			}
 
 			async function queryQueriesByDurationMetrics(instance) {
-				const query = `increase(bind_resolver_query_duration_seconds_bucket{instance="${instance}",job="bind",view="_default"}[120s])`;
-				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
+				const query = `increase(bind_resolver_query_duration_seconds_bucket{instance="${instance}",job="bind",view="_default"}[2m])`;
+				const start = new Date(Date.now() - (12 * 60 * 60 * 1000)).toISOString();
 				const end   = new Date(Date.now()).toISOString();
-				const step	= '60s';
+				const step	= '10';
 				const data	= await queryRange(query, start, end, step);
 
 				const labels = [];
@@ -887,7 +887,7 @@
 
 			async function queryCachedRrSetsMetrics(instance) {
 				const query = `bind_resolver_cache_rrsets{instance="${instance}",job="bind"}`;
-				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
+				const start = new Date(Date.now() - (12 * 60 * 60 * 1000)).toISOString();
 				const end   = new Date(Date.now()).toISOString();
 				const step	= '60s';
 				const data	= await queryRange(query, start, end, step);
@@ -920,7 +920,7 @@
 
 			async function querySumByTypeOfIncommingQueriesMetrics(instance) {
 				const query = `sum by(type) (bind_incoming_queries_total{instance="${instance}", job="bind"})`;
-				const start = new Date(Date.now() - (24 * 60 * 60 * 1000)).toISOString();
+				const start = new Date(Date.now() - (12 * 60 * 60 * 1000)).toISOString();
 				const end   = new Date(Date.now()).toISOString();
 				const step	= '60s';
 				const data	= await queryRange(query, start, end, step);
@@ -1063,6 +1063,7 @@
 					chartEl.style.height = '300px';
 
 					const canvasEl = document.createElement('canvas');
+					canvasEl.id = `${this.#id}-chart-canvas`;
 					chartEl.appendChild(canvasEl);
 					parentEl.appendChild(chartEl);
 
@@ -1090,7 +1091,16 @@
 								},
 								legend: {
 									display: false,
-									position: 'bottom',
+								},
+								tooltip: {
+									enabled: true,
+									mode: 'index',
+									intersect: false,
+									callbacks: {
+										beforeBody: function(tooltipItems) {
+											tooltipItems.sort((a, b) => b.raw - a.raw);
+										}
+									}
 								}
 							},
 							scales: {
@@ -1116,7 +1126,7 @@
 								}
 							}
 						},
-						plugins: [htmlLegend],
+						plugins: [htmlLegend]
 					});
 				}
 
@@ -1156,7 +1166,7 @@
 			}
 
 			const theoIncommingQueriesChart = new MetricsChart(
-				'Incomming queries past 24h',
+				'Incomming queries past 12h',
 				'theo.dremaxx.de',
 				'theo-incomming-queires-chart',
 				queryIncommingQueriesMetrics,
@@ -1165,7 +1175,7 @@
 			);
 
 			const theoQueriesByDurationChart = new MetricsChart(
-				'Queries by duration past 24h',
+				'Queries by duration past 12h',
 				'theo.dremaxx.de',
 				'theo-queries-by-duration-chart',
 				queryQueriesByDurationMetrics,
@@ -1174,7 +1184,7 @@
 			);
 
 			const theoCachedRrSetsChart = new MetricsChart(
-				'Cached RR sets past 24h',
+				'Cached RR sets past 12h',
 				'theo.dremaxx.de',
 				'theo-cached-rr-sets-chart',
 				queryCachedRrSetsMetrics,
@@ -1183,7 +1193,7 @@
 			);
 
 			const fritzIncommingQueriesChart = new MetricsChart(
-				'Incomming queries past 24h',
+				'Incomming queries past 12h',
 				'fritz.dremaxx.de',
 				'fritz-incomming-queires-chart',
 				queryIncommingQueriesMetrics,
@@ -1192,7 +1202,7 @@
 			);
 
 			const fritzQueriesByDurationChart = new MetricsChart(
-				'Queries by duration past 24h',
+				'Queries by duration past 12h',
 				'fritz.dremaxx.de',
 				'fritz-queries-by-duration-chart',
 				queryQueriesByDurationMetrics,
@@ -1201,7 +1211,7 @@
 			);
 
 			const fritzCachedRrSetsChart = new MetricsChart(
-				'Cached RR sets past 24h',
+				'Cached RR sets past 12h',
 				'fritz.dremaxx.de',
 				'fritz-cached-rr-sets-chart',
 				queryCachedRrSetsMetrics,
