@@ -1085,6 +1085,7 @@
 							maintainAspectRatio: false,
 							responsive: true,
 							animation: false,
+							pointHitDetectionRadius : 1,
 							plugins: {
 								htmlLegend: {
 									containerID: `${this.#id}-legend`,
@@ -1096,11 +1097,11 @@
 									enabled: true,
 									mode: 'index',
 									intersect: false,
-									callbacks: {
-										beforeBody: function(tooltipItems) {
-											tooltipItems.sort((a, b) => b.raw - a.raw);
-										}
-									}
+									maxVisibleTooltipItems: 5,
+									itemSort: (a, b) => b.raw - a.raw,
+									filter: function (tooltipItem) {
+										return tooltipItem.parsed.y !== 0;
+									},
 								}
 							},
 							scales: {
