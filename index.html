@@ -355,19 +355,8 @@
 							</div>
 						</div>
 						<div class="col-sm-2 p-1">
-							<label class="visually-hidden" for="type">Type</label>
-							<select class="form-select" id="type">
-								<option value="1" selected>A</option>
-								<option value="2">NS</option>
-								<option value="5">CNAME</option>
-								<option value="6">SOA</option>
-								<option value="15">MX</option>
-								<option value="16">TXT</option>
-								<option value="28">AAAA</option>
-								<option value="46">RRSIG</option>
-								<option value="48">DNSKEY</option>
-								<option value="255">ANY</option>
-							</select>
+							<label class="visually-hidden" for="dns-query-type-select">Type</label>
+							<select class="form-select" id="dns-query-type-select"></select>
 						</div>
 						<div class="col-sm-2 p-1">
 							<button id="submit-query-button" type="submit" class="btn btn-primary w-100">Query</button>
@@ -1438,7 +1427,6 @@
 		import 'prism/components/prism-javascript';
 		import * as DNS from 'dnsclient';
 		import * as MC from 'mobileconfig';
-		//import * as RIPS from 'rainingips';
 
 		Prism.plugins.NormalizeWhitespace.setDefaults({
 			'remove-trailing': true,
@@ -1447,8 +1435,6 @@
 			'right-trim': true,
 		});
 		
-		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
-
 		document.querySelectorAll(".ctc").forEach(function(element) {
 			element.addEventListener("click", function() {
 				navigator.clipboard.writeText(this.parentElement.textContent.trim()).then(() => {
@@ -1461,6 +1447,17 @@
 			});
         });
 
+		const DNS_QUERY_DOMAIN_EL = document.getElementById("domain");
+		const DNS_QUERY_TYPE_SELECT_EL = document.getElementById('dns-query-type-select');
+		const DNS_QUERY_RESULT_TMPL = await fetch('templates/dns-query-result.mustache').then(response => response.text());
+
+		Object.entries(DNS.TYPE).forEach(([name, value]) => {
+			const option = document.createElement('option');
+			option.value = value;
+			option.textContent = name;
+			DNS_QUERY_TYPE_SELECT_EL.appendChild(option);
+		});
+
 		document.getElementById('dns-query-form').addEventListener('submit', async function(event) {
 			event.preventDefault();
 			const submitQueryButtonEl = document.getElementById('submit-query-button');
@@ -1470,8 +1467,8 @@
 			}
 
 			submitQueryButtonEl.disabled = true;
-			const domain = document.getElementById("domain").value;
-			const type = document.getElementById("type").value;
+			const domain = DNS_QUERY_DOMAIN_EL.value;
+			const type = DNS_QUERY_TYPE_SELECT_EL.value;
 			const question = new DNS.Question(domain, type, 1);
 			const errorEl = document.getElementById("dns-query-error-message");
 			const resultEl = document.getElementById('dns-query-results');
